@@ -3,3 +3,12 @@ export interface StudentStats {
   male: number;
   female: number;
 }
+
+export interface Student {
+  id: string;
+  name: string;
+  phone: string;
+  address: string;
+  branch: string;
+  dateOfAdmission: string;
+}

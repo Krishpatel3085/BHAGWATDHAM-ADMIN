@@ -6,6 +6,8 @@ import AttendanceChart from './components/charts/AttendanceChart';
 import StudentDistribution from './components/charts/StudentDistribution';
 import EventsList from './components/EventsList';
 import TeachersList from './components/TeachersList';
+import NewStudentList from './components/students/NewStudentList';
+import ExamSchedule from './components/exams/ExamSchedule';
 
 function App() {
   return (
@@ -46,10 +48,14 @@ function App() {
         <StudentDistribution />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         <TeachersList />
         <EventsList />
       </div>
+
+      <ExamSchedule />
+
+      <NewStudentList />
     </Layout>
   );
 }
