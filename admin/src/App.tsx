@@ -1,4 +1,4 @@
-// import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Users, BookOpen, GraduationCap, DollarSign } from 'lucide-react';
 import Layout from './components/Layout';
 import StatCard from './components/StatCard';
@@ -8,8 +8,10 @@ import EventsList from './components/EventsList';
 import TeachersList from './components/TeachersList';
 import NewStudentList from './components/students/NewStudentList';
 import ExamSchedule from './components/exams/ExamSchedule';
+import LoginPage from './pages/auth/LoginPage';
+import RegisterPage from './pages/auth/RegisterPage';
 
-function App() {
+function Dashboard() {
   return (
     <Layout>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-6">
@@ -57,6 +59,19 @@ function App() {
 
       <NewStudentList />
     </Layout>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Navigate to="/register" />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </Router>
   );
 }
 
