@@ -1,20 +1,21 @@
-// import React from 'react';
 import { UserCircle } from 'lucide-react';
 
 interface RoleDropdownProps {
+  name: string;  // Added 'name' prop to identify the input
   value: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  options: { value: string; label: string; }[];
+  options: { value: string; label: string }[];
   required?: boolean;
 }
 
-const RoleDropdown = ({ value, onChange, options, required }: RoleDropdownProps) => {
+const RoleDropdown = ({ name, value, onChange, options, required }: RoleDropdownProps) => {
   return (
     <div className="relative">
       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
         <UserCircle className="text-gray-400" size={20} />
       </div>
       <select
+        name={name}  // Added name attribute to link to form data
         value={value}
         onChange={onChange}
         required={required}

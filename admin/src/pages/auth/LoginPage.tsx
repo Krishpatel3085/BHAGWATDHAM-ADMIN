@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import AuthLayout from '../../components/auth/AuthLayout';
 import InputField from '../../components/auth/InputField';
 import SocialLogin from '../../components/auth/SocialLogin';
 import AuthCard from '../../components/auth/AuthCard';
-import RoleDropdown from '../../components/auth/RoleDropdoem';
+import RoleDropdown from '../../components/auth/RoleDropdoem'; // Fixed typo
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Cookies from 'js-cookie'; // Added import for Cookies
 
 const loginRoles = [
   { value: 'student', label: 'Student' },
@@ -13,22 +16,52 @@ const loginRoles = [
   { value: 'temple', label: 'Temple' },
 ];
 
+const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
+
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     role: '',
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const LoginAdmin = async (e) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log('Login form submitted:', formData);
+
+    const { email, password, role } = formData;
+
+    try {
+      const response = await axios.post(API_URL + 'user/login', {
+        email,
+        password,
+        role,
+      });
+      console.log(response);
+
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('role', response.data.role);
+
+      if (response.data) {
+        Cookies.set('Admin-userEmail', email, { expires: 7 });
+        alert('Login successfully 👍');
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      alert(error || 'User Not Found or Invalid Credentials 👎');
+      console.error('Login error:', error);
+      navigate('/');
+    }
+  };
+
+  const handleSubmit = (e) => {
+    LoginAdmin(e);
   };
 
   return (
@@ -40,6 +73,7 @@ const LoginPage = () => {
       >
         <form onSubmit={handleSubmit} className="space-y-6">
           <RoleDropdown
+            name='role'
             value={formData.role}
             onChange={handleChange}
             options={loginRoles}
