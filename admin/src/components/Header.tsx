@@ -1,23 +1,26 @@
 // import React from 'react';
 import { Menu, Bell, Settings } from 'lucide-react';
-
+import { useLocation } from 'react-router-dom';
 interface HeaderProps {
   onMenuClick: () => void;
 }
 
 const Header = ({ onMenuClick }: HeaderProps) => {
+  const location = useLocation();
+  const path = location.pathname;
+  const pathname = path.slice(1)
   return (
     <header className="bg-[#1e2746] border-b border-gray-700 px-4 py-4 flex items-center justify-between">
       <div className="flex items-center gap-4">
-        <button 
+        <button
           onClick={onMenuClick}
           className="lg:hidden text-gray-400 hover:text-white"
         >
           <Menu size={24} />
         </button>
-        <h2 className="text-lg font-semibold text-white">Dashboard</h2>
+        <h2 className="text-lg font-semibold text-white first-letter:uppercase">{pathname}</h2>
       </div>
-      
+
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-3">
           <button className="p-2 hover:bg-[#252d3d] rounded-full">
