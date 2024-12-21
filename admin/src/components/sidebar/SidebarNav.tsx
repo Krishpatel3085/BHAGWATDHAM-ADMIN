@@ -2,7 +2,7 @@
 import { LayoutDashboard, Users, GraduationCap, BookOpen, Calendar, Settings, DollarSign, Book, FileText, CreditCard, Mail } from 'lucide-react';
 import { NavItem } from '../../types/nav';
 import { Link } from 'react-router-dom';
-
+import { useLocation } from 'react-router-dom';
 const role = localStorage.getItem('role')
 const navItems: NavItem[] = [
   { icon: <LayoutDashboard size={18} />, label: 'Dashboard', active: true, to: '/dashboard' },
@@ -28,31 +28,19 @@ const navItems: NavItem[] = [
   { icon: <Settings size={18} />, label: 'Settings', to: '/settings' },
 ];
 const SidebarNav = () => {
+  const location = useLocation();
   return (
     <nav className="space-y-1">
       {navItems.map((item, index) => (
         <div key={index}>
           <Link
             to={item.to}
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${item.active ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-[#252d3d]'
+            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${location.pathname === item.to ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-[#252d3d]'
               }`}
           >
             {item.icon}
             <span>{item.label}</span>
           </Link>
-          {/* {item.submenu && item.active && (
-            <div className="ml-9 mt-1 space-y-1">
-              {item.submenu.map((sub, idx) => (
-                <a
-                  key={idx}
-                  href="#"
-                  className="block text-sm text-gray-400 hover:text-white py-1.5"
-                >
-                  {sub}
-                </a>
-              ))}
-            </div>
-          )} */}
         </div>
       ))}
     </nav>

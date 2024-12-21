@@ -1,6 +1,7 @@
 // import React from 'react';
 import { Menu, Bell, Settings } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
+import Logo from '../image/Swmi.jpg'
 interface HeaderProps {
   onMenuClick: () => void;
 }
@@ -32,9 +33,11 @@ const Header = ({ onMenuClick }: HeaderProps) => {
         </div>
         <select className="bg-[#252d3d] text-gray-300 px-3 py-1.5 rounded border border-gray-700 text-sm hidden md:block">
           <option>English</option>
+          <option>Gujarati</option>
+          <option>Hindi</option>
         </select>
         <img
-          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+          src={Logo}
           alt="Profile"
           className="w-8 h-8 rounded-full"
         />
