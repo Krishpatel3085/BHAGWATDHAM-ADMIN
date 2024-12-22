@@ -17,7 +17,7 @@ const navItems: NavItem[] = [
 
   { icon: <Book size={18} />, label: 'Lectures', to: '/lecture' },
 
-  ...(role === 'Teacher' || role === 'Student' ? [{ icon: <FileText size={18} />, label: 'Marksheet', to: '/marksheet' }] : []),
+  ...(role === 'Teacher' || role === 'Student' || role === 'Principal' ? [{ icon: <FileText size={18} />, label: 'Marksheet', to: '/marksheet' }] : []),
 
   ...(role === 'Teacher' || role === 'Principal' ? [{ icon: <Mail size={18} />, label: 'Request', to: '/request' }] : []),
 

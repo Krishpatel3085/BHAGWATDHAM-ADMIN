@@ -1,9 +1,17 @@
+// export interface Event {
+//   date: {
+//     day: number;
+//     month: string;
+//   };
+//   title: string;
+//   time: string;
+//   type: string;
+// }
+
 export interface Event {
-  date: {
-    day: number;
-    month: string;
-  };
+  id: string;
   title: string;
+  date: string;
   time: string;
-  type: string;
+  description: string;
 }

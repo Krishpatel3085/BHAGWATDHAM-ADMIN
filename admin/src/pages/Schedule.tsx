@@ -1,6 +1,15 @@
+import EventsSection from '../components/schedule/EventsSection';
+import ExamsSection from '../components/schedule/ExamSection';
 
-export default function Schedule() {
+const Schedule = () => {
   return (
-    <div>Schedule</div>
-  )
-}
+
+    <div className="space-y-6">
+      <EventsSection />
+      <ExamsSection />
+    </div>
+
+  );
+};
+
+export default Schedule;

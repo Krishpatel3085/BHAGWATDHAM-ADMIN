@@ -2,6 +2,8 @@
 
 export default function Request() {
     return (
-        <div>Request</div>
+        <>
+            <h1 className="text-center text-white text-3xl">Comming Soon</h1>
+        </>
     )
 }
