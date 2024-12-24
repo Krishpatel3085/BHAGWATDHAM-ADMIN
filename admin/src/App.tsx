@@ -19,7 +19,7 @@ import Lectures from './pages/Lectures';
 import Request from './pages/Request';
 import Fees from './pages/Fees';
 import Payout from './pages/Payout';
-import Setting from './pages/Setting';
+// import Setting from './pages/Setting';
 import Marksheet from './pages/Marksheet';
 
 // function Dashboard() {
@@ -104,7 +104,7 @@ function App() {
                 <Route path="/request" element={<Request />} />
                 <Route path="/fees" element={<Fees />} />
                 <Route path="/payout" element={<Payout />} />
-                <Route path="/setting" element={<Setting />} />
+                {/* <Route path="/setting" element={<Setting />} /> */}
                 <Route path="/marksheet" element={<Marksheet />} />
               </Routes>
             </Layout>

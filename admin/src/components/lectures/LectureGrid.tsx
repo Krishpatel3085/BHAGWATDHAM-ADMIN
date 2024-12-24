@@ -44,7 +44,7 @@ const LectureGrid: React.FC<LectureGridProps> = ({ onEdit }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {timeSlots.map((timeSlot, index) => (
+                    {timeSlots.map((timeSlot) => (
                         <tr key={timeSlot} className={timeSlot.includes('Break') ? 'bg-gray-800/20' : ''}>
                             <td className="p-3 text-sm text-gray-300 border border-gray-700/50">{timeSlot}</td>
                             {days.map(day => {

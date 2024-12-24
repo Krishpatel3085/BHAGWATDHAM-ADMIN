@@ -1,5 +1,5 @@
 // import React from 'react';
-import { LayoutDashboard, Users, GraduationCap, BookOpen, Calendar, Settings, DollarSign, Book, FileText, CreditCard, Mail } from 'lucide-react';
+import { LayoutDashboard, Users, GraduationCap, BookOpen, Calendar, DollarSign, Book, FileText, CreditCard, Mail } from 'lucide-react';
 import { NavItem } from '../../types/nav';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
@@ -25,7 +25,7 @@ const navItems: NavItem[] = [
 
   ...(role === 'Principal' ? [{ icon: <DollarSign size={18} />, label: 'Payout', to: '/payout' }] : []),
 
-  { icon: <Settings size={18} />, label: 'Settings', to: '/settings' },
+  // { icon: <Settings size={18} />, label: 'Settings', to: '/settings' },
 ];
 const SidebarNav = () => {
   const location = useLocation();
