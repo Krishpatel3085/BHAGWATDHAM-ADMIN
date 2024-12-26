@@ -34,9 +34,7 @@ const LoginPage = () => {
 
   const LoginAdmin = async (e) => {
     e.preventDefault();
-
     const { email, password, role } = formData;
-
     try {
       const response = await axios.post(API_URL + 'user/login', {
         email,
@@ -52,7 +50,9 @@ const LoginPage = () => {
         Cookies.set('Admin-userEmail', email, { expires: 7 });
         alert('Login successfully 👍');
         navigate('/dashboard');
+        window.location.reload();
       }
+
     } catch (error) {
       alert(error || 'User Not Found or Invalid Credentials 👎');
       console.error('Login error:', error);

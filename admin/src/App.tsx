@@ -21,7 +21,7 @@ import Fees from './pages/Fees';
 import Payout from './pages/Payout';
 // import Setting from './pages/Setting';
 import Marksheet from './pages/Marksheet';
-
+import ProtectedRoute from './pages/auth/ProtectedRoute';
 // function Dashboard() {
 //   const role = localStorage.getItem('role')
 //   console.log(role)
@@ -95,7 +95,9 @@ function App() {
           element={
             <Layout>
               <Routes>
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/dashboard" element={ <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>} />
                 <Route path="/teacher" element={<Teachers />} />
                 <Route path="/student" element={<Studednt />} />
                 <Route path="/course" element={<Course />} />

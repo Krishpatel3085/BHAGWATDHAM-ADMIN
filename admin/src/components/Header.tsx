@@ -1,46 +1,42 @@
-// import React from 'react';
-import { Menu, Bell, Settings } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
-import Logo from '../image/Swmi.jpg'
+import React from 'react';
+import { Menu } from 'lucide-react';
+import ProfileMenu from './header/ProfileMenu';
+import NotificationMenu from './header/NotificationMenu';
+import SettingsDropdown from './header/SettingDropdown';
+
 interface HeaderProps {
   onMenuClick: () => void;
 }
 
-const Header = ({ onMenuClick }: HeaderProps) => {
-  const location = useLocation();
-  const path = location.pathname;
-  const pathname = path.slice(1)
+const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
   return (
-    <header className="bg-[#1e2746] border-b border-gray-700 px-4 py-4 flex items-center justify-between">
-      <div className="flex items-center gap-4">
-        <button
-          onClick={onMenuClick}
-          className="lg:hidden text-gray-400 hover:text-white"
-        >
-          <Menu size={24} />
-        </button>
-        <h2 className="text-lg font-semibold text-white first-letter:uppercase">{pathname}</h2>
-      </div>
-
-      <div className="flex items-center gap-4">
-        <div className="flex items-center gap-3">
-          <button className="p-2 hover:bg-[#252d3d] rounded-full">
-            <Bell size={20} className="text-gray-400" />
+    <header className="bg-[#1e2746] border-b border-gray-700/50 px-4 py-4">
+      <div className="flex items-center justify-between max-w-[1920px] mx-auto">
+        <div className="flex items-center gap-4">
+          <button
+            onClick={onMenuClick}
+            className="lg:hidden text-gray-400 hover:text-white transition-colors"
+            aria-label="Toggle menu"
+          >
+            <Menu size={24} />
           </button>
-          <button className="p-2 hover:bg-[#252d3d] rounded-full">
-            <Settings size={20} className="text-gray-400" />
-          </button>
+          <h2 className="text-lg font-semibold text-white">Dashboard</h2>
+          <nav className="hidden md:flex items-center gap-2">
+            <span className="text-gray-300">Dashboard</span>
+            <span className="text-gray-500">/</span>
+            <span className="text-gray-500">Overview</span>
+          </nav>
         </div>
-        <select className="bg-[#252d3d] text-gray-300 px-3 py-1.5 rounded border border-gray-700 text-sm hidden md:block">
-          <option>English</option>
-          <option>Gujarati</option>
-          <option>Hindi</option>
-        </select>
-        <img
-          src={Logo}
-          alt="Profile"
-          className="w-8 h-8 rounded-full"
-        />
+
+        <div className="flex items-center gap-2 md:gap-4">
+          <NotificationMenu />
+          <SettingsDropdown />
+          <select className="bg-[#252d3d] text-gray-300 px-3 py-1.5 rounded border border-gray-700/50 text-sm hidden md:block">
+            <option>English</option>
+            <option>Spanish</option>
+          </select>
+          <ProfileMenu />
+        </div>
       </div>
     </header>
   );

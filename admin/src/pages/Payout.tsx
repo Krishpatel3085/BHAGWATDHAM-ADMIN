@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Plus } from 'lucide-react';
 import PayoutTable from '../components/payout/PayoutTable';
-// import PayoutModal from '../components/payout/PayoutModal';
+import PayoutModal from '../components/payout/PayoutModel';
 import PayoutSummaryCards from '../components/payout/PayoutSummaryCard';
 import { TeacherPayout } from '../types/payout';
 
@@ -41,14 +41,14 @@ const Payout = () => {
         </div>
       </div>
 
-      {/* <PayoutModal
+      <PayoutModal
         isOpen={isModalOpen}
         onClose={() => {
           setIsModalOpen(false);
           setSelectedPayout(null);
         }}
         payout={selectedPayout}
-      /> */}
+      />
     </>
   );
 };
