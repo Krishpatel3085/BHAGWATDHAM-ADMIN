@@ -22,6 +22,7 @@ import Payout from './pages/Payout';
 // import Setting from './pages/Setting';
 import Marksheet from './pages/Marksheet';
 import ProtectedRoute from './pages/auth/ProtectedRoute';
+import Status from './pages/Status';
 // function Dashboard() {
 //   const role = localStorage.getItem('role')
 //   console.log(role)
@@ -88,6 +89,7 @@ function App() {
         <Route path="/" element={<Navigate to="/register" />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/request-p" element={<Status />} />
 
         {/* Wrap the routes with the Layout */}
         <Route
@@ -106,7 +108,6 @@ function App() {
                 <Route path="/request" element={<Request />} />
                 <Route path="/fees" element={<Fees />} />
                 <Route path="/payout" element={<Payout />} />
-                {/* <Route path="/setting" element={<Setting />} /> */}
                 <Route path="/marksheet" element={<Marksheet />} />
               </Routes>
             </Layout>

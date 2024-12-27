@@ -43,22 +43,29 @@ const LoginPage = () => {
       });
       console.log(response);
 
+  
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('role', response.data.role);
 
-      if (response.data) {
-        Cookies.set('Admin-userEmail', email, { expires: 7 });
-        alert('Login successfully 👍');
-        navigate('/dashboard');
-        window.location.reload();
-      }
+      Cookies.set('Admin-userEmail', email, { expires: 7 });
+
+      alert('Login successfully 👍');
+      navigate('/dashboard');
+      
+      window.location.reload();
+
 
     } catch (error) {
-      alert(error || 'User Not Found or Invalid Credentials 👎');
-      console.error('Login error:', error);
-      navigate('/');
-    }
-  };
+      if (error.response && error.response.status === 403) {
+        alert('Your account is not approved yet. Please wait for principal approval.');
+        navigate('/request');
+      } else {
+        alert(error.response?.data?.message || 'User Not Found or Invalid Credentials 👎');
+        console.error('Login error:', error);
+        navigate('/');
+      }
+    };
+  }
 
   const handleSubmit = (e) => {
     LoginAdmin(e);
