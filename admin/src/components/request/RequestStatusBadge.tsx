@@ -8,9 +8,9 @@ interface RequestStatusBadgeProps {
 const RequestStatusBadge: React.FC<RequestStatusBadgeProps> = ({ status }) => {
     const getStatusStyles = () => {
         switch (status) {
-            case 'approved':
+            case 'Approved':
                 return 'bg-green-500/20 text-green-400';
-            case 'rejected':
+            case 'Rejected':
                 return 'bg-red-500/20 text-red-400';
             default:
                 return 'bg-yellow-500/20 text-yellow-400';

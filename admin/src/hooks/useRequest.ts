@@ -1,54 +1,68 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Request } from '../types/request';
+import axios from 'axios';
 
-const initialRequests: Request[] = [
-    {
-        id: '1',
-        userId: 'user1',
-        name: 'John Smith',
-        role: 'teacher',
-        requestDate: '2024-01-15',
-        status: 'pending',
-        imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    {
-        id: '2',
-        userId: 'user2',
-        name: 'Sarah Johnson',
-        role: 'student',
-        requestDate: '2024-01-16',
-        status: 'approved',
-        imageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    {
-        id: '3',
-        userId: 'user3',
-        name: 'Michael Brown',
-        role: 'teacher',
-        requestDate: '2024-01-17',
-        status: 'rejected',
-        imageUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-];
+const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
 
 export const useRequests = () => {
-    const [requests, setRequests] = useState<Request[]>(initialRequests);
+    const [requests, setRequests] = useState<Request[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
-    const handleApprove = (id: string) => {
-        setRequests(requests.map(request =>
-            request.id === id ? { ...request, status: 'approved' } : request
-        ));
+    // Fetch requests from the API
+    const fetchRequests = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            const response = await axios.get(`${API_URL}user/get`);
+            setRequests(response.data);
+        } catch (err: any) {
+            console.error('Error fetching requests:', err);
+            setError(err.message || 'Failed to fetch user requests.');
+        } finally {
+            setLoading(false);
+        }
     };
 
-    const handleReject = (id: string) => {
-        setRequests(requests.map(request =>
-            request.id === id ? { ...request, status: 'rejected' } : request
-        ));
+    useEffect(() => {
+        fetchRequests();
+    }, []);
+
+    // Update user request status
+    const updateUserStatus = async (_id: string, status: string) => {
+        try {
+            const response = await axios.put(`${API_URL}user/request`, { userId: _id, status });
+            setRequests((prevRequests) =>
+                prevRequests.map((request) =>
+                    request.id === _id ? { ...request, status: response.data.user.status } : request
+                )
+            );
+            fetchRequests();
+        } catch (err) {
+            console.error('Error updating user status:', err);
+            alert('Failed to update user status. Please try again.');
+        }
     };
+
+    const handleApprove = (_id: string) => {
+        updateUserStatus(_id, 'Approved');
+    };
+
+    const handleReject = (_id: string) => {
+        updateUserStatus(_id, 'Rejected');
+    };
+
+    // Fetch requests when the component using the hook mounts
+    useEffect(() => {
+        fetchRequests();
+    }, []);
 
     return {
         requests,
+        loading,
+        error,
         handleApprove,
         handleReject,
+        refetch: fetchRequests, // Add refetch for manual reloading
     };
 };
