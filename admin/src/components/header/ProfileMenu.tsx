@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
-import { ChevronDown, User, Settings, HelpCircle } from 'lucide-react';
+import { ChevronDown, User, Settings, HelpCircle, Cookie } from 'lucide-react';
+import Cookies from 'js-cookie'; // Added import for Cookies
 
 const ProfileMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +17,8 @@ const ProfileMenu = () => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    const username = localStorage.getItem('username');
+    const email = Cookies.get('Admin-userEmail');
     return (
         <div className="relative" ref={dropdownRef}>
             <button
@@ -27,15 +30,15 @@ const ProfileMenu = () => {
                     alt="Profile"
                     className="w-8 h-8 rounded-full"
                 />
-                <span className="text-gray-300 text-sm hidden md:block">John Smith</span>
+                <span className="text-gray-300 text-sm hidden md:block">{username}</span>
                 <ChevronDown size={16} className="text-gray-400 hidden md:block" />
             </button>
 
             {isOpen && (
                 <div className="absolute right-0 mt-2 w-56 bg-[#252d3d] rounded-lg shadow-lg py-1 z-50">
                     <div className="px-4 py-3 border-b border-gray-700">
-                        <p className="text-sm text-white font-medium">John Smith</p>
-                        <p className="text-xs text-gray-400 mt-0.5">john.smith@example.com</p>
+                        <p className="text-sm text-white font-medium">{username}</p>
+                        <p className="text-xs text-gray-400 mt-0.5">{email}</p>
                     </div>
 
                     <div className="py-1">

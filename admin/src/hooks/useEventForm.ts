@@ -3,10 +3,10 @@ import { useEvents } from './useEvents';
 import { Event } from '../types/event';
 
 const initialFormData = {
-    title: '',
-    date: '',
-    time: '',
-    description: '',
+    EventName: '',
+    EventDate: '',
+    EventTime: '',
+    EventDescriptions: '',
 };
 
 export const useEventForm = (event: Event | null, onClose: () => void) => {
@@ -16,10 +16,10 @@ export const useEventForm = (event: Event | null, onClose: () => void) => {
     useEffect(() => {
         if (event) {
             setFormData({
-                title: event.title,
-                date: event.date,
-                time: event.time,
-                description: event.description,
+                EventName: event.EventName,
+                EventDate: event.EventDate,
+                EventTime: event.EventTime,
+                EventDescriptions: event.EventDescriptions,
             });
         } else {
             setFormData(initialFormData);

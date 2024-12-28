@@ -22,15 +22,15 @@ const EventsList: React.FC<EventsListProps> = ({ events, onEdit }) => {
                         <div className="flex items-center gap-3">
                             <div className="bg-violet-500/20 rounded-lg p-2 text-center min-w-[60px]">
                                 <span className="text-2xl font-bold text-violet-400">
-                                    {new Date(event.date).getDate()}
+                                    {new Date(event.EventDate).getDate()}
                                 </span>
                                 <p className="text-xs text-violet-400 mt-1">
-                                    {new Date(event.date).toLocaleString('default', { month: 'short' })}
+                                    {new Date(event.EventDate).toLocaleString('default', { month: 'short' })}
                                 </p>
                             </div>
                             <div>
-                                <h4 className="font-medium text-white">{event.title}</h4>
-                                <p className="text-sm text-gray-400 mt-1">{event.time}</p>
+                                <h4 className="font-medium text-white">{event.EventName}</h4>
+                                <p className="text-sm text-gray-400 mt-1">{event.EventTime}</p>
                             </div>
                         </div>
                     </div>
@@ -38,12 +38,12 @@ const EventsList: React.FC<EventsListProps> = ({ events, onEdit }) => {
                     <div className="mt-4 flex items-center justify-between">
                         <span className={`
               inline-block text-xs px-2 py-1 rounded-full
-              ${new Date(event.date) > new Date()
+              ${new Date(event.EventDate) > new Date()
                                 ? 'bg-green-500/20 text-green-400'
                                 : 'bg-yellow-500/20 text-yellow-400'
                             }
             `}>
-                            {new Date(event.date) > new Date() ? 'Upcoming' : 'Today'}
+                            {new Date(event.EventDate) > new Date() ? 'Upcoming' : 'Today'}
                         </span>
 
                         <div className="flex items-center gap-2">

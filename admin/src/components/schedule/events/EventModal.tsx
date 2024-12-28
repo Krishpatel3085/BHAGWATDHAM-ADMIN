@@ -39,8 +39,8 @@ const EventModal: React.FC<EventModalProps> = ({ isOpen, onClose, event }) => {
                             </label>
                             <input
                                 type="text"
-                                name="title"
-                                value={formData.title}
+                                name="EventName"
+                                value={formData.EventName}
                                 onChange={handleChange}
                                 className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 required
@@ -53,8 +53,8 @@ const EventModal: React.FC<EventModalProps> = ({ isOpen, onClose, event }) => {
                             </label>
                             <input
                                 type="date"
-                                name="date"
-                                value={formData.date}
+                                name="EventDate"
+                                value={formData.EventDate}
                                 onChange={handleChange}
                                 className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 required
@@ -67,8 +67,8 @@ const EventModal: React.FC<EventModalProps> = ({ isOpen, onClose, event }) => {
                             </label>
                             <input
                                 type="time"
-                                name="time"
-                                value={formData.time}
+                                name="EventTime"
+                                value={formData.EventTime}
                                 onChange={handleChange}
                                 className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 required
@@ -80,8 +80,8 @@ const EventModal: React.FC<EventModalProps> = ({ isOpen, onClose, event }) => {
                                 Description
                             </label>
                             <textarea
-                                name="description"
-                                value={formData.description}
+                                name="EventDescriptions"
+                                value={formData.EventDescriptions}
                                 onChange={handleChange}
                                 rows={3}
                                 className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
