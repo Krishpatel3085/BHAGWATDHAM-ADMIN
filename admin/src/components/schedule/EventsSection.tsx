@@ -6,8 +6,13 @@ import { useEvents } from '../../hooks/useEvents';
 
 const EventsSection = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedEvent, setSelectedEvent] = useState(null);
+    const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
     const { events } = useEvents();
+
+    const handleEdit = (event: Event) => {
+        setSelectedEvent(event);
+        setIsModalOpen(true);
+    };
 
     return (
         <div className="bg-[#1e2746] rounded-xl p-6">
@@ -17,7 +22,10 @@ const EventsSection = () => {
                     <p className="text-gray-400 text-sm mt-1">Manage school events and activities</p>
                 </div>
                 <button
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={() => {
+                        setSelectedEvent(null);
+                        setIsModalOpen(true);
+                    }}
                     className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                     <Plus size={20} />
@@ -25,7 +33,7 @@ const EventsSection = () => {
                 </button>
             </div>
 
-            <EventsList events={events} onEdit={setSelectedEvent} />
+            <EventsList events={events} onEdit={handleEdit} />
 
             <EventModal
                 isOpen={isModalOpen}
