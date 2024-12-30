@@ -3,11 +3,11 @@ import { useExams } from './useExam';
 import { Exam } from '../types/exam';
 
 const initialFormData = {
-    subject: '',
-    class: '',
-    date: '',
-    time: '',
-    room: '',
+    Subject: '',
+    Class: '',
+    ExamDate: '',
+    ExamTime: '',
+    Room: '',
     status: 'Upcoming' as const
 };
 
@@ -18,11 +18,11 @@ export const useExamForm = (exam: Exam | null, onClose: () => void) => {
     useEffect(() => {
         if (exam) {
             setFormData({
-                subject: exam.subject,
-                class: exam.class,
-                date: exam.date,
-                time: exam.time,
-                room: exam.room,
+                Subject: exam.Subject,
+                Class: exam.Class,
+                ExamDate: exam.ExamDate,
+                ExamTime: exam.ExamTime,
+                Room: exam.Room,
                 status: exam.status
             });
         } else {

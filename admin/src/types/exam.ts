@@ -1,9 +1,9 @@
 export interface Exam {
     id: string;
-    subject: string;
-    class: string;
-    date: string;
-    time: string;
-    room: string;
+    Subject: string;
+    Class: string;
+    ExamDate: string;
+    ExamTime: string;
+    Room: string;
     status: 'Upcoming' | 'Completed' | 'In Progress';
 }

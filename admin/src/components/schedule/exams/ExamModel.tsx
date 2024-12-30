@@ -39,8 +39,8 @@ const ExamModal: React.FC<ExamModalProps> = ({ isOpen, onClose, exam }) => {
                             </label>
                             <input
                                 type="text"
-                                name="subject"
-                                value={formData.subject}
+                                name="Subject"
+                                value={formData.Subject}
                                 onChange={handleChange}
                                 className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 required
@@ -53,8 +53,8 @@ const ExamModal: React.FC<ExamModalProps> = ({ isOpen, onClose, exam }) => {
                             </label>
                             <input
                                 type="text"
-                                name="class"
-                                value={formData.class}
+                                name="Class"
+                                value={formData.Class}
                                 onChange={handleChange}
                                 className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 required
@@ -67,8 +67,8 @@ const ExamModal: React.FC<ExamModalProps> = ({ isOpen, onClose, exam }) => {
                             </label>
                             <input
                                 type="date"
-                                name="date"
-                                value={formData.date}
+                                name="ExamDate"
+                                value={formData.ExamDate}
                                 onChange={handleChange}
                                 className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 required
@@ -81,8 +81,8 @@ const ExamModal: React.FC<ExamModalProps> = ({ isOpen, onClose, exam }) => {
                             </label>
                             <input
                                 type="time"
-                                name="time"
-                                value={formData.time}
+                                name="ExamTime"
+                                value={formData.ExamTime}
                                 onChange={handleChange}
                                 className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 required
@@ -95,8 +95,8 @@ const ExamModal: React.FC<ExamModalProps> = ({ isOpen, onClose, exam }) => {
                             </label>
                             <input
                                 type="text"
-                                name="room"
-                                value={formData.room}
+                                name="Room"
+                                value={formData.Room}
                                 onChange={handleChange}
                                 className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 required
