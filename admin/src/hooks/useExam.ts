@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Exam } from '../types/exam';
 import axios from 'axios';
-import Status from '../pages/Status';
 
 
 const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
@@ -39,7 +38,7 @@ export const useExams = () => {
 
     useEffect(() => {
         fetchEvent();
-    }, []);
+    }, [exams]);
 
     const addExam = async (exam: Omit<Exam, 'id'>) => {
         const token = localStorage.getItem('token')
@@ -53,7 +52,6 @@ export const useExams = () => {
             const createdExam: Exam = response.data;
             setExams([...exams, createdExam]);
             alert('Exam created successfully.');
-
         } catch (error) {
             console.error('Error adding exam:', error);
             alert('Failed to create exam. Please try again.');
@@ -81,8 +79,6 @@ export const useExams = () => {
             await axios.delete(`${API_URL}Exam/DeleteExam/${id}`);
             setExams(prevExams => prevExams.filter(exam => exam.id !== id));
             alert('Exam deleted successfully.');
-            fetchEvent();
-
         } catch (error) {
             console.error('Error deleting exam:', error);
             alert('Failed to delete exam. Please try again.');

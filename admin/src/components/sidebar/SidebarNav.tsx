@@ -1,5 +1,5 @@
 // import React from 'react';
-import { LayoutDashboard, Users, GraduationCap, BookOpen, Calendar, DollarSign, Book, FileText, CreditCard, Mail } from 'lucide-react';
+import { LayoutDashboard, Users, GraduationCap, BookOpen, Calendar, DollarSign, Book, FileText, CreditCard, Mail, Image, Building, Activity } from 'lucide-react';
 import { NavItem } from '../../types/nav';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
@@ -11,11 +11,11 @@ const navItems: NavItem[] = [
 
   ...(role === 'Principal' || role === 'Teacher' ? [{ icon: <GraduationCap size={18} />, label: 'Students', to: '/student' }] : []),
 
-  { icon: <BookOpen size={18} />, label: 'Courses', to: '/course' },
+  ...(role === 'Teacher' || role === 'Student' || role === 'Principal' ? [{ icon: <BookOpen size={18} />, label: 'Courses', to: '/course' }] : []),
 
   ...(role === 'Principal' || role === 'Teacher' ? [{ icon: <Calendar size={18} />, label: 'Schedule', to: '/schedule' }] : []),
 
-  { icon: <Book size={18} />, label: 'Lectures', to: '/lecture' },
+  ...(role === 'Teacher' || role === 'Student' || role === 'Principal' ? [{ icon: <Book size={18} />, label: 'Lectures', to: '/lecture' }] : []),
 
   ...(role === 'Teacher' || role === 'Student' || role === 'Principal' ? [{ icon: <FileText size={18} />, label: 'Marksheet', to: '/marksheet' }] : []),
 
@@ -25,7 +25,12 @@ const navItems: NavItem[] = [
 
   ...(role === 'Principal' ? [{ icon: <DollarSign size={18} />, label: 'Payout', to: '/payout' }] : []),
 
-  // { icon: <Settings size={18} />, label: 'Settings', to: '/settings' },
+  ...(role === 'Temple' ? [{ icon: <Building size={18} />, label: 'Temple Gallery', to: '/TempleG' }] : []),
+  ...(role === 'Temple' ? [{ icon: <Image size={18} />, label: 'Gallery ', to: '/Gallery' }] : []),
+  ...(role === 'Temple' ? [{ icon: <Activity size={18} />, label: 'Activities', to: '/Activities' }] : []),
+  ...(role === 'Temple' ? [{ icon: <BookOpen size={18} />, label: 'Publication ', to: '/Publication' }] : []),
+
+
 ];
 const SidebarNav = () => {
   const location = useLocation();

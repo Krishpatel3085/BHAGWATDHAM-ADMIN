@@ -42,7 +42,7 @@ export const useEvents = () => {
 
   useEffect(() => {
     fetchEvent();
-  }, []);
+  }, [events]);
 
   // Create a new event
   const addEvent = async (event: Omit<Event, 'id'>) => {
@@ -50,9 +50,7 @@ export const useEvents = () => {
       const response = await axios.post(API_URL + 'Event/CreateEvent', event);
       const createdEvent: Event = response.data;
       setEvents([...events, createdEvent]);
-      fetchEvent();
       alert('Event created successfully.');
-
     } catch (error) {
       console.error('Error adding event:', error);
       alert('Failed to create event. Please try again.');
@@ -65,12 +63,10 @@ export const useEvents = () => {
     try {
       const response = await axios.put(`${API_URL}Event/UpdateEvent/${id}`, updatedEvent);
       const updatedEventFromServer: Event = response.data;
-
       setEvents(events.map(event =>
         event.id === id ? updatedEventFromServer : event
       ));
       alert('Event updated successfully.');
-      fetchEvent();
     } catch (error) {
       console.error('Error updating event:', error);
       alert('Failed to update event. Please try again.');
@@ -84,8 +80,6 @@ export const useEvents = () => {
       await axios.delete(`${API_URL}Event/DeleteEvent/${id}`);
       setEvents(prevEvents => prevEvents.filter(event => event.id !== id));
       alert('Event deleted successfully.');
-      fetchEvent();
-
     } catch (error) {
       console.error('Error deleting event:', error);
       alert('Failed to delete event. Please try again.');
