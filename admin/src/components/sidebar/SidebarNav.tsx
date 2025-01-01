@@ -25,7 +25,7 @@ const navItems: NavItem[] = [
 
   ...(role === 'Principal' ? [{ icon: <DollarSign size={18} />, label: 'Payout', to: '/payout' }] : []),
 
-  ...(role === 'Temple' ? [{ icon: <Building size={18} />, label: 'Temple Gallery', to: '/TempleG' }] : []),
+  ...(role === 'Temple' ? [{ icon: <Building size={18} />, label: 'Temple Gallery', to: '/tampleG' }] : []),
   ...(role === 'Temple' ? [{ icon: <Image size={18} />, label: 'Gallery ', to: '/Gallery' }] : []),
   ...(role === 'Temple' ? [{ icon: <Activity size={18} />, label: 'Activities', to: '/Activities' }] : []),
   ...(role === 'Temple' ? [{ icon: <BookOpen size={18} />, label: 'Publication ', to: '/Publication' }] : []),
