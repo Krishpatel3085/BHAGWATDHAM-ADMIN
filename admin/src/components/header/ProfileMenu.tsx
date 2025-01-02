@@ -45,7 +45,7 @@ const ProfileMenu = () => {
 
                     <div className="py-1">
                         <Link
-                            to="/Profile"
+                            to="/Profile/:id"
                             className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-300 hover:bg-[#1e2746] transition-colors"
                             onClick={() => setIsOpen(false)}
                         >

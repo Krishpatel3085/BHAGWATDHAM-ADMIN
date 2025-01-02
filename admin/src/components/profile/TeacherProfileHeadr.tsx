@@ -3,7 +3,7 @@ import { Edit2, Camera } from 'lucide-react';
 import { TeacherProfileData } from '../../types/teacherProfile';
 
 interface TeacherProfileHeaderProps {
-    profile: TeacherProfileData;
+    profile: '';
     isEditing: boolean;
     onEdit: () => void;
 }

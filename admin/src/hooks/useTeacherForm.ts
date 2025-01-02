@@ -7,6 +7,8 @@ const initialFormData = {
     employeeNo: '',
     address: '',
     salary: '',
+    grade: '',
+    age: '',
 };
 
 export const useTeacherForm = (teacher: Teacher | null, onClose: () => void) => {
@@ -20,6 +22,8 @@ export const useTeacherForm = (teacher: Teacher | null, onClose: () => void) => 
                 employeeNo: teacher.employeeNo,
                 address: teacher.address,
                 salary: teacher.salary.toString(),
+                grade: teacher.grade,
+                age: teacher.age,  // Assuming age is a string in the teacher object
             });
         } else {
             setFormData(initialFormData);
@@ -42,6 +46,8 @@ export const useTeacherForm = (teacher: Teacher | null, onClose: () => void) => 
             employeeNo: formData.employeeNo,
             address: formData.address,
             salary: parseInt(formData.salary),
+            grade: formData.grade,
+            age: formData.age,
         };
 
         if (teacher) {
@@ -59,3 +65,30 @@ export const useTeacherForm = (teacher: Teacher | null, onClose: () => void) => 
         handleSubmit,
     };
 };
+
+
+
+// import axios from 'axios';
+// const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
+
+// export const useTeachers = () => {
+//     const addTeacher = async (teacherData: Partial<Teacher>) => {
+//         try {
+//             const response = await axios.post(API_URL + '/teacher/CreateTeacher', teacherData);
+//             console.log('Teacher added:', response.data);
+//         } catch (error) {
+//             console.error('Failed to add teacher:', error);
+//         }
+//     };
+
+//     const updateTeacher = async (id: string, teacherData: Partial<Teacher>) => {
+//         try {
+//             const response = await axios.put(API_URL + `teacher/UpdateTeacher/${id}`, teacherData);
+//             console.log('Teacher updated:', response.data);
+//         } catch (error) {
+//             console.error('Failed to update teacher:', error);
+//         }
+//     };
+
+//     return { addTeacher, updateTeacher };
+// };

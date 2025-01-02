@@ -46,7 +46,7 @@ function App() {
                 <Route path="/payout" element={<Payout />} />
                 <Route path="/marksheet" element={<Marksheet />} />
                 <Route path="/tampleG" element={<TampleG />} />
-                <Route path="/Profile" element={<ProfilePage />} />
+                <Route path="/Profile/:id" element={<ProfilePage />} />
               </Routes>
             </Layout>
           }
