@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
-import { ChevronDown, User, Settings, HelpCircle, Cookie } from 'lucide-react';
-import Cookies from 'js-cookie'; // Added import for Cookies
+import { ChevronDown, User, Settings, HelpCircle } from 'lucide-react';
+import Cookies from 'js-cookie'; 
+import { Link } from 'react-router-dom';
 
 const ProfileMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +20,7 @@ const ProfileMenu = () => {
 
     const username = localStorage.getItem('username');
     const email = Cookies.get('Admin-userEmail');
+    
     return (
         <div className="relative" ref={dropdownRef}>
             <button
@@ -42,27 +44,28 @@ const ProfileMenu = () => {
                     </div>
 
                     <div className="py-1">
-                        <button
-                            onClick={() => setIsOpen(false)}
+                        <Link
+                            to="/Profile"
                             className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-300 hover:bg-[#1e2746] transition-colors"
+                            onClick={() => setIsOpen(false)}
                         >
                             <User size={16} />
                             <span>Your Profile</span>
-                        </button>
-                        <button
+                        </Link>
+                        <div
+                            className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-300 hover:bg-[#1e2746] transition-colors cursor-pointer"
                             onClick={() => setIsOpen(false)}
-                            className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-300 hover:bg-[#1e2746] transition-colors"
                         >
                             <Settings size={16} />
                             <span>Settings</span>
-                        </button>
-                        <button
+                        </div>
+                        <div
+                            className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-300 hover:bg-[#1e2746] transition-colors cursor-pointer"
                             onClick={() => setIsOpen(false)}
-                            className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-300 hover:bg-[#1e2746] transition-colors"
                         >
                             <HelpCircle size={16} />
                             <span>Help & Support</span>
-                        </button>
+                        </div>
                     </div>
                 </div>
             )}
@@ -71,3 +74,4 @@ const ProfileMenu = () => {
 };
 
 export default ProfileMenu;
+    

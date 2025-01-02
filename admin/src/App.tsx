@@ -15,6 +15,7 @@ import ProtectedRoute from './pages/auth/ProtectedRoute';
 import Status from './pages/Status';
 import CoursePage from './pages/Course';
 import TampleG from './pages/TampleG';
+import ProfilePage from './pages/Profile';
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
                 <Route path="/payout" element={<Payout />} />
                 <Route path="/marksheet" element={<Marksheet />} />
                 <Route path="/tampleG" element={<TampleG />} />
+                <Route path="/Profile" element={<ProfilePage />} />
               </Routes>
             </Layout>
           }
