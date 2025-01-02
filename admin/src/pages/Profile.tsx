@@ -7,7 +7,7 @@ import { useProfile } from '../hooks/useProfile';
 import { useTeacherProfile } from '../hooks/useTeacherProfile';
 
 const ProfilePage = () => {
-    const role = localStorage.getItem('role'); // Retrieve the role from localStorage
+    const role = localStorage.getItem('role')?.toLowerCase(); // Normalize role comparison
     const [isEditing, setIsEditing] = useState(false);
 
     const { profile: studentProfile, isLoading: isStudentLoading } = useProfile();
@@ -24,9 +24,17 @@ const ProfilePage = () => {
         );
     }
 
+    if (!profile) {
+        return (
+            <div className="text-center text-gray-500">
+                <p>Profile not found. Please try again later.</p>
+            </div>
+        );
+    }
+
     return (
         <div className="max-w-4xl mx-auto">
-            {role === 'Student' ? (
+            {role === 'student' ? (
                 <>
                     <ProfileHeader
                         profile={profile}
@@ -39,7 +47,7 @@ const ProfilePage = () => {
                         onCancel={() => setIsEditing(false)}
                     />
                 </>
-            ) : role === 'Teacher' ? (
+            ) : role === 'teacher' ? (
                 <>
                     <TeacherProfileHeader
                         profile={profile}

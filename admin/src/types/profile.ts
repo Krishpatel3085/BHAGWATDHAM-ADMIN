@@ -8,5 +8,6 @@ export interface ProfileData {
     imageUrl?: string;
     totalFees: number;
     paidFees: number;
+    age:number;
     feesStatus: 'paid' | 'pending';
 }

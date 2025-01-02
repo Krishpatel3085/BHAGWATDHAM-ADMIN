@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react';
 import { ProfileData } from '../types/profile';
+import axios from 'axios';
+
+const API_URL ='https://ldfs6814-8000.inc1.devtunnels.ms/';
 
 export const useProfileForm = (profile: ProfileData, onCancel: () => void) => {
     const [formData, setFormData] = useState(profile);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         setFormData(profile);
@@ -18,14 +23,18 @@ export const useProfileForm = (profile: ProfileData, onCancel: () => void) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setIsLoading(true);
+        setError(null);
 
         try {
-            // In a real app, this would be an API call
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            console.log('Profile updated:', formData);
+            const response = await axios.put(`${API_URL}student/UpdateStudent`, formData);
+            console.log('Student profile updated successfully:', response.data);
             onCancel();
-        } catch (error) {
-            console.error('Error updating profile:', error);
+        } catch (err: any) {
+            console.error('Error updating student profile:', err);
+            setError(err.response?.data?.message || 'An error occurred while updating the profile.');
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -33,5 +42,7 @@ export const useProfileForm = (profile: ProfileData, onCancel: () => void) => {
         formData,
         handleChange,
         handleSubmit,
+        isLoading,
+        error,
     };
 };
