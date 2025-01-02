@@ -68,27 +68,90 @@ export const useTeacherForm = (teacher: Teacher | null, onClose: () => void) => 
 
 
 
+
+// import { useState, useEffect } from 'react';
 // import axios from 'axios';
+// import { useTeachers } from './useTeachers';
+// import { Teacher } from '../types/teacher';
+
+// const initialFormData = {
+//     name: '',
+//     employeeNo: '',
+//     address: '',
+//     salary: '',
+//     grade: '',
+//     age: '',
+// };
+
 // const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
 
-// export const useTeachers = () => {
-//     const addTeacher = async (teacherData: Partial<Teacher>) => {
+// export const useTeacherForm = (teacher: Teacher | null, onClose: () => void) => {
+//     const [formData, setFormData] = useState(initialFormData);
+//     const [isLoading, setIsLoading] = useState(false);
+//     const [error, setError] = useState<string | null>(null);
+//     const { addTeacher, updateTeacher } = useTeachers();
+
+//     useEffect(() => {
+//         if (teacher) {
+//             setFormData({
+//                 name: teacher.name,
+//                 employeeNo: teacher.employeeNo,
+//                 address: teacher.address,
+//                 salary: teacher.salary.toString(),
+//                 grade: teacher.grade,
+//                 age: teacher.age,
+//             });
+//         } else {
+//             setFormData(initialFormData);
+//         }
+//     }, [teacher]);
+
+//     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+//         const { name, value } = e.target;
+//         setFormData(prev => ({
+//             ...prev,
+//             [name]: value,
+//         }));
+//     };
+
+//     const handleSubmit = async (e: React.FormEvent) => {
+//         e.preventDefault();
+//         setIsLoading(true);
+//         setError(null);
+
+//         const teacherData = {
+//             name: formData.name,
+//             employeeNo: formData.employeeNo,
+//             address: formData.address,
+//             salary: parseInt(formData.salary, 10),
+//             grade: formData.grade,
+//             age: formData.age,
+//         };
+
 //         try {
-//             const response = await axios.post(API_URL + '/teacher/CreateTeacher', teacherData);
-//             console.log('Teacher added:', response.data);
-//         } catch (error) {
-//             console.error('Failed to add teacher:', error);
+//             if (teacher) {
+//                 // Update teacher API call
+//                 await axios.put(API_URL + `teacher/UpdateTeacher/${teacher.id}`, teacherData);
+//                 updateTeacher(teacher.id, teacherData);
+//             } else {
+//                 // Add teacher API call
+//                 const response = await axios.post(API_URL + 'teacher/CreateTeacher', teacherData);
+//                 console.log('API Response:', response.data);
+//                 addTeacher(response.data); 
+//             }
+//             onClose();
+//         } catch (err: any) {
+//             setError(err.response?.data?.message || 'An error occurred');
+//         } finally {
+//             setIsLoading(false);
 //         }
 //     };
 
-//     const updateTeacher = async (id: string, teacherData: Partial<Teacher>) => {
-//         try {
-//             const response = await axios.put(API_URL + `teacher/UpdateTeacher/${id}`, teacherData);
-//             console.log('Teacher updated:', response.data);
-//         } catch (error) {
-//             console.error('Failed to update teacher:', error);
-//         }
+//     return {
+//         formData,
+//         handleChange,
+//         handleSubmit,
+//         isLoading,
+//         error,
 //     };
-
-//     return { addTeacher, updateTeacher };
 // };
