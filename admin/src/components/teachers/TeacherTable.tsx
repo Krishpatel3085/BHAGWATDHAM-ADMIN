@@ -1,5 +1,5 @@
 import React from 'react';
-import { Edit2, Trash2 } from 'lucide-react';
+import { Edit2, Trash2, User } from 'lucide-react';
 import { useTeachers } from '../../hooks/useTeachers';
 import { Teacher } from '../../types/teacher';
 
@@ -25,7 +25,14 @@ const TeacherTable: React.FC<TeacherTableProps> = ({ onEdit }) => {
                 <tbody>
                     {teachers.map((teacher) => (
                         <tr key={teacher.id} className="border-b border-gray-700/50 hover:bg-[#252d3d]">
-                            <td className="py-4 px-4 text-white">{teacher.name}</td>
+                            <td className="py-4 px-4 text-white">
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-[#252d3d] rounded-lg">
+                                        <User size={16} className="text-violet-400" />
+                                    </div>
+                                    <span className="text-white">{teacher.name}</span>
+                                </div>
+                            </td>
                             <td className="py-4 px-4 text-gray-300">{teacher.employeeNo}</td>
                             <td className="py-4 px-4 text-gray-300">{teacher.address}</td>
                             <td className="py-4 px-4 text-gray-300">${teacher.salary}</td>

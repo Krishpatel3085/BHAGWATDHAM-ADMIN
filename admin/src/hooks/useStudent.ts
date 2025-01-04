@@ -1,29 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Student } from '../types/student';
+import axios from 'axios';
 
-const initialStudents: Student[] = [
-    {
-        id: '1',
-        name: 'John Smith',
-        parentName: 'Michael Smith',
-        parentPhone: '(555) 123-4567',
-        address: '123 Main St, City, State',
-        grade: '10th Grade',
-        enrollmentDate: '2024-01-15',
-    },
-    {
-        id: '2',
-        name: 'Emma Johnson',
-        parentName: 'Robert Johnson',
-        parentPhone: '(555) 234-5678',
-        address: '456 Oak Ave, City, State',
-        grade: '11th Grade',
-        enrollmentDate: '2024-01-20',
-    },
-];
+const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
 
 export const useStudents = () => {
-    const [students, setStudents] = useState<Student[]>(initialStudents);
+    const [students, setStudents] = useState<Student[]>([]);
+
+    useEffect(() => {
+        const fetchStudent = async () => {
+            try {
+                const response = await axios.get(API_URL + 'student/getAllStudent');
+                const data = response.data;
+                setStudents(data.students);
+            } catch (error) {
+                console.error("Error fetching teachers:", error); 
+            }
+        };
+
+        fetchStudent();
+    }, []);
 
     const addStudent = (student: Omit<Student, 'id'>) => {
         const newStudent = {

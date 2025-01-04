@@ -57,13 +57,13 @@ const LoginPage = () => {
       window.location.reload();
 
 
-    } catch (error) {
-      if (error.response && error.response.status === 403) {
+    } catch (err: any) {
+      if (err.response && err.response.status === 403) {
         alert('Your account is not approved yet. Please wait for principal approval.');
-        navigate('/request');
+        navigate('/');
       } else {
-        alert(error.response?.data?.message || 'User Not Found or Invalid Credentials 👎');
-        console.error('Login error:', error);
+        alert(err.response?.data?.message || 'User Not Found or Invalid Credentials 👎');
+        console.error('Login error:', err);
         navigate('/');
       }
     };

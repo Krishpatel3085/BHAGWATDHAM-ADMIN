@@ -1,43 +1,25 @@
-// import React from 'react';
 import StudentTableRow from './StudentTableRow';
 import { Student } from '../../types/student';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const students: Student[] = [
-    {
-        id: '1',
-        name: 'John Doe',
-        phone: '(123) 456-7890',
-        address: '1234 Main Street, City, State',
-        branch: 'Computer Science',
-        dateOfAdmission: '2024-01-15',
-    },
-    {
-        id: '2',
-        name: 'Jane Smith',
-        phone: '(234) 567-8901',
-        address: '5678 Oak Avenue, City, State',
-        branch: 'Mechanical',
-        dateOfAdmission: '2024-01-14',
-    },
-    {
-        id: '3',
-        name: 'Mike Johnson',
-        phone: '(345) 678-9012',
-        address: '9012 Pine Road, City, State',
-        branch: 'Electrical',
-        dateOfAdmission: '2024-01-13',
-    },
-    {
-        id: '4',
-        name: 'Sarah Williams',
-        phone: '(456) 789-0123',
-        address: '3456 Elm Street, City, State',
-        branch: 'Civil',
-        dateOfAdmission: '2024-01-12',
-    },
-];
+const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
 
 const NewStudentList = () => {
+    const [students, useStudents] = useState<Student[]>([]);
+    useEffect(() => {
+        const fetchStudent = async () => {
+            try {
+                const response = await axios.get(API_URL + 'student/getAllStudent');
+                const data = response.data;
+                useStudents(data.students);
+            } catch (error) {
+                console.error("Error fetching teachers:", error); // Handle errors
+            }
+        };
+
+        fetchStudent();
+    }, []);
     return (
         <div className="bg-[#1e2746] rounded-xl p-6 mt-6">
             <div className="flex items-center justify-between mb-6">

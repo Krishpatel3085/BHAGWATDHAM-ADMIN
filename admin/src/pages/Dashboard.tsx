@@ -12,7 +12,6 @@ import DevoteeList from '../components/temple/DevooteeList';
 import PoojaBookings from '../components/temple/PoojaBooking';
 function Dashboard() {
     const role = localStorage.getItem('role')
-    console.log(role)
     return (
         <>
             {role === 'Principal' && (
@@ -55,7 +54,7 @@ function Dashboard() {
                 )
             }
             {
-                ['Student', 'Principal', 'Teacher'].includes(role) && (
+                (role === 'Principal' || role === 'Teacher' || role === 'Student') && (
                     <div>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                             <TeachersList />

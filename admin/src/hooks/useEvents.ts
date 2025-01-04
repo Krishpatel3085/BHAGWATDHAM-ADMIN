@@ -19,9 +19,7 @@ export const useEvents = () => {
     setError(null);
     try {
       const response = await axios.get(`${API_URL}Event/getEvent`);
-      console.log('Event is Come', response.data);
       const event = response.data
-
       const transformedEvents = event.events.map((event: any) => ({
         id: event._id,
         EventDate: event.EventDate,

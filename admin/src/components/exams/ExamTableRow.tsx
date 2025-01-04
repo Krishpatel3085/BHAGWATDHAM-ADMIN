@@ -27,13 +27,13 @@ const ExamTableRow: React.FC<ExamTableRowProps> = ({ exam }) => {
                     <div className="p-2 bg-[#252d3d] rounded-lg">
                         <Calendar size={16} className="text-violet-400" />
                     </div>
-                    <span className="text-white">{exam.subject}</span>
+                    <span className="text-white">{exam.Subject}</span>
                 </div>
             </td>
-            <td className="py-3 text-gray-300">{exam.class}</td>
-            <td className="py-3 text-gray-300">{new Date(exam.date).toLocaleDateString()}</td>
-            <td className="py-3 text-gray-300">{exam.time}</td>
-            <td className="py-3 text-gray-300">{exam.room}</td>
+            <td className="py-3 text-gray-300">{exam.Class}</td>
+            <td className="py-3 text-gray-300">{new Date(exam.ExamDate).toLocaleDateString()}</td>
+            <td className="py-3 text-gray-300">{exam.ExamTime}</td>
+            <td className="py-3 text-gray-300">{exam.Room}</td>
             <td className="py-3">
                 <span className={`px-2 py-1 rounded-full text-xs ${getStatusColor(exam.status)}`}>
                     {exam.status}

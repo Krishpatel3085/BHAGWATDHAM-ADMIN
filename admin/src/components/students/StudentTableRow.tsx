@@ -19,10 +19,10 @@ const StudentTableRow: React.FC<StudentTableRowProps> = ({ student }) => {
                     <span className="text-white">{student.name}</span>
                 </div>
             </td>
-            <td className="py-4 text-gray-300">{student.phone}</td>
+            <td className="py-4 text-gray-300">{student.parentPhone}</td>
             <td className="py-4 text-gray-300 max-w-[200px] truncate">{student.address}</td>
-            <td className="py-4 text-gray-300">{student.branch}</td>
-            <td className="py-4 text-gray-300">{new Date(student.dateOfAdmission).toLocaleDateString()}</td>
+            <td className="py-4 text-gray-300">{student.grade}</td>
+            <td className="py-4 text-gray-300">{new Date(student.updatedAt).toLocaleDateString()}</td>
             <td className="py-4">
                 <button className="p-1.5 hover:bg-[#252d3d] rounded-lg text-blue-400 hover:text-blue-300">
                     <FileText size={18} />

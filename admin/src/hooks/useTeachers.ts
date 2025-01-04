@@ -1,25 +1,25 @@
 import { useState, useEffect } from 'react';
 import { Teacher } from '../types/teacher';
+import axios from 'axios';
 
-const initialTeachers: Teacher[] = [
-    {
-        id: '1',
-        name: 'John Smith',
-        employeeNo: 'EMP001',
-        address: '123 Main St, City, State',
-        salary: 45000,
-    },
-    {
-        id: '2',
-        name: 'Sarah Johnson',
-        employeeNo: 'EMP002',
-        address: '456 Oak Ave, City, State',
-        salary: 48000,
-    },
-];
+const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
 
 export const useTeachers = () => {
-    const [teachers, setTeachers] = useState<Teacher[]>(initialTeachers);
+    const [teachers, setTeachers] = useState<Teacher[]>([]);
+
+    useEffect(() => {
+        const fetchTeacher = async () => {
+            try {
+                const response = await axios.get(API_URL + 'teacher/getAllTeacher');
+                const data = response.data;
+                setTeachers(data.teachers);
+            } catch (error) {
+                console.error("Error fetching teachers:", error); // Handle errors
+            }
+        };
+
+        fetchTeacher();
+    }, []);
 
     const addTeacher = (teacher: Omit<Teacher, 'id'>) => {
         const newTeacher = {

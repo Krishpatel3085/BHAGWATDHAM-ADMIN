@@ -1,4 +1,3 @@
-// import React from 'react';
 import TeacherCard from './teachers/TeacherCard';
 import { Teacher } from '../types/teacher';
 import { useEffect, useState } from 'react';

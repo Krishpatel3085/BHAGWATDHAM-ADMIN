@@ -16,9 +16,8 @@ export const useExams = () => {
         setError(null);
         try {
             const response = await axios.get(`${API_URL}Exam/getExam`);
-            console.log('Exam is Come', response.data);
-
-            const transformedEvents = response.data.map((exam: any) => ({
+            const exam = response.data
+            const transformedEvents = exam.exams.map((exam: any) => ({
                 id: exam._id,
                 Subject: exam.Subject,
                 ExamDate: exam.ExamDate,
