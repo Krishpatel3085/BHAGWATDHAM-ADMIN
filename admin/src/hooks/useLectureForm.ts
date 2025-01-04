@@ -11,8 +11,26 @@ const initialFormData = {
     grade: '',
 };
 
-export const useLectureForm = (lecture: Lecture | null, onClose: () => void) => {
-    const [formData, setFormData] = useState(initialFormData);
+const lectureTimeMapping = [
+    { startTime: '07:00', endTime: '07:45', lectureNo: 1 },
+    { startTime: '07:45', endTime: '08:30', lectureNo: 2 },
+    { startTime: '08:30', endTime: '09:15', lectureNo: 3 },
+    { startTime: '09:15', endTime: '10:00', lectureNo: 'Break' },
+    { startTime: '10:00', endTime: '10:45', lectureNo: 4 },
+    { startTime: '10:45', endTime: '11:00', lectureNo: 5 },
+    { startTime: '11:45', endTime: '12:00', lectureNo: 6 },
+];
+
+export const useLectureForm = (
+    lecture: Lecture | null,
+    onClose: () => void,
+    defaultGrade: string
+) => {
+    const [formData, setFormData] = useState({
+        ...initialFormData,
+        grade: defaultGrade,
+    });
+
     const { addLecture, updateLecture } = useLectures();
 
     useEffect(() => {
@@ -23,16 +41,19 @@ export const useLectureForm = (lecture: Lecture | null, onClose: () => void) => 
                 endTime: lecture.endTime,
                 teacherName: lecture.teacherName,
                 dayOfWeek: lecture.dayOfWeek,
-                grade: lecture.grade,
+                grade: lecture.grade || defaultGrade,  // fallback to defaultGrade if grade is undefined
             });
         } else {
-            setFormData(initialFormData);
+            setFormData({
+                ...initialFormData,
+                grade: defaultGrade,
+            });
         }
-    }, [lecture]);
+    }, [lecture, defaultGrade]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setFormData(prev => ({
+        setFormData((prev) => ({
             ...prev,
             [name]: value,
         }));
@@ -41,12 +62,44 @@ export const useLectureForm = (lecture: Lecture | null, onClose: () => void) => 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (lecture) {
-            updateLecture(lecture.id, formData);
-        } else {
-            addLecture(formData);
+        // Check if all fields are filled before submitting
+        if (
+            !formData.subject ||
+            !formData.startTime ||
+            !formData.endTime ||
+            !formData.teacherName ||
+            !formData.dayOfWeek ||
+            !formData.grade
+        ) {
+            alert('Please fill in all fields.');
+            return;
         }
 
+        // Map lecture number based on startTime and endTime
+        const mappedLecture = lectureTimeMapping.find(
+            (l) => l.startTime === formData.startTime && l.endTime === formData.endTime
+        );
+
+        if (!mappedLecture) {
+            alert('Invalid time range. Please select a valid lecture time.');
+            return;
+        }
+
+        const lectureData = {
+            ...formData,
+            lectureNo: mappedLecture.lectureNo,
+        };
+
+        if (lecture) {
+            // Update existing lecture
+            updateLecture(lecture.id, lectureData);
+        } else {
+            // Add new lecture
+            addLecture(lectureData);
+        }
+
+        // Clear form data after submission and close the form
+        setFormData({ ...initialFormData, grade: defaultGrade });
         onClose();
     };
 

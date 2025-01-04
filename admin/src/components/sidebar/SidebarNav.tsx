@@ -11,8 +11,6 @@ const navItems: NavItem[] = [
 
   ...(role === 'Principal' || role === 'Teacher' ? [{ icon: <GraduationCap size={18} />, label: 'Students', to: '/student' }] : []),
 
-  ...(role === 'Teacher' || role === 'Student' || role === 'Principal' ? [{ icon: <BookOpen size={18} />, label: 'Courses', to: '/course' }] : []),
-
   ...(role === 'Principal' || role === 'Teacher' ? [{ icon: <Calendar size={18} />, label: 'Schedule', to: '/schedule' }] : []),
 
   ...(role === 'Teacher' || role === 'Student' || role === 'Principal' ? [{ icon: <Book size={18} />, label: 'Lectures', to: '/lecture' }] : []),
@@ -26,8 +24,11 @@ const navItems: NavItem[] = [
   ...(role === 'Principal' ? [{ icon: <DollarSign size={18} />, label: 'Payout', to: '/payout' }] : []),
 
   ...(role === 'Temple' ? [{ icon: <Building size={18} />, label: 'Temple Gallery', to: '/tampleG' }] : []),
+
   ...(role === 'Temple' ? [{ icon: <Image size={18} />, label: 'Gallery ', to: '/Gallery' }] : []),
+
   ...(role === 'Temple' ? [{ icon: <Activity size={18} />, label: 'Activities', to: '/Activities' }] : []),
+  
   ...(role === 'Temple' ? [{ icon: <BookOpen size={18} />, label: 'Publication ', to: '/Publication' }] : []),
 
 

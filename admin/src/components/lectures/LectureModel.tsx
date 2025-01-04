@@ -7,12 +7,13 @@ interface LectureModalProps {
     isOpen: boolean;
     onClose: () => void;
     lecture: Lecture | null;
+    defaultGrade: string;
 }
 
 const daysOfWeek: DayOfWeek[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-const LectureModal: React.FC<LectureModalProps> = ({ isOpen, onClose, lecture }) => {
-    const { formData, handleChange, handleSubmit } = useLectureForm(lecture, onClose);
+const LectureModal: React.FC<LectureModalProps> = ({ isOpen, onClose, lecture, defaultGrade }) => {
+    const { formData, handleChange, handleSubmit } = useLectureForm(lecture, onClose, defaultGrade);
 
     if (!isOpen) return null;
 
@@ -105,20 +106,6 @@ const LectureModal: React.FC<LectureModalProps> = ({ isOpen, onClose, lecture })
                                 type="text"
                                 name="teacherName"
                                 value={formData.teacherName}
-                                onChange={handleChange}
-                                className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-1">
-                                Grade
-                            </label>
-                            <input
-                                type="text"
-                                name="grade"
-                                value={formData.grade}
                                 onChange={handleChange}
                                 className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 required

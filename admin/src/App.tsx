@@ -13,7 +13,6 @@ import Payout from './pages/Payout';
 import Marksheet from './pages/Marksheet';
 import ProtectedRoute from './pages/auth/ProtectedRoute';
 import Status from './pages/Status';
-import CoursePage from './pages/Course';
 import TampleG from './pages/TampleG';
 import ProfilePage from './pages/Profile';
 
@@ -38,7 +37,6 @@ function App() {
             </ProtectedRoute>} />
                 <Route path="/teacher" element={<Teachers />} />
                 <Route path="/student" element={<Studednt />} />
-                <Route path="/course" element={<CoursePage />} />
                 <Route path="/schedule" element={<Schedule />} />
                 <Route path="/lecture" element={<Lectures />} />
                 <Route path="/request" element={<Request />} />
