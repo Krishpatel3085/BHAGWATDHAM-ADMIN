@@ -1,4 +1,3 @@
-// import React from 'react';
 import { MoreVertical } from 'lucide-react';
 import { Teacher } from '../../types/teacher';
 
@@ -18,14 +17,14 @@ const TeacherCard = ({ teacher, index }: TeacherCardProps) => {
         />
         <div>
           <h4 className="font-medium text-white">{teacher.name}</h4>
-          <p className="text-sm text-gray-400">{teacher.role}</p>
+          <p className="text-sm text-gray-400">{teacher.subject}</p>
         </div>
       </div>
       <div className="flex items-center gap-3">
         <span className={`px-2 py-1 rounded-full text-xs ${
-          teacher.status === 'Available' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+          teacher.employeeNo === 'Available' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
         }`}>
-          {teacher.status}
+          {teacher.employeeNo}
         </span>
         <button className="text-gray-400 hover:text-gray-300">
           <MoreVertical size={16} />

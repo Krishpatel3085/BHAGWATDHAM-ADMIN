@@ -38,7 +38,7 @@ export const useExams = () => {
 
     useEffect(() => {
         fetchEvent();
-    }, [exams]);
+    }, []);
 
     const addExam = async (exam: Omit<Exam, 'id'>) => {
         const token = localStorage.getItem('token')

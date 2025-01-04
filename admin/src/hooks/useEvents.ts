@@ -20,9 +20,9 @@ export const useEvents = () => {
     try {
       const response = await axios.get(`${API_URL}Event/getEvent`);
       console.log('Event is Come', response.data);
+      const event = response.data
 
-      // Transform API data into a usable format
-      const transformedEvents = response.data.map((event: any) => ({
+      const transformedEvents = event.events.map((event: any) => ({
         id: event._id,
         EventDate: event.EventDate,
         EventDescriptions: event.EventDescriptions,
@@ -42,7 +42,7 @@ export const useEvents = () => {
 
   useEffect(() => {
     fetchEvent();
-  }, [events]);
+  }, []);
 
   // Create a new event
   const addEvent = async (event: Omit<Event, 'id'>) => {
