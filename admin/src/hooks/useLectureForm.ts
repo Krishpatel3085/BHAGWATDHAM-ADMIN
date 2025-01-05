@@ -17,8 +17,8 @@ const lectureTimeMapping = [
     { startTime: '08:30', endTime: '09:15', lectureNo: 3 },
     { startTime: '09:15', endTime: '10:00', lectureNo: 'Break' },
     { startTime: '10:00', endTime: '10:45', lectureNo: 4 },
-    { startTime: '10:45', endTime: '11:00', lectureNo: 5 },
-    { startTime: '11:45', endTime: '12:00', lectureNo: 6 },
+    { startTime: '10:45', endTime: '11:30', lectureNo: 5 },
+    { startTime: '11:30', endTime: '12:15', lectureNo: 6 },
 ];
 
 export const useLectureForm = (
@@ -31,7 +31,7 @@ export const useLectureForm = (
         grade: defaultGrade,
     });
 
-    const { addLecture, updateLecture } = useLectures();
+    const { addLecture } = useLectures();
 
     useEffect(() => {
         if (lecture) {
@@ -90,13 +90,7 @@ export const useLectureForm = (
             lectureNo: mappedLecture.lectureNo,
         };
 
-        if (lecture) {
-            // Update existing lecture
-            updateLecture(lecture.id, lectureData);
-        } else {
-            // Add new lecture
-            addLecture(lectureData);
-        }
+        addLecture(lectureData);
 
         // Clear form data after submission and close the form
         setFormData({ ...initialFormData, grade: defaultGrade });

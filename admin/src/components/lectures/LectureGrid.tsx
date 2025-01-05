@@ -1,5 +1,4 @@
 import React from 'react';
-import { Edit2, Trash2 } from 'lucide-react';
 import { useLectures } from '../../hooks/useLecture';
 import { Lecture } from '../../types/lecture';
 
@@ -19,8 +18,8 @@ const timeSlots = [
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-const LectureGrid: React.FC<LectureGridProps> = ({ onEdit, selectedGrade }) => {
-    const { lectures, deleteLecture } = useLectures();
+const LectureGrid: React.FC<LectureGridProps> = ({ selectedGrade }) => {
+    const { lectures } = useLectures();
     const filteredLectures = lectures.filter(lecture => lecture.grade === selectedGrade);
 
     const getLectureForSlot = (day: string, time: string) => {
@@ -42,7 +41,6 @@ const LectureGrid: React.FC<LectureGridProps> = ({ onEdit, selectedGrade }) => {
                                 {day}
                             </th>
                         ))}
-                        <th className="p-3 text-sm font-medium text-gray-400 border border-gray-700/50">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -64,30 +62,6 @@ const LectureGrid: React.FC<LectureGridProps> = ({ onEdit, selectedGrade }) => {
                                     </td>
                                 );
                             })}
-                            <td className="p-3 text-sm border border-gray-700/50">
-                                <div className="flex justify-center gap-2">
-                                    {/* Edit button */}
-                                    <button
-                                        onClick={() => {
-                                            const lecture = getLectureForSlot('Monday', timeSlot); // Improved to get the lecture directly
-                                            if (lecture) onEdit(lecture);
-                                        }}
-                                        className="p-1.5 hover:bg-[#252d3d] rounded-lg text-blue-400 hover:text-blue-300"
-                                    >
-                                        <Edit2 size={16} />
-                                    </button>
-                                    {/* Delete button */}
-                                    <button
-                                        onClick={() => {
-                                            const lecture = getLectureForSlot('Monday', timeSlot); // Improved to get the lecture directly
-                                            if (lecture) deleteLecture(lecture.id);
-                                        }}
-                                        className="p-1.5 hover:bg-[#252d3d] rounded-lg text-red-400 hover:text-red-300"
-                                    >
-                                        <Trash2 size={16} />
-                                    </button>
-                                </div>
-                            </td>
                         </tr>
                     ))}
                 </tbody>

@@ -64,7 +64,7 @@ const Lectures = () => {
                     className="text-gray-400 hover:text-white transition-colors text-2xl"
                   >
                     ← Back
-                  </button> 
+                  </button>
                   <h1 className="text-xl font-semibold text-white">{selectedGrade} Timetable</h1>
                 </div>
                 <p className="text-gray-400 text-sm mt-1">Manage daily lecture schedule</p>
@@ -81,7 +81,7 @@ const Lectures = () => {
               </button>
             </div>
 
-            <LectureGrid onEdit={handleEdit} selectedGrade={selectedGrade} />
+            <LectureGrid selectedGrade={selectedGrade} />
           </div>
 
           <LectureModal
