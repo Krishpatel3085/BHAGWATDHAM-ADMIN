@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Student } from '../types/student';
 import axios from 'axios';
-
-const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
+import { APi_URL } from '../Server';
+// const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
 
 export const useStudents = () => {
     const [students, setStudents] = useState<Student[]>([]);
@@ -10,7 +10,7 @@ export const useStudents = () => {
     useEffect(() => {
         const fetchStudent = async () => {
             try {
-                const response = await axios.get(API_URL + 'student/getAllStudent');
+                const response = await axios.get(APi_URL + 'student/getAllStudent');
                 const data = response.data;
                 setStudents(data.students);
             } catch (error) {

@@ -8,6 +8,8 @@ import RoleDropdown from '../../components/auth/RoleDropdoem'; // Fixed typo
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie'; // Added import for Cookies
+import { APi_URL } from '../../Server';
+
 
 const loginRoles = [
   { value: 'student', label: 'Student' },
@@ -16,7 +18,7 @@ const loginRoles = [
   { value: 'temple', label: 'Temple' },
 ];
 
-const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
+// const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -36,14 +38,14 @@ const LoginPage = () => {
     e.preventDefault();
     const { email, password, role } = formData;
     try {
-      const response = await axios.post(API_URL + 'user/login', {
+      const response = await axios.post(APi_URL + 'user/login', {
         email,
         password,
         role,
       });
       console.log(response);
 
-  
+
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('role', response.data.role);
       localStorage.setItem('username', response.data.username);
@@ -53,7 +55,7 @@ const LoginPage = () => {
 
       alert('Login successfully 👍');
       navigate('/dashboard');
-      
+
       window.location.reload();
 
 

@@ -2,15 +2,15 @@ import TeacherCard from './teachers/TeacherCard';
 import { Teacher } from '../types/teacher';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
-const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
+import { APi_URL } from '../Server';
+// const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
 
 const TeachersList = () => {
   const [teachers, useTeacher] = useState<Teacher[]>([]);
   useEffect(() => {
     const fetchTeacher = async () => {
       try {
-        const response = await axios.get(API_URL + 'teacher/getAllTeacher');
+        const response = await axios.get(APi_URL + 'teacher/getAllTeacher');
         const data = response.data;
         console.log("All Teachers:", data.teachers);
         useTeacher(data.teachers);

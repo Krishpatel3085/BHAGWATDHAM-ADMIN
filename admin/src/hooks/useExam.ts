@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Exam } from '../types/exam';
 import axios from 'axios';
+import { APi_URL } from '../Server';
 
-
-const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
+// const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
 
 
 export const useExams = () => {
@@ -15,7 +15,7 @@ export const useExams = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.get(`${API_URL}Exam/getExam`);
+            const response = await axios.get(`${APi_URL}Exam/getExam`);
             const exam = response.data
             const transformedEvents = exam.exams.map((exam: any) => ({
                 id: exam._id,
@@ -42,7 +42,7 @@ export const useExams = () => {
     const addExam = async (exam: Omit<Exam, 'id'>) => {
         const token = localStorage.getItem('token')
         try {
-            const response = await axios.post(API_URL + 'Exam/CreateExam', exam, {
+            const response = await axios.post(APi_URL + 'Exam/CreateExam', exam, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': ` Bearer ${token}`
@@ -59,7 +59,7 @@ export const useExams = () => {
 
     const updateExam = async (id: string, updatedExam: Omit<Exam, 'id'>) => {
         try {
-            const response = await axios.put(`${API_URL}Exam/UpdateExam/${id}`, updatedExam);
+            const response = await axios.put(`${APi_URL}Exam/UpdateExam/${id}`, updatedExam);
             const updatedExamFromServer: Exam = response.data;
 
             setExams(exams.map(exam =>
@@ -75,7 +75,7 @@ export const useExams = () => {
 
     const deleteExam = async (id: string) => {
         try {
-            await axios.delete(`${API_URL}Exam/DeleteExam/${id}`);
+            await axios.delete(`${APi_URL}Exam/DeleteExam/${id}`);
             setExams(prevExams => prevExams.filter(exam => exam.id !== id));
             alert('Exam deleted successfully.');
         } catch (error) {

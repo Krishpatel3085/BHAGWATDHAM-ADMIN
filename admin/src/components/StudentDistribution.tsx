@@ -1,5 +1,3 @@
-import React from 'react';
-
 const StudentDistribution = () => {
   const total = 3903;
   const male = 2078;

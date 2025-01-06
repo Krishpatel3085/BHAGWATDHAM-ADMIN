@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { TeacherProfileData } from "../types/teacherProfile";
-
-const API_URL = "https://ldfs6814-8000.inc1.devtunnels.ms/";
+import { APi_URL } from "../Server";
+// const API_URL = "https://ldfs6814-8000.inc1.devtunnels.ms/";
 
 export const useTeacherProfile = () => {
     const [profile, setProfile] = useState<TeacherProfileData | null>(null);
@@ -17,7 +17,7 @@ export const useTeacherProfile = () => {
                 return;
             }
             try {
-                const response = await fetch(`${API_URL}teacher/getTeacher/${id}`, {
+                const response = await fetch(`${APi_URL}teacher/getTeacher/${id}`, {
                     method: "GET",
                 });
 

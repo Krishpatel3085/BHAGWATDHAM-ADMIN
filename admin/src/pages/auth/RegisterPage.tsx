@@ -7,14 +7,14 @@ import AuthCard from '../../components/auth/AuthCard';
 import RoleDropdown from '../../components/auth/RoleDropdoem';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import { APi_URL } from '../../Server';
 // Roles available for registration
 const registerRoles = [
     { value: 'Student', label: 'Student' },
     { value: 'Teacher', label: 'Teacher' },
 ];
 
-const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
+// const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
 
 const RegisterPage = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -39,7 +39,7 @@ const RegisterPage = () => {
 
         try {
             setLoading(true);
-            await axios.post(API_URL + 'user/register', formData, {
+            await axios.post(APi_URL + 'user/register', formData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

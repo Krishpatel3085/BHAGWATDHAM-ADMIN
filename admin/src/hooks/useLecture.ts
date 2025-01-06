@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Lecture } from '../types/lecture';
 import axios from 'axios';
-
-const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
+import { APi_URL } from '../Server';
+// const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';/
 
 export const useLectures = () => {
     const [lectures, setLectures] = useState<Lecture[]>([]);
 
     const fetchLectures = async () => {
         try {
-            const response = await axios.get(`${API_URL}lecture/GetLecture`);
+            const response = await axios.get(`${APi_URL}lecture/GetLecture`);
             console.log("first", response.data)
             if (response.data) {
                 setLectures(response.data);
@@ -28,7 +28,7 @@ export const useLectures = () => {
     const addLecture = async (lecture: Omit<Lecture, 'id'>) => {
         try {
             const newLecture = { ...lecture, id: Date.now().toString() };
-            const response = await axios.post(`${API_URL}lecture/CreateLecture`, newLecture);
+            const response = await axios.post(`${APi_URL}lecture/CreateLecture`, newLecture);
 
             if (response.status === 201 || response.status === 200) {
                 const createdLecture = response.data;

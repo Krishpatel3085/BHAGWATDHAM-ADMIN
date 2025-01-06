@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Event } from '../types/event';
 import axios from 'axios';
+import { APi_URL } from '../Server';
 
-
-const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
+// const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
 
 
 export const useEvents = () => {
@@ -18,7 +18,7 @@ export const useEvents = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get(`${API_URL}Event/getEvent`);
+      const response = await axios.get(`${APi_URL}Event/getEvent`);
       const event = response.data
       const transformedEvents = event.events.map((event: any) => ({
         id: event._id,
@@ -45,7 +45,7 @@ export const useEvents = () => {
   // Create a new event
   const addEvent = async (event: Omit<Event, 'id'>) => {
     try {
-      const response = await axios.post(API_URL + 'Event/CreateEvent', event);
+      const response = await axios.post(APi_URL + 'Event/CreateEvent', event);
       const createdEvent: Event = response.data;
       setEvents([...events, createdEvent]);
       alert('Event created successfully.');
@@ -59,7 +59,7 @@ export const useEvents = () => {
   // Update an event
   const updateEvent = async (id: string, updatedEvent: Omit<Event, 'id'>) => {
     try {
-      const response = await axios.put(`${API_URL}Event/UpdateEvent/${id}`, updatedEvent);
+      const response = await axios.put(`${APi_URL}Event/UpdateEvent/${id}`, updatedEvent);
       const updatedEventFromServer: Event = response.data;
       setEvents(events.map(event =>
         event.id === id ? updatedEventFromServer : event
@@ -75,7 +75,7 @@ export const useEvents = () => {
   // Delete Event
   const deleteEvent = async (id: string) => {
     try {
-      await axios.delete(`${API_URL}Event/DeleteEvent/${id}`);
+      await axios.delete(`${APi_URL}Event/DeleteEvent/${id}`);
       setEvents(prevEvents => prevEvents.filter(event => event.id !== id));
       alert('Event deleted successfully.');
     } catch (error) {

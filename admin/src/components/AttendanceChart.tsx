@@ -1,5 +1,3 @@
-import React from 'react';
-
 const AttendanceChart = () => {
   const data = [
     { day: 'Mon', present: 85, absent: 15 },

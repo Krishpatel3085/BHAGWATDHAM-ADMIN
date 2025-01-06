@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Request } from '../types/request';
 import axios from 'axios';
-
-const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
+import { APi_URL } from '../Server';
+// const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
 
 export const useRequests = () => {
     const [requests, setRequests] = useState<Request[]>([]);
@@ -14,7 +14,7 @@ export const useRequests = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.get(`${API_URL}user/get`);
+            const response = await axios.get(`${APi_URL}user/get`);
             setRequests(response.data);
         } catch (err: any) {
             console.error('Error fetching requests:', err);
@@ -31,7 +31,7 @@ export const useRequests = () => {
     // Update user request status
     const updateUserStatus = async (_id: string, status: string) => {
         try {
-            const response = await axios.put(`${API_URL}user/request`, { userId: _id, status });
+            const response = await axios.put(`${APi_URL}user/request`, { userId: _id, status });
             setRequests((prevRequests) =>
                 prevRequests.map((request) =>
                     request.id === _id ? { ...request, status: response.data.user.status } : request

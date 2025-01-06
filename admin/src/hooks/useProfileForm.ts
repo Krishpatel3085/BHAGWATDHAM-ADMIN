@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { ProfileData } from '../types/profile';
 import axios from 'axios';
-
-const API_URL ='https://ldfs6814-8000.inc1.devtunnels.ms/';
+import { APi_URL } from '../Server';
+// const API_URL ='https://ldfs6814-8000.inc1.devtunnels.ms/';
 
 export const useProfileForm = (profile: ProfileData, onCancel: () => void) => {
     const [formData, setFormData] = useState(profile);
@@ -27,7 +27,7 @@ export const useProfileForm = (profile: ProfileData, onCancel: () => void) => {
         setError(null);
 
         try {
-            const response = await axios.put(`${API_URL}student/UpdateStudent`, formData);
+            const response = await axios.put(`${APi_URL}student/UpdateStudent`, formData);
             console.log('Student profile updated successfully:', response.data);
             onCancel();
         } catch (err: any) {
