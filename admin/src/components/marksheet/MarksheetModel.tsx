@@ -1,5 +1,5 @@
 import React from 'react';
-import { X } from 'lucide-react';
+import { X, Plus, Trash2 } from 'lucide-react';
 import { useMarksheetForm } from '../../hooks/useMarksheetForm';
 import { StudentMark } from '../../types/marksheet';
 
@@ -9,8 +9,14 @@ interface MarksheetModalProps {
     mark: StudentMark | null;
 }
 
+const grades = [
+    '5th', '6th', '7th', '8th', '9th', '10th',
+    '11th Commerce', '11th Science', '11th Arts',
+    '12th Commerce', '12th Science', '12th Arts'
+];
+
 const MarksheetModal: React.FC<MarksheetModalProps> = ({ isOpen, onClose, mark }) => {
-    const { formData, handleChange, handleSubjectChange, handleSubmit } = useMarksheetForm(mark, onClose);
+    const { formData, handleChange, handleSubjectChange, addSubject, removeSubject, handleSubmit } = useMarksheetForm(mark, onClose);
 
     if (!isOpen) return null;
 
@@ -66,14 +72,18 @@ const MarksheetModal: React.FC<MarksheetModalProps> = ({ isOpen, onClose, mark }
                                 <label className="block text-sm font-medium text-gray-300 mb-1">
                                     Class
                                 </label>
-                                <input
-                                    type="text"
-                                    name="class"
-                                    value={formData.class}
+                                <select
+                                    name="Class"
+                                    value={formData.Class}
                                     onChange={handleChange}
                                     className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white"
                                     required
-                                />
+                                >
+                                    <option value="">Select Class</option>
+                                    {grades.map(grade => (
+                                        <option key={grade} value={grade}>{grade}</option>
+                                    ))}
+                                </select>
                             </div>
 
                             <div>
@@ -96,20 +106,32 @@ const MarksheetModal: React.FC<MarksheetModalProps> = ({ isOpen, onClose, mark }
                         </div>
 
                         <div>
-                            <h3 className="text-white font-medium mb-3">Subject Marks</h3>
-                            <div className="space-y-3">
+                            <div className="flex items-center justify-between mb-3">
+                                <h3 className="text-white font-medium">Subject Marks</h3>
+                                <button
+                                    type="button"
+                                    onClick={addSubject}
+                                    className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300"
+                                >
+                                    <Plus size={16} />
+                                    Add Subject
+                                </button>
+                            </div>
+
+                            <div className="space-y-4">
                                 {formData.subjects.map((subject, index) => (
-                                    <div key={subject.subjectId} className="grid grid-cols-2 gap-4">
+                                    <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-[#252d3d] p-4 rounded-lg">
                                         <div>
                                             <label className="block text-sm font-medium text-gray-300 mb-1">
                                                 Subject Name
                                             </label>
                                             <input
                                                 type="text"
-                                                value={subject.subjectName}
-                                                onChange={(e) => handleSubjectChange(index, 'subjectName', e.target.value)}
-                                                className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white"
+                                                value={subject.name}
+                                                onChange={(e) => handleSubjectChange(index, 'name', e.target.value)}
+                                                className="w-full bg-[#1e2746] border border-gray-700 rounded-lg px-4 py-2.5 text-white"
                                                 required
+                                                placeholder="Enter subject name"
                                             />
                                         </div>
                                         <div>
@@ -120,11 +142,21 @@ const MarksheetModal: React.FC<MarksheetModalProps> = ({ isOpen, onClose, mark }
                                                 type="number"
                                                 value={subject.marks}
                                                 onChange={(e) => handleSubjectChange(index, 'marks', e.target.value)}
-                                                className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white"
+                                                className="w-full bg-[#1e2746] border border-gray-700 rounded-lg px-4 py-2.5 text-white"
                                                 required
                                                 min="0"
                                                 max="100"
+                                                placeholder="Enter marks out of 100"
                                             />
+                                        </div>
+                                        <div className="flex items-end">
+                                            <button
+                                                type="button"
+                                                onClick={() => removeSubject(index)}
+                                                className="p-2.5 text-red-400 hover:text-red-300 hover:bg-[#1e2746] rounded-lg transition-colors"
+                                            >
+                                                <Trash2 size={18} />
+                                            </button>
                                         </div>
                                     </div>
                                 ))}

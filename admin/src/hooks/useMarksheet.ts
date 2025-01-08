@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { StudentMark } from '../types/marksheet';
+import axios from 'axios';
+import { APi_URL } from '../Server';
 
 const initialMarks: StudentMark[] = [
     {
@@ -7,12 +9,12 @@ const initialMarks: StudentMark[] = [
         studentId: 'STU001',
         studentName: 'John Doe',
         rollNo: '101',
-        class: '10th Grade',
+        Class: '10th Grade',
         examType: 'Midterm',
         subjects: [
-            { subjectId: '1', marks: 85, grade: 'A' },
-            { subjectId: '2', marks: 78, grade: 'B' },
-            { subjectId: '3', marks: 92, grade: 'A+' },
+            { name: '1', marks: 85, grade: 'A' },
+            { name: '2', marks: 78, grade: 'B' },
+            { name: '3', marks: 92, grade: 'A+' },
         ],
         totalMarks: 255,
         percentage: 85,
@@ -25,12 +27,20 @@ const initialMarks: StudentMark[] = [
 export const useMarksheet = () => {
     const [marks, setMarks] = useState<StudentMark[]>(initialMarks);
 
-    const addMark = (mark: Omit<StudentMark, 'id'>) => {
+    const addMark = async (mark: Omit<StudentMark, 'id'>) => {
         const newMark = {
             ...mark,
             id: Date.now().toString(),
         };
-        setMarks([...marks, newMark]);
+
+        try {
+            
+            const response = await axios.post(`${APi_URL}marksheet/CreateMarksheet`, newMark);
+            console.log('Marksheet created:', response.data);
+            setMarks([...marks, newMark]);
+        } catch (err) {
+            console.error('Error adding marksheet:', err);
+        }
     };
 
     const updateMark = (id: string, updatedMark: Omit<StudentMark, 'id'>) => {

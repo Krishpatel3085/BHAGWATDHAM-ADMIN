@@ -30,7 +30,7 @@ const MarksheetTable: React.FC<MarksheetTableProps> = ({ onEdit }) => {
                         <tr key={mark.id} className="border-t border-gray-700">
                             <td className="py-4 text-white">{mark.studentName}</td>
                             <td className="py-4 text-gray-300">{mark.rollNo}</td>
-                            <td className="py-4 text-gray-300">{mark.class}</td>
+                            <td className="py-4 text-gray-300">{mark.Class}</td>
                             <td className="py-4 text-gray-300">{mark.examType}</td>
                             <td className="py-4 text-gray-300">{mark.totalMarks}</td>
                             <td className="py-4 text-gray-300">{mark.percentage}%</td>
