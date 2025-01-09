@@ -1,5 +1,5 @@
 export interface StudentMark {
-    id: string;
+    _id: string;
     studentId: string;
     studentName: string;
     rollNo: string;

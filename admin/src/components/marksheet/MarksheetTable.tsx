@@ -27,7 +27,7 @@ const MarksheetTable: React.FC<MarksheetTableProps> = ({ onEdit }) => {
                 </thead>
                 <tbody className="text-sm">
                     {marks.map((mark) => (
-                        <tr key={mark.id} className="border-t border-gray-700">
+                        <tr key={mark._id} className="border-t border-gray-700">
                             <td className="py-4 text-white">{mark.studentName}</td>
                             <td className="py-4 text-gray-300">{mark.rollNo}</td>
                             <td className="py-4 text-gray-300">{mark.Class}</td>
@@ -59,7 +59,7 @@ const MarksheetTable: React.FC<MarksheetTableProps> = ({ onEdit }) => {
                                         <Edit2 size={16} />
                                     </button>
                                     <button
-                                        onClick={() => deleteMark(mark.id)}
+                                        onClick={() => deleteMark(mark._id)}
                                         className="p-1.5 hover:bg-[#252d3d] rounded-lg text-red-400 hover:text-red-300"
                                         title="Delete"
                                     >

@@ -1,31 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StudentMark } from '../types/marksheet';
 import axios from 'axios';
 import { APi_URL } from '../Server';
 
-const initialMarks: StudentMark[] = [
-    {
-        id: '1',
-        studentId: 'STU001',
-        studentName: 'John Doe',
-        rollNo: '101',
-        Class: '10th Grade',
-        examType: 'Midterm',
-        subjects: [
-            { name: '1', marks: 85, grade: 'A' },
-            { name: '2', marks: 78, grade: 'B' },
-            { name: '3', marks: 92, grade: 'A+' },
-        ],
-        totalMarks: 255,
-        percentage: 85,
-        result: 'Pass',
-        examDate: '2024-01-15',
-    },
-    // Add more sample data as needed
-];
-
 export const useMarksheet = () => {
-    const [marks, setMarks] = useState<StudentMark[]>(initialMarks);
+    const [marks, setMarks] = useState<StudentMark[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
+
+    const fetchMarks = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            const response = await axios.get(`${APi_URL}marksheet/GetMarksheets`);
+            const data = response.data
+            setMarks(data.marksheets);
+            console.log("Cjheck", response.data);
+        } catch (err) {
+            setError('Failed to fetch marksheets');
+            console.error('Error fetching marks:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchMarks();
+    }, []);
 
     const addMark = async (mark: Omit<StudentMark, 'id'>) => {
         const newMark = {
@@ -34,7 +35,6 @@ export const useMarksheet = () => {
         };
 
         try {
-            
             const response = await axios.post(`${APi_URL}marksheet/CreateMarksheet`, newMark);
             console.log('Marksheet created:', response.data);
             setMarks([...marks, newMark]);
@@ -43,14 +43,28 @@ export const useMarksheet = () => {
         }
     };
 
-    const updateMark = (id: string, updatedMark: Omit<StudentMark, 'id'>) => {
-        setMarks(marks.map(mark =>
-            mark.id === id ? { ...updatedMark, id } : mark
-        ));
+    const updateMark = async (id: string, updatedData: StudentMark) => {
+        try {
+            if (!id) {
+                console.error('ID is undefined');
+                return;
+            }
+            console.log("Update Id:", id);
+            const response = await axios.put(`${APi_URL}marksheet/UpdateMarksheet/${id}`, updatedData);
+            console.log('Marksheet updated:', response.data);
+            setMarks(marks.map(mark => (mark._id === id ? { ...response.data } : mark)));
+        } catch (err) {
+            console.error('Error updating marksheet:', err);
+        }
     };
 
-    const deleteMark = (id: string) => {
-        setMarks(marks.filter(mark => mark.id !== id));
+    const deleteMark = async (id: string) => {
+        try {
+            await axios.delete(`${APi_URL}marksheet/DeleteMarksheet/${id}`);
+            setMarks(marks.filter(mark => mark._id !== id));
+        } catch (err) {
+            console.error('Error deleting marksheet:', err);
+        }
     };
 
     return {
@@ -58,5 +72,7 @@ export const useMarksheet = () => {
         addMark,
         updateMark,
         deleteMark,
+        loading,
+        error,
     };
 };

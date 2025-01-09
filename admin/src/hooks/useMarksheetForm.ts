@@ -92,7 +92,7 @@ export const useMarksheetForm = (mark: StudentMark | null, onClose: () => void) 
       studentId: Date.now().toString(),
       studentName: formData.studentName,
       rollNo: formData.rollNo,
-      class: formData.Class,
+      Class: formData.Class,
       examType: formData.examType,
       subjects: formData.subjects.map(s => ({
         name: s.name,
@@ -102,11 +102,10 @@ export const useMarksheetForm = (mark: StudentMark | null, onClose: () => void) 
       totalMarks,
       percentage,
       result,
-    //   examDate: new Date().toISOString().split('T')[0],
     };
 
     if (mark) {
-      updateMark(mark.id, markData);
+      updateMark(mark._id, markData);
     } else {
       addMark(markData);
     }
