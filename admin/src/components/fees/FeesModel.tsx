@@ -62,7 +62,7 @@ const FeesModal: React.FC<FeesModalProps> = ({ isOpen, onClose, payment }) => {
                                 <input
                                     type="text"
                                     name="rollNo"
-                                    value={formData.rollNo}
+                                    value={formData.studentId}
                                     onChange={handleChange}
                                     className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white"
                                     required
@@ -90,8 +90,8 @@ const FeesModal: React.FC<FeesModalProps> = ({ isOpen, onClose, payment }) => {
                                 </label>
                                 <input
                                     type="number"
-                                    name="totalAmount"
-                                    value={formData.totalAmount}
+                                    name="TotalAmount"
+                                    value={formData.TotalAmount}
                                     onChange={handleChange}
                                     className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white"
                                     required
@@ -103,8 +103,8 @@ const FeesModal: React.FC<FeesModalProps> = ({ isOpen, onClose, payment }) => {
                                 </label>
                                 <input
                                     type="number"
-                                    name="paidAmount"
-                                    value={formData.paidAmount}
+                                    name="PaidAmount"
+                                    value={formData.PaidAmount}
                                     onChange={handleChange}
                                     className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white"
                                     required

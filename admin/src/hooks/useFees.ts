@@ -1,53 +1,50 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FeePayment } from '../types/fees';
-
-const initialPayments: FeePayment[] = [
-    {
-        id: '1',
-        studentId: 'STU001',
-        studentName: 'John Smith',
-        grade: '10th Grade',
-        rollNo: '1001',
-        totalAmount: 5000,
-        paidAmount: 5000,
-        dueAmount: 0,
-        dueDate: '2024-01-31',
-        lastPaymentDate: '2024-01-15',
-        status: 'paid',
-        paymentMethod: 'card',
-        receiptNo: 'RCP001'
-    },
-    {
-        id: '2',
-        studentId: 'STU002',
-        studentName: 'Emma Johnson',
-        grade: '9th Grade',
-        rollNo: '1002',
-        totalAmount: 5000,
-        paidAmount: 2500,
-        dueAmount: 2500,
-        dueDate: '2024-01-31',
-        lastPaymentDate: '2024-01-10',
-        status: 'partial',
-        paymentMethod: 'cash',
-        receiptNo: 'RCP002'
-    },
-    {
-        id: '3',
-        studentId: 'STU003',
-        studentName: 'Michael Brown',
-        grade: '11th Grade',
-        rollNo: '1003',
-        totalAmount: 5000,
-        paidAmount: 0,
-        dueAmount: 5000,
-        dueDate: '2024-01-15',
-        status: 'overdue'
-    }
-];
+import axios from 'axios';
+import { APi_URL } from '../Server';
 
 export const useFees = () => {
-    const [payments, setPayments] = useState<FeePayment[]>(initialPayments);
+    const [payments, setPayments] = useState<FeePayment[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
+
+    const fetchStudent = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            const response = await axios.get(`${APi_URL}student/getAllStudent`);
+            const data = response.data
+            setPayments(data.students);
+            console.log("Cjheck", response.data);
+        } catch (err) {
+            setError('Failed to fetch marksheets');
+            console.error('Error fetching marks:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchStudent();
+    }, []);
+
+    const updateFees = async (paymentData: FeePayment) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const response = await axios.put(`${APi_URL}student/Fess`, paymentData);
+            const updatedStudent = response.data.student;
+            // Update the payment in the state after the API call
+            setPayments(payments.map(payment =>
+                payment.id === updatedStudent.id ? updatedStudent : payment
+            ));
+        } catch (err) {
+            setError('Failed to update student fees');
+            console.error('Error updating fees:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const getTotalCollected = (thisMonth = false) => {
         if (thisMonth) {
@@ -55,18 +52,22 @@ export const useFees = () => {
             const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
             return payments.reduce((total, payment) => {
                 if (payment.lastPaymentDate && new Date(payment.lastPaymentDate) >= startOfMonth) {
-                    return total + payment.paidAmount;
+                    return total + payment.PaidAmount;
                 }
                 return total;
             }, 0);
         }
-        return payments.reduce((total, payment) => total + payment.paidAmount, 0);
+        return payments.reduce((total, payment) => total + payment.PaidAmount, 0);
     };
 
     const getTotalPending = (countStudents = false) => {
-        const pending = payments.filter(p => p.status === 'pending' || p.status === 'partial');
-        return countStudents ? pending.length : pending.reduce((total, p) => total + p.dueAmount, 0);
+        const pending = payments.filter(p => p.status === 'pending' || p.status === 'overdue');
+        return countStudents
+            ? pending.length
+            : pending.reduce((total, p) => total + (p.TotalAmount - p.PaidAmount), 0);
     };
+
+
 
     const getTotalOverdue = (countStudents = false) => {
         const overdue = payments.filter(p => p.status === 'overdue');
@@ -87,5 +88,8 @@ export const useFees = () => {
         getTotalCollected,
         getTotalPending,
         getTotalOverdue,
+        updateFees,
+        loading,
+        error,
     };
 };

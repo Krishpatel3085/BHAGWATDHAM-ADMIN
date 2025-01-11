@@ -33,18 +33,18 @@ const FeesTable: React.FC<FeesTableProps> = ({ onPayment }) => {
                                     <div className="p-2 bg-[#252d3d] rounded-lg">
                                         <Receipt size={16} className="text-violet-400" />
                                     </div>
-                                    <span className="text-white">{payment.studentName}</span>
+                                    <span className="text-white">{payment.name}</span>
                                 </div>
                             </td>
-                            <td className="py-4 text-gray-300">{payment.rollNo}</td>
+                            <td className="py-4 text-gray-300">{payment.studentId}</td>
                             <td className="py-4 text-gray-300">{payment.grade}</td>
-                            <td className="py-4 text-gray-300">${payment.totalAmount}</td>
-                            <td className="py-4 text-gray-300">${payment.paidAmount}</td>
+                            <td className="py-4 text-gray-300">${payment.TotalAmount}</td>
+                            <td className="py-4 text-gray-300">${payment.PaidAmount}</td>
                             <td className="py-4 text-gray-300">
-                                {new Date(payment.dueDate).toLocaleDateString()}
+                                {payment.dueDate}
                             </td>
                             <td className="py-4">
-                                <StatusBadge status={payment.status} />
+                                <StatusBadge status={payment.status as PaymentStatus || 'pending'} />
                             </td>
                             <td className="py-4">
                                 <div className="flex items-center gap-2">

@@ -1,14 +1,13 @@
-export type PaymentStatus = 'paid' | 'pending' | 'overdue' | 'partial';
+export type PaymentStatus = 'paid' | 'pending' | 'overdue';
 export type PaymentMethod = 'cash' | 'card' | 'upi' | 'bank_transfer';
 
 export interface FeePayment {
     id: string;
     studentId: string;
-    studentName: string;
+    name: string;
     grade: string;
-    rollNo: string;
-    totalAmount: number;
-    paidAmount: number;
+    TotalAmount: number;
+    PaidAmount: number;
     dueAmount: number;
     dueDate: string;
     lastPaymentDate?: string;
