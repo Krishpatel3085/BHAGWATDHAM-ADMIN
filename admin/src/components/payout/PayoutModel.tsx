@@ -40,7 +40,7 @@ const PayoutModal: React.FC<PayoutModalProps> = ({ isOpen, onClose, payout }) =>
                             <input
                                 type="text"
                                 name="teacherName"
-                                value={formData.teacherName}
+                                value={formData.name}
                                 onChange={handleChange}
                                 className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white"
                                 required
@@ -54,7 +54,7 @@ const PayoutModal: React.FC<PayoutModalProps> = ({ isOpen, onClose, payout }) =>
                             <input
                                 type="text"
                                 name="employeeId"
-                                value={formData.employeeId}
+                                value={formData.employeeNo}
                                 onChange={handleChange}
                                 className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white"
                                 required
@@ -68,7 +68,7 @@ const PayoutModal: React.FC<PayoutModalProps> = ({ isOpen, onClose, payout }) =>
                             <input
                                 type="text"
                                 name="department"
-                                value={formData.department}
+                                value={formData.subject}
                                 onChange={handleChange}
                                 className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white"
                                 required
@@ -135,18 +135,6 @@ const PayoutModal: React.FC<PayoutModalProps> = ({ isOpen, onClose, payout }) =>
                             </select>
                         </div>
 
-                        <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-1">
-                                Remarks
-                            </label>
-                            <textarea
-                                name="remarks"
-                                value={formData.remarks || ''}
-                                onChange={handleChange}
-                                rows={3}
-                                className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white"
-                            />
-                        </div>
 
                         <div className="flex justify-end gap-3 mt-6">
                             <button

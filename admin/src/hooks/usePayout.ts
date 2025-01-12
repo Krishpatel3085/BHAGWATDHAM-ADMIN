@@ -1,36 +1,45 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TeacherPayout } from '../types/payout';
-
-const initialPayouts: TeacherPayout[] = [
-    {
-        id: '1',
-        teacherId: 'T001',
-        teacherName: 'John Smith',
-        employeeId: 'EMP001',
-        department: 'Mathematics',
-        salary: 5000,
-        bonus: 500,
-        deductions: 200,
-        payoutDate: '2024-01-31',
-        paymentMethod: 'bank_transfer',
-        status: 'paid',
-        transactionId: 'TXN001'
-    },
-    {
-        id: '2',
-        teacherId: 'T002',
-        teacherName: 'Sarah Johnson',
-        employeeId: 'EMP002',
-        department: 'Science',
-        salary: 4800,
-        payoutDate: '2024-01-31',
-        paymentMethod: 'bank_transfer',
-        status: 'pending'
-    }
-];
+import axios from 'axios';
+import { APi_URL } from '../Server';
 
 export const usePayouts = () => {
-    const [payouts, setPayouts] = useState<TeacherPayout[]>(initialPayouts);
+    const [payouts, setPayouts] = useState<TeacherPayout[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchTeacher = async () => {
+            try {
+                const response = await axios.get(APi_URL + 'teacher/getAllTeacher');
+                console.log(response.data)
+                const data = response.data;
+                setPayouts(data.teachers);
+            } catch (error) {
+                console.error("Error fetching teachers:", error); // Handle errors
+            }
+        };
+
+        fetchTeacher();
+    }, []);
+
+
+    const updatePayout = async (paymentData: TeacherPayout) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const response = await axios.put(`${APi_URL}teacher/Payout`, paymentData);
+            const UpdateTeacher = response.data.teacher;
+            setPayouts(payouts.map(payout =>
+                payout.id === UpdateTeacher.id ? UpdateTeacher : payout
+            ));
+        } catch (err) {
+            setError('Failed to update student fees');
+            console.error('Error updating fees:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const getTotalPaid = () => {
         return payouts
@@ -68,5 +77,8 @@ export const usePayouts = () => {
         getTotalPaid,
         getPendingPayouts,
         getMonthlyPayroll,
+        loading,
+        error,
+        updatePayout,
     };
 };

@@ -4,4 +4,6 @@ export interface Teacher {
   employeeNo: string;
   address: string;
   salary: number;
+  grade: string;
+  age: string;
 }

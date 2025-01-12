@@ -34,11 +34,11 @@ const PayoutTable: React.FC<PayoutTableProps> = ({ onPayout }) => {
                                     <div className="p-2 bg-[#252d3d] rounded-lg">
                                         <DollarSign size={16} className="text-violet-400" />
                                     </div>
-                                    <span className="text-white">{payout.teacherName}</span>
+                                    <span className="text-white">{payout.name}</span>
                                 </div>
                             </td>
-                            <td className="py-4 text-gray-300">{payout.employeeId}</td>
-                            <td className="py-4 text-gray-300">{payout.department}</td>
+                            <td className="py-4 text-gray-300">{payout.employeeNo}</td>
+                            <td className="py-4 text-gray-300">{payout.subject}</td>
                             <td className="py-4 text-gray-300">${payout.salary}</td>
                             <td className="py-4 text-gray-300">${payout.bonus || 0}</td>
                             <td className="py-4 text-gray-300">${payout.deductions || 0}</td>
@@ -46,7 +46,7 @@ const PayoutTable: React.FC<PayoutTableProps> = ({ onPayout }) => {
                                 ${payout.salary + (payout.bonus || 0) - (payout.deductions || 0)}
                             </td>
                             <td className="py-4">
-                                <PayoutStatusBadge status={payout.status} />
+                                <PayoutStatusBadge status={payout.status as PaymentStatus || 'pending'} />
                             </td>
                             <td className="py-4">
                                 <div className="flex items-center gap-2">
@@ -62,12 +62,6 @@ const PayoutTable: React.FC<PayoutTableProps> = ({ onPayout }) => {
                                         title="View Details"
                                     >
                                         <Eye size={16} />
-                                    </button>
-                                    <button
-                                        className="p-1.5 hover:bg-[#252d3d] rounded-lg text-violet-400 hover:text-violet-300"
-                                        title="Download Slip"
-                                    >
-                                        <Download size={16} />
                                     </button>
                                 </div>
                             </td>

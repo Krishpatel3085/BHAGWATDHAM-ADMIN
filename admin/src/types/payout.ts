@@ -4,9 +4,9 @@ export type PayoutMethod = 'bank_transfer' | 'cash' | 'check' | 'upi';
 export interface TeacherPayout {
     id: string;
     teacherId: string;
-    teacherName: string;
-    employeeId: string;
-    department: string;
+    name: string;
+    employeeNo: string;
+    subject: string;
     salary: number;
     bonus?: number;
     deductions?: number;

@@ -3,31 +3,33 @@ import { usePayouts } from './usePayout';
 import { TeacherPayout } from '../types/payout';
 
 const initialFormData = {
-    teacherName: '',
-    employeeId: '',
-    department: '',
+    name: '',
+    employeeNo: '',
+    subject: '',
     salary: '',
     bonus: '',
     deductions: '',
     paymentMethod: '',
     remarks: '',
+    id: '',
 };
 
 export const usePayoutForm = (payout: TeacherPayout | null, onClose: () => void) => {
     const [formData, setFormData] = useState(initialFormData);
-    const { processPayout } = usePayouts();
+    const { updatePayout } = usePayouts();
 
     useEffect(() => {
         if (payout) {
             setFormData({
-                teacherName: payout.teacherName,
-                employeeId: payout.employeeId,
-                department: payout.department,
+                name: payout.name,
+                employeeNo: payout.employeeNo,
+                subject: payout.subject,
                 salary: payout.salary.toString(),
                 bonus: payout.bonus?.toString() || '',
                 deductions: payout.deductions?.toString() || '',
                 paymentMethod: payout.paymentMethod,
                 remarks: payout.remarks || '',
+                id: payout.id,
             });
         } else {
             setFormData(initialFormData);
@@ -46,9 +48,9 @@ export const usePayoutForm = (payout: TeacherPayout | null, onClose: () => void)
         e.preventDefault();
 
         const payoutData = {
-            teacherName: formData.teacherName,
-            employeeId: formData.employeeId,
-            department: formData.department,
+            name: formData.name,
+            employeeNo: formData.employeeNo,
+            subject: formData.subject,
             salary: Number(formData.salary),
             bonus: formData.bonus ? Number(formData.bonus) : undefined,
             deductions: formData.deductions ? Number(formData.deductions) : undefined,
@@ -59,9 +61,9 @@ export const usePayoutForm = (payout: TeacherPayout | null, onClose: () => void)
         };
 
         if (payout) {
-            processPayout({ id: payout.id, ...payoutData });
+            updatePayout({ id: payout.id, ...payoutData });
         } else {
-            processPayout({
+            updatePayout({
                 id: Date.now().toString(),
                 teacherId: `T${Date.now().toString().slice(-4)}`,
                 ...payoutData,
