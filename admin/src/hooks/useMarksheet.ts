@@ -8,17 +8,34 @@ export const useMarksheet = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
+    const role = localStorage.getItem('role');
+
+    const id = localStorage.getItem('id');
     const fetchMarks = async () => {
         setLoading(true);
         setError(null);
+
+        if (!role || !id) {
+            setError('Role or ID is missing');
+            setLoading(false);
+            return;
+        }
+
         try {
-            const response = await axios.get(`${APi_URL}marksheet/GetMarksheets`);
-            const data = response.data
-            setMarks(data.marksheets);
-            console.log("Cjheck", response.data);
-        } catch (err) {
+            if (role === 'Student') {
+                const response = await axios.get(`${APi_URL}marksheet/GetMarksheetsid/${id}`);
+                const data = response.data;
+                setMarks(data.marksheet || []); // Handle empty results
+                console.log("Get By Id", response.data);
+            } else if (role === 'Principal') {
+                const response = await axios.get(`${APi_URL}marksheet/GetMarksheets`);
+                const data = response.data;
+                setMarks(data.marksheets || []); // Handle empty results
+                console.log("Get ALL", response.data);
+            }
+        } catch (err: any) {
             setError('Failed to fetch marksheets');
-            console.error('Error fetching marks:', err);
+            console.error('Error fetching marks:', err.response?.data || err.message);
         } finally {
             setLoading(false);
         }
@@ -28,18 +45,26 @@ export const useMarksheet = () => {
         fetchMarks();
     }, []);
 
+
     const addMark = async (mark: Omit<StudentMark, 'id'>) => {
         const newMark = {
             ...mark,
-            id: Date.now().toString(),
+            id: id,
         };
+        const token = localStorage.getItem('token')
 
         try {
-            const response = await axios.post(`${APi_URL}marksheet/CreateMarksheet`, newMark);
+            const response = await axios.post(`${APi_URL}marksheet/CreateMarksheet`, newMark, {
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': ` Bearer ${token}`
+                },
+            });
             console.log('Marksheet created:', response.data);
             setMarks([...marks, newMark]);
-        } catch (err) {
+        } catch (err: any) {
             console.error('Error adding marksheet:', err);
+            alert("Message: " + err.response.data.error);
         }
     };
 
@@ -60,6 +85,7 @@ export const useMarksheet = () => {
 
     const deleteMark = async (id: string) => {
         try {
+            console.log("Delete Id", id);
             await axios.delete(`${APi_URL}marksheet/DeleteMarksheet/${id}`);
             setMarks(marks.filter(mark => mark._id !== id));
         } catch (err) {

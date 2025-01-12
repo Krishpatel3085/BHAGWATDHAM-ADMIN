@@ -13,7 +13,7 @@ const MarksheetTable: React.FC<MarksheetTableProps> = ({ onEdit }) => {
     const [selectedMark, setSelectedMark] = useState<StudentMark | null>(null);
     const [isViewOpen, setIsViewOpen] = useState(false);
 
-
+    const role = localStorage.getItem('role');
     return (
         <>
             <div className="overflow-x-auto">
@@ -59,21 +59,24 @@ const MarksheetTable: React.FC<MarksheetTableProps> = ({ onEdit }) => {
                                         >
                                             <Eye size={16} />
                                         </button>
-
-                                        <button
-                                            onClick={() => onEdit(mark)}
-                                            className="p-1.5 hover:bg-[#252d3d] rounded-lg text-green-400 hover:text-green-300"
-                                            title="Edit"
-                                        >
-                                            <Edit2 size={16} />
-                                        </button>
-                                        <button
-                                            onClick={() => deleteMark(mark._id)}
-                                            className="p-1.5 hover:bg-[#252d3d] rounded-lg text-red-400 hover:text-red-300"
-                                            title="Delete"
-                                        >
-                                            <Trash2 size={16} />
-                                        </button>
+                                        {role === 'Teacher' || role === 'Principal' ? (
+                                            <>
+                                                <button
+                                                    onClick={() => onEdit(mark)}
+                                                    className="p-1.5 hover:bg-[#252d3d] rounded-lg text-green-400 hover:text-green-300"
+                                                    title="Edit"
+                                                >
+                                                    <Edit2 size={16} />
+                                                </button>
+                                                <button
+                                                    onClick={() => deleteMark(mark._id)}
+                                                    className="p-1.5 hover:bg-[#252d3d] rounded-lg text-red-400 hover:text-red-300"
+                                                    title="Delete"
+                                                >
+                                                    <Trash2 size={16} />
+                                                </button>
+                                            </>
+                                        ) : (' ')}
 
                                     </div>
                                 </td>

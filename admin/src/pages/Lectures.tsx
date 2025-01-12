@@ -15,10 +15,7 @@ const Lectures = () => {
   const [selectedLecture, setSelectedLecture] = useState<Lecture | null>(null);
   const [selectedGrade, setSelectedGrade] = useState<string | null>(null);
 
-  const handleEdit = (lecture: Lecture) => {
-    setSelectedLecture(lecture);
-    setIsModalOpen(true);
-  };
+  const role = localStorage.getItem('role');
 
   return (
     <>
@@ -69,16 +66,21 @@ const Lectures = () => {
                 </div>
                 <p className="text-gray-400 text-sm mt-1">Manage daily lecture schedule</p>
               </div>
-              <button
-                onClick={() => {
-                  setSelectedLecture(null);
-                  setIsModalOpen(true);
-                }}
-                className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                <Plus size={20} />
-                <span>Add Lecture</span>
-              </button>
+              {role === 'Teacher' || role === 'Principal' ? (
+
+                <button
+                  onClick={() => {
+                    setSelectedLecture(null);
+                    setIsModalOpen(true);
+                  }}
+                  className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  <Plus size={20} />
+                  <span>Add Lecture</span>
+                </button>
+              ) : (
+                ''
+              )}
             </div>
 
             <LectureGrid selectedGrade={selectedGrade} />

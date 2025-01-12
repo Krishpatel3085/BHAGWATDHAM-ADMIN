@@ -3,6 +3,7 @@ import { useMarksheet } from './useMarksheet';
 import { StudentMark } from '../types/marksheet';
 
 interface MarksheetForm {
+  studentId: String;
   studentName: string;
   rollNo: string;
   Class: string;
@@ -19,6 +20,7 @@ const initialFormData: MarksheetForm = {
   Class: '',
   examType: 'Midterm',
   subjects: [],
+  studentId:'',
 };
 
 export const useMarksheetForm = (mark: StudentMark | null, onClose: () => void) => {
@@ -28,6 +30,7 @@ export const useMarksheetForm = (mark: StudentMark | null, onClose: () => void) 
   useEffect(() => {
     if (mark) {
       setFormData({
+        studentId: mark.studentId,
         studentName: mark.studentName,
         rollNo: mark.rollNo,
         Class: mark.Class,
@@ -89,7 +92,7 @@ export const useMarksheetForm = (mark: StudentMark | null, onClose: () => void) 
     const { totalMarks, percentage, result } = calculateResults(formData.subjects);
     
     const markData = {
-      studentId: Date.now().toString(),
+      studentId: formData.studentId,
       studentName: formData.studentName,
       rollNo: formData.rollNo,
       Class: formData.Class,

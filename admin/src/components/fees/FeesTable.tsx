@@ -9,7 +9,7 @@ interface FeesTableProps {
 
 const FeesTable: React.FC<FeesTableProps> = ({ onPayment }) => {
     const { payments } = useFees();
-
+    const role = localStorage.getItem('role');
     return (
         <div className="overflow-x-auto">
             <table className="w-full min-w-[1000px]">
@@ -48,25 +48,22 @@ const FeesTable: React.FC<FeesTableProps> = ({ onPayment }) => {
                             </td>
                             <td className="py-4">
                                 <div className="flex items-center gap-2">
-                                    <button
-                                        onClick={() => onPayment(payment)}
-                                        className="p-1.5 hover:bg-[#252d3d] rounded-lg text-blue-400 hover:text-blue-300"
-                                        title="Record Payment"
-                                    >
-                                        <Receipt size={16} />
-                                    </button>
+                                    {role === 'Principal' ? (
+                                        <button
+                                            onClick={() => onPayment(payment)}
+                                            className="p-1.5 hover:bg-[#252d3d] rounded-lg text-blue-400 hover:text-blue-300"
+                                            title="Record Payment"
+                                        >
+                                            <Receipt size={16} />
+                                        </button>
+                                    ) : ('')}
                                     <button
                                         className="p-1.5 hover:bg-[#252d3d] rounded-lg text-green-400 hover:text-green-300"
                                         title="View Details"
                                     >
                                         <Eye size={16} />
                                     </button>
-                                    <button
-                                        className="p-1.5 hover:bg-[#252d3d] rounded-lg text-violet-400 hover:text-violet-300"
-                                        title="Download Receipt"
-                                    >
-                                        <Download size={16} />
-                                    </button>
+
                                 </div>
                             </td>
                         </tr>
