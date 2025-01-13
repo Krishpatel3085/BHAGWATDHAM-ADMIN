@@ -2,14 +2,18 @@ import { useState, useEffect } from 'react';
 import { useFees } from './useFees';
 import { FeePayment } from '../types/fees';
 
+// Initial form data structure aligned with backend response
 const initialFormData = {
+    id:'id',
     studentName: '',
     studentId: '',
     grade: '',
     TotalAmount: 0,
     PaidAmount: 0,
-    dueDate: new Date().toISOString().split('T')[0],
+    dueDate: new Date().toISOString().split('T')[0], // Default to today
     paymentMethod: '',
+    parentName: '',
+    parentPhone: '',
 };
 
 export const useFeesForm = (payment: FeePayment | null, onClose: () => void) => {
@@ -19,13 +23,16 @@ export const useFeesForm = (payment: FeePayment | null, onClose: () => void) => 
     useEffect(() => {
         if (payment) {
             setFormData({
-                studentName: payment.name,
-                studentId: payment.studentId,
-                grade: payment.grade,
-                TotalAmount: payment.TotalAmount,
-                PaidAmount: payment.PaidAmount,
-                dueDate: payment.dueDate,
+                id: payment.id,
+                studentName: payment.name || '',
+                studentId: payment.studentId || '',
+                grade: payment.grade || '',
+                TotalAmount: payment.Fees?.[0]?.TotalAmount || 0,
+                PaidAmount: payment.Fees?.[0]?.PaidAmount || 0,
+                dueDate: payment.Fees?.[0]?.dueDate || new Date().toISOString().split('T')[0],
                 paymentMethod: payment.paymentMethod || '',
+                parentName: payment.parentName || '',
+                parentPhone: payment.parentPhone || '',
             });
         } else {
             setFormData(initialFormData);
@@ -36,35 +43,43 @@ export const useFeesForm = (payment: FeePayment | null, onClose: () => void) => 
         const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,
-            [name]: name.includes('Amount') ? Number(value) : value,
+            [name]: name.includes('Amount') ? Number(value) : value, // Parse numeric inputs
         }));
     };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Ensure TotalAmount and PaidAmount are valid numbers
+        // Calculate dueAmount and status
         const totalAmount = formData.TotalAmount || 0;
         const paidAmount = formData.PaidAmount || 0;
-
         const dueAmount = totalAmount - paidAmount;
 
-        const status: 'paid' | 'pending' | 'overdue' = dueAmount <= 0 ? 'paid' 
-            : dueAmount === totalAmount 
-                ? 'pending' 
-                : new Date(formData.dueDate) < new Date() && dueAmount > 0 
-                    ? 'overdue' 
+        const status: 'paid' | 'pending' | 'overdue' = dueAmount <= 0 ? 'paid'
+            : dueAmount === totalAmount
+                ? 'pending'
+                : new Date(formData.dueDate) < new Date() && dueAmount > 0
+                    ? 'overdue'
                     : 'pending';
 
+        // Construct payment data to send to backend
         const paymentData = {
             ...formData,
-            dueAmount,
-            status,
+            Fees: [
+                {
+                    TotalAmount: totalAmount,
+                    PaidAmount: paidAmount,
+                    dueAmount,
+                    status,
+                    dueDate: formData.dueDate || '',
+                },
+            ],
             lastPaymentDate: new Date().toISOString().split('T')[0],
             receiptNo: `RCP${Date.now().toString().slice(-4)}`,
-            id: payment?.id || Date.now().toString(), // Safe fallback if payment is null
+            id: payment?.id || Date.now().toString(),
         };
 
+        // Call update function with appropriate data
         if (payment) {
             updateFees({ id: payment.id, ...paymentData });
         } else {
@@ -75,7 +90,7 @@ export const useFeesForm = (payment: FeePayment | null, onClose: () => void) => 
             });
         }
 
-        onClose();
+        onClose(); // Close the modal on successful submission
     };
 
     return {

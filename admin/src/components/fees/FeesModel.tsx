@@ -102,7 +102,7 @@ const FeesModal: React.FC<FeesModalProps> = ({ isOpen, onClose, payment }) => {
                                     Amount Paid
                                 </label>
                                 <input
-                                    type="number"
+                                    type="number"   
                                     name="PaidAmount"
                                     value={formData.PaidAmount}
                                     onChange={handleChange}

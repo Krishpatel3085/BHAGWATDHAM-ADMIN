@@ -1,5 +1,5 @@
 import React from 'react';
-import { Receipt, Eye, Download } from 'lucide-react';
+import { Receipt, Eye } from 'lucide-react';
 import { useFees } from '../../hooks/useFees';
 import StatusBadge from './StatusBadge';
 
@@ -38,11 +38,9 @@ const FeesTable: React.FC<FeesTableProps> = ({ onPayment }) => {
                             </td>
                             <td className="py-4 text-gray-300">{payment.studentId}</td>
                             <td className="py-4 text-gray-300">{payment.grade}</td>
-                            <td className="py-4 text-gray-300">${payment.TotalAmount}</td>
-                            <td className="py-4 text-gray-300">${payment.PaidAmount}</td>
-                            <td className="py-4 text-gray-300">
-                                {payment.dueDate}
-                            </td>
+                            <td className="py-4 text-gray-300">${payment.Fees[0]?.TotalAmount || 0}</td>
+                            <td className="py-4 text-gray-300">${payment.Fees[0]?.PaidAmount || 0}</td>
+                            <td className="py-4 text-gray-300">{payment.Fees[0]?.dueDate || 0}</td>
                             <td className="py-4">
                                 <StatusBadge status={payment.status as PaymentStatus || 'pending'} />
                             </td>

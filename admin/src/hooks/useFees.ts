@@ -32,19 +32,30 @@ export const useFees = () => {
         setLoading(true);
         setError(null);
         try {
+            // Send a PUT request to update the student's fees
             const response = await axios.put(`${APi_URL}student/Fess`, paymentData);
-            const updatedStudent = response.data.student;
-            // Update the payment in the state after the API call
-            setPayments(payments.map(payment =>
-                payment.id === updatedStudent.id ? updatedStudent : payment
-            ));
-        } catch (err) {
+
+            const updatedStudent = response.data.updatedStudent; // Match backend's response structure
+
+            // Update the specific student's fees in the state
+            setPayments(prevPayments =>
+                prevPayments.map(payment =>
+                    payment.studentId === updatedStudent.studentId
+                        ? { ...payment, Fees: updatedStudent.Fees }
+                        : payment
+                )
+            );
+
+            alert("Student Fees Details Successfully updated");
+        } catch (err: any) {
             setError('Failed to update student fees');
             console.error('Error updating fees:', err);
+            alert('Failed to update student fees');
         } finally {
             setLoading(false);
         }
     };
+
 
     const getTotalCollected = (thisMonth = false) => {
         if (thisMonth) {

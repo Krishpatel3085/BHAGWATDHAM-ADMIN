@@ -14,4 +14,7 @@ export interface FeePayment {
     status: PaymentStatus;
     paymentMethod?: PaymentMethod;
     receiptNo?: string;
+    parentName: string;
+    parentPhone: string;
+
 }
