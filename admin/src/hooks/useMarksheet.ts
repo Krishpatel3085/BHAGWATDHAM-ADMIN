@@ -9,8 +9,8 @@ export const useMarksheet = () => {
     const [error, setError] = useState<string | null>(null);
 
     const role = localStorage.getItem('role');
-
     const id = localStorage.getItem('id');
+    
     useEffect(() => {
     const fetchMarks = async () => {
         setLoading(true);

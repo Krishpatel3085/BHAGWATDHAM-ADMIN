@@ -14,18 +14,18 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ profile, isEditing, onCancel 
     const { formData, handleChange, handleSubmit } = useProfileForm(profile, onCancel);
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [isLoading, setIsLoading] = useState(false);
-
+    
     const validate = () => {
         const newErrors: Record<string, string> = {};
         const trimmedData = {
-            name: formData.name?.trim() || "",
-            grade: formData.grade?.trim() || "",
-            parentName: formData.parentName?.trim() || "",
-            parentPhone: formData.parentPhone?.trim() || "",
-            address: formData.address?.trim() || "",
-            age: formData.age?.trim() || "",
+            name: formData.name?.toString().trim() || "", // Convert to string before trimming
+            grade: formData.grade?.toString().trim() || "",
+            parentName: formData.parentName?.toString().trim() || "",
+            parentPhone: formData.parentPhone?.toString().trim() || "",
+            address: formData.address?.toString().trim() || "",
+            age: formData.age?.toString().trim() || "",
         };
-    
+
         if (!trimmedData.name) newErrors.name = 'Student Name is required.';
         if (!trimmedData.grade) newErrors.grade = 'Grade is required.';
         if (!trimmedData.age) newErrors.age = 'Age is required.';
@@ -34,10 +34,11 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ profile, isEditing, onCancel 
             newErrors.parentPhone = "Parent's Mobile must be a valid 10-digit number.";
         }
         if (!trimmedData.address) newErrors.address = 'Address is required.';
-    
+
         return newErrors;
     };
-    
+
+
 
     const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -116,7 +117,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ profile, isEditing, onCancel 
                     </div>
                     <div>
                         <label htmlFor="age" className="block text-sm font-medium text-gray-300 mb-1">
-                           Age
+                            Age
                         </label>
                         <input
                             id="age"

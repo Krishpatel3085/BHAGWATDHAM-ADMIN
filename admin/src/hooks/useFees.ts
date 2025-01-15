@@ -8,17 +8,46 @@ export const useFees = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
+    const role = localStorage.getItem('role');
+    const id = localStorage.getItem('id');
+
     const fetchStudent = async () => {
         setLoading(true);
         setError(null);
+
+        if (!role || !id) {
+            setError('Role or ID is missing');
+            setLoading(false);
+            return;
+        }
+
+        // try {
+        //     const response = await axios.get(`${APi_URL}student/getAllStudent`);
+        //     const data = response.data
+        //     setPayments(data.students);
+        //     console.log("Cjheck", response.data);
+        // } catch (err) {
+        //     setError('Failed to fetch marksheets');
+        //     console.error('Error fetching marks:', err);
+        // } finally {
+        //     setLoading(false);
+        // }
+
         try {
-            const response = await axios.get(`${APi_URL}student/getAllStudent`);
-            const data = response.data
-            setPayments(data.students);
-            console.log("Cjheck", response.data);
-        } catch (err) {
-            setError('Failed to fetch marksheets');
-            console.error('Error fetching marks:', err);
+            if (role === 'Student') {
+                const response = await axios.get(`${APi_URL}student/FessGet/${id}`);
+                console.log("Get By Id Response:", response.data);
+                const data = response.data;
+                setPayments(data.students || []);
+            } else {
+                const response = await axios.get(`${APi_URL}student/getAllStudent`);
+                console.log("Get ALL Response:", response.data);
+                const data = response.data.students;
+                setPayments(data || []);
+            }
+        } catch (err: any) {
+            setError('Failed to fetch Payment');
+            console.error('Error fetching Payment:', err.response?.data || err.message);
         } finally {
             setLoading(false);
         }
