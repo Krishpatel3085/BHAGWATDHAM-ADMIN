@@ -11,6 +11,7 @@ export const useMarksheet = () => {
     const role = localStorage.getItem('role');
 
     const id = localStorage.getItem('id');
+    useEffect(() => {
     const fetchMarks = async () => {
         setLoading(true);
         setError(null);
@@ -24,14 +25,14 @@ export const useMarksheet = () => {
         try {
             if (role === 'Student') {
                 const response = await axios.get(`${APi_URL}marksheet/GetMarksheetsid/${id}`);
-                const data = response.data;
-                setMarks(data.marksheet || []); // Handle empty results
-                console.log("Get By Id", response.data);
-            } else if (role === 'Principal') {
+                console.log("Get By Id Response:", response.data);
+                const data = response.data.marksheets;
+                setMarks(data ? [data] : []);
+            } else {
                 const response = await axios.get(`${APi_URL}marksheet/GetMarksheets`);
-                const data = response.data;
-                setMarks(data.marksheets || []); // Handle empty results
-                console.log("Get ALL", response.data);
+                console.log("Get ALL Response:", response.data);
+                const data = response.data.marksheets;
+                setMarks(data || []);
             }
         } catch (err: any) {
             setError('Failed to fetch marksheets');
@@ -41,10 +42,8 @@ export const useMarksheet = () => {
         }
     };
 
-    useEffect(() => {
         fetchMarks();
-    }, []);
-
+    },[])
 
     const addMark = async (mark: Omit<StudentMark, 'id'>) => {
         const newMark = {
