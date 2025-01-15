@@ -27,7 +27,7 @@ export const useMarksheet = () => {
                 const response = await axios.get(`${APi_URL}marksheet/GetMarksheetsid/${id}`);
                 console.log("Get By Id Response:", response.data);
                 const data = response.data.marksheets;
-                setMarks(data ? [data] : []);
+                setMarks(data || []);
             } else {
                 const response = await axios.get(`${APi_URL}marksheet/GetMarksheets`);
                 console.log("Get ALL Response:", response.data);
