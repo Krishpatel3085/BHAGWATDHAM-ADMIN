@@ -2,20 +2,36 @@ import { useState, useEffect } from 'react';
 import { Request } from '../types/request';
 import axios from 'axios';
 import { APi_URL } from '../Server';
-// const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
 
 export const useRequests = () => {
     const [requests, setRequests] = useState<Request[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
+    const role = localStorage.getItem('role');
+
     // Fetch requests from the API
     const fetchRequests = async () => {
         setLoading(true);
         setError(null);
+
         try {
             const response = await axios.get(`${APi_URL}user/get`);
-            setRequests(response.data);
+            let requests = response.data;
+
+            // Apply role-based conditions
+            if (role === 'Teacher') {
+                // Show only students if the role is Teacher
+                requests = requests.filter((user: any) => user.role === 'Student');
+            } else if (role === 'Principal') {
+                // Show all data for Principal (no filtering required)
+                requests = response.data;
+            } else {
+                // Optional: Handle roles that should not access any data
+                requests = [];
+            }
+
+            setRequests(requests);
         } catch (err: any) {
             console.error('Error fetching requests:', err);
             setError(err.message || 'Failed to fetch user requests.');
@@ -23,6 +39,8 @@ export const useRequests = () => {
             setLoading(false);
         }
     };
+
+
 
     useEffect(() => {
         fetchRequests();

@@ -36,14 +36,18 @@ const EventsList: React.FC<EventsListProps> = ({ events, onEdit }) => {
                     </div>
 
                     <div className="mt-4 flex items-center justify-between">
-                        <span className={`
-              inline-block text-xs px-2 py-1 rounded-full
-              ${new Date(event.EventDate) > new Date()
-                                ? 'bg-green-500/20 text-green-400'
-                                : 'bg-yellow-500/20 text-yellow-400'
-                            }
-            `}>
-                            {new Date(event.EventDate) > new Date() ? 'Upcoming' : 'Today'}
+                        <span
+                            className={`
+    inline-block text-xs px-2 py-1 rounded-full
+    ${event.EventStatus === 'Upcoming'
+                                    ? 'bg-green-500/20 text-green-400'
+                                    : event.EventStatus === 'Today'
+                                        ? 'bg-yellow-500/20 text-yellow-400'
+                                        : 'bg-red-500/20 text-red-400'
+                                }
+  `}
+                        >
+                            {event.EventStatus}
                         </span>
 
                         <div className="flex items-center gap-2">
@@ -62,8 +66,9 @@ const EventsList: React.FC<EventsListProps> = ({ events, onEdit }) => {
                         </div>
                     </div>
                 </div>
-            ))}
-        </div>
+            ))
+            }
+        </div >
     );
 };
 

@@ -3,8 +3,6 @@ import { Event } from '../types/event';
 import axios from 'axios';
 import { APi_URL } from '../Server';
 
-// const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
-
 
 export const useEvents = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -19,6 +17,7 @@ export const useEvents = () => {
     setError(null);
     try {
       const response = await axios.get(`${APi_URL}Event/getEvent`);
+      console.log("Event Get", response )
       const event = response.data
       const transformedEvents = event.events.map((event: any) => ({
         id: event._id,
@@ -26,7 +25,7 @@ export const useEvents = () => {
         EventDescriptions: event.EventDescriptions,
         EventName: event.EventName,
         EventTime: event.EventTime,
-        type: 'General', // Default type if not provided by API
+        EventStatus: event.EventStatus, 
       }));
 
       setEvents(transformedEvents);

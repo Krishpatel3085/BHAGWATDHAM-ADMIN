@@ -8,7 +8,7 @@ interface AuthCardProps {
     formType: 'login' | 'register';
 }
 
-const AuthCard = ({ children, title, subtitle, formType }: AuthCardProps) => {
+const AuthCard = ({ children, title, subtitle}: AuthCardProps) => {
     return (
         <motion.div
             initial={{ scale: 0.95, opacity: 0 }}

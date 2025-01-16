@@ -18,7 +18,6 @@ const loginRoles = [
   { value: 'temple', label: 'Temple' },
 ];
 
-// const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);

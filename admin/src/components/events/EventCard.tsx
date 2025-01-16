@@ -15,8 +15,21 @@ const EventCard = ({ event }: EventCardProps) => {
       <div>
         <h4 className="font-medium text-white">{event.EventName}</h4>
         <p className="text-sm text-gray-400 mt-1">{event.EventTime}</p>
-        <span className="inline-block mt-2 text-xs px-2 py-1 rounded-full bg-pink-500/20 text-pink-400">
-          {event.type === 'upcoming' ? 'Upcoming' : 'Past Event'}
+        {/* <span className="inline-block mt-2 text-xs px-2 py-1 rounded-full bg-pink-500/20 text-pink-400">
+          {event.EventStatus}
+        </span> */}
+
+        <span
+          className={`inline-block mt-2 text-xs px-2 py-1 rounded-full 
+              ${event.EventStatus === 'Upcoming'
+              ? 'bg-green-500/20 text-green-400'
+              : event.EventStatus === 'Today'
+                ? 'bg-yellow-500/20 text-yellow-400'
+                : 'bg-red-500/20 text-red-400'
+            }
+          `}
+        >
+          {event.EventStatus}
         </span>
       </div>
     </div>

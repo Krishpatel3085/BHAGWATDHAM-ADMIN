@@ -7,6 +7,7 @@ const initialFormData = {
     EventDate: '',
     EventTime: '',
     EventDescriptions: '',
+    EventStatus: ''
 };
 
 export const useEventForm = (event: Event | null, onClose: () => void) => {
@@ -20,6 +21,7 @@ export const useEventForm = (event: Event | null, onClose: () => void) => {
                 EventDate: event.EventDate,
                 EventTime: event.EventTime,
                 EventDescriptions: event.EventDescriptions,
+                EventStatus: event.EventStatus,
             });
         } else {
             setFormData(initialFormData);
