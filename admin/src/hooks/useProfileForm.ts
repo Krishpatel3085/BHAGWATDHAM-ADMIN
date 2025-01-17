@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { ProfileData } from '../types/profile';
 import axios from 'axios';
 import { APi_URL } from '../Server';
-// const API_URL ='https://ldfs6814-8000.inc1.devtunnels.ms/';
 
 export const useProfileForm = (profile: ProfileData, onCancel: () => void) => {
     const [formData, setFormData] = useState(profile);
@@ -13,7 +12,8 @@ export const useProfileForm = (profile: ProfileData, onCancel: () => void) => {
         setFormData(profile);
     }, [profile]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,

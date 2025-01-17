@@ -14,4 +14,5 @@ export interface StudentMark {
     percentage: number;
     result: 'Pass' | 'Fail';
     examDate: string;
+    createdAt : string;
   }

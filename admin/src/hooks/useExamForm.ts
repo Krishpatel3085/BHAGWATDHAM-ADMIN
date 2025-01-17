@@ -8,7 +8,7 @@ const initialFormData = {
     ExamDate: '',
     ExamTime: '',
     Room: '',
-    status: 'Upcoming' as const
+    status: 'Upcoming',
 };
 
 export const useExamForm = (exam: Exam | null, onClose: () => void) => {
@@ -23,7 +23,7 @@ export const useExamForm = (exam: Exam | null, onClose: () => void) => {
                 ExamDate: exam.ExamDate,
                 ExamTime: exam.ExamTime,
                 Room: exam.Room,
-                status: exam.status
+                status: exam.status || 'Upcoming' ,
             });
         } else {
             setFormData(initialFormData);

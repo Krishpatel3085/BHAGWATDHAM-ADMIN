@@ -6,4 +6,5 @@ export interface Student {
   parentPhone: string;
   grade: string;
   enrollmentDate: string;
+  updatedAt : string;
 }

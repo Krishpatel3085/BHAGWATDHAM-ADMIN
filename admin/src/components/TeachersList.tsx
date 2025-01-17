@@ -3,7 +3,7 @@ import { Teacher } from '../types/teacher';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { APi_URL } from '../Server';
-// const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
+
 
 const TeachersList = () => {
   const [teachers, useTeacher] = useState<Teacher[]>([]);

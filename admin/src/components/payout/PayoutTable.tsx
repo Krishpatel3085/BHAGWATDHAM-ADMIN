@@ -1,8 +1,8 @@
 import React from 'react';
-import { DollarSign, Eye, Download } from 'lucide-react';
+import { DollarSign, Eye } from 'lucide-react';
 import { usePayouts } from '../../hooks/usePayout';
 import PayoutStatusBadge from './PayoutStatusBadge';
-
+import { PayoutStatus } from '../../types/payout'; 
 interface PayoutTableProps {
     onPayout: (payout: any) => void;
 }
@@ -46,7 +46,7 @@ const PayoutTable: React.FC<PayoutTableProps> = ({ onPayout }) => {
                                 ${payout.salary + (payout.bonus || 0) - (payout.deductions || 0)}
                             </td>
                             <td className="py-4">
-                                <PayoutStatusBadge status={payout.status as PaymentStatus || 'pending'} />
+                                <PayoutStatusBadge status={payout.status as PayoutStatus || 'pending'} />
                             </td>
                             <td className="py-4">
                                 <div className="flex items-center gap-2">

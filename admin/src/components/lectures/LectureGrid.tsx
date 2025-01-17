@@ -3,6 +3,7 @@ import { useLectures } from '../../hooks/useLecture';
 import { Lecture } from '../../types/lecture';
 
 interface LectureGridProps {
+    selectedGrade: string;
     onEdit: (lecture: Lecture) => void;
 }
 

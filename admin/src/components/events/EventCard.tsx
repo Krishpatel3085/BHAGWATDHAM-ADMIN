@@ -1,4 +1,3 @@
-// import React from 'react';
 import { Event } from '../../types/event';
 
 interface EventCardProps {
@@ -15,10 +14,6 @@ const EventCard = ({ event }: EventCardProps) => {
       <div>
         <h4 className="font-medium text-white">{event.EventName}</h4>
         <p className="text-sm text-gray-400 mt-1">{event.EventTime}</p>
-        {/* <span className="inline-block mt-2 text-xs px-2 py-1 rounded-full bg-pink-500/20 text-pink-400">
-          {event.EventStatus}
-        </span> */}
-
         <span
           className={`inline-block mt-2 text-xs px-2 py-1 rounded-full 
               ${event.EventStatus === 'Upcoming'

@@ -3,6 +3,7 @@ import { Plus } from 'lucide-react';
 import ExamTable from './exams/ExamTable';
 import ExamModal from './exams/ExamModel';
 import { useExams } from '../../hooks/useExam';
+import { Exam } from '../../types/exam'; 
 
 const ExamsSection = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);

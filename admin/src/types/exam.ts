@@ -5,5 +5,5 @@ export interface Exam {
     ExamDate: string;
     ExamTime: string;
     Room: string;
-    status: 'Upcoming' | 'Completed' | 'In Progress';
+    status: 'Upcoming' | 'Completed' | 'In Progress' ;
 }

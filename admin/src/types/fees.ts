@@ -6,15 +6,21 @@ export interface FeePayment {
     studentId: string;
     name: string;
     grade: string;
-    TotalAmount: number;
-    PaidAmount: number;
     dueAmount: number;
-    dueDate: string;
     lastPaymentDate?: string;
     status: PaymentStatus;
     paymentMethod?: PaymentMethod;
     receiptNo?: string;
     parentName: string;
     parentPhone: string;
+    PaidAmount: number;
+    TotalAmount: number;
+    Fees: {
+        TotalAmount: number;
+        PaidAmount: number;
+        dueDate: string;
+
+    }[],
+
 
 }

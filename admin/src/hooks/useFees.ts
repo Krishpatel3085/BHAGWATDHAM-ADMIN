@@ -21,18 +21,6 @@ export const useFees = () => {
             return;
         }
 
-        // try {
-        //     const response = await axios.get(`${APi_URL}student/getAllStudent`);
-        //     const data = response.data
-        //     setPayments(data.students);
-        //     console.log("Cjheck", response.data);
-        // } catch (err) {
-        //     setError('Failed to fetch marksheets');
-        //     console.error('Error fetching marks:', err);
-        // } finally {
-        //     setLoading(false);
-        // }
-
         try {
             if (role === 'Student') {
                 const response = await axios.get(`${APi_URL}student/FessGet/${id}`);

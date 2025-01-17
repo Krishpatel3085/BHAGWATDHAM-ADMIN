@@ -2,8 +2,8 @@ export type PayoutStatus = 'paid' | 'pending' | 'processing';
 export type PayoutMethod = 'bank_transfer' | 'cash' | 'check' | 'upi';
 
 export interface TeacherPayout {
-    id: string;
-    teacherId: string;
+    id?: string;
+    teacherId?: string;
     name: string;
     employeeNo: string;
     subject: string;

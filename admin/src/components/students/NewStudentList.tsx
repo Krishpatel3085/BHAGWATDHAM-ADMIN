@@ -2,15 +2,15 @@ import StudentTableRow from './StudentTableRow';
 import { Student } from '../../types/student';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { APi_URL } from '../../Server';
 
-const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
 
 const NewStudentList = () => {
     const [students, useStudents] = useState<Student[]>([]);
     useEffect(() => {
         const fetchStudent = async () => {
             try {
-                const response = await axios.get(API_URL + 'student/getAllStudent');
+                const response = await axios.get(APi_URL + 'student/getAllStudent');
                 const data = response.data;
                 useStudents(data.students);
             } catch (error) {

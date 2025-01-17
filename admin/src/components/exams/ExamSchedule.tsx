@@ -2,16 +2,14 @@ import ExamTableRow from './ExamTableRow';
 import { Exam } from '../../types/exam';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
-
-const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
+import { APi_URL } from '../../Server';
 
 const ExamSchedule = () => {
     const [exams, useExams] = useState<Exam[]>([]);
     useEffect(() => {
       const fetchExam = async () => {
         try {
-          const response = await axios.get(API_URL + 'Exam/getExam');
+          const response = await axios.get(APi_URL + 'Exam/getExam');
           const data = response.data;
           console.log("All Exams:", data.exams);
           useExams(data.exams);

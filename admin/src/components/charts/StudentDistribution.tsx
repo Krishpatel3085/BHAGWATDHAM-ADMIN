@@ -1,5 +1,5 @@
 // import React from 'react';
-import { StudentStats } from '../../types/student';
+import { StudentStats } from '../../types/studentStats';
 
 const studentStats: StudentStats = {
   total: 3903,

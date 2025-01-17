@@ -2,7 +2,7 @@ import React from 'react';
 import { Receipt, Eye } from 'lucide-react';
 import { useFees } from '../../hooks/useFees';
 import StatusBadge from './StatusBadge';
-
+import { PaymentStatus } from '../../types/fees'; 
 interface FeesTableProps {
     onPayment: (payment: any) => void;
 }

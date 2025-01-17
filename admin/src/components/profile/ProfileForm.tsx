@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Save, X } from 'lucide-react';
-// import isEqual from 'lodash/isEqual';
 import { useProfileForm } from '../../hooks/useProfileForm';
 import { ProfileData } from '../../types/profile';
 
@@ -10,15 +9,21 @@ interface ProfileFormProps {
     onCancel: () => void;
 }
 
+const grades = [
+    '5th', '6th', '7th', '8th', '9th', '10th',
+    '11th Commerce', '11th Science', '11th Arts',
+    '12th Commerce', '12th Science', '12th Arts'
+];
+
 const ProfileForm: React.FC<ProfileFormProps> = ({ profile, isEditing, onCancel }) => {
     const { formData, handleChange, handleSubmit } = useProfileForm(profile, onCancel);
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [isLoading, setIsLoading] = useState(false);
-    
+
     const validate = () => {
         const newErrors: Record<string, string> = {};
         const trimmedData = {
-            name: formData.name?.toString().trim() || "", // Convert to string before trimming
+            name: formData.name?.toString().trim() || "",
             grade: formData.grade?.toString().trim() || "",
             parentName: formData.parentName?.toString().trim() || "",
             parentPhone: formData.parentPhone?.toString().trim() || "",
@@ -89,15 +94,23 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ profile, isEditing, onCancel 
                         <label htmlFor="grade" className="block text-sm font-medium text-gray-300 mb-1">
                             Grade
                         </label>
-                        <input
+                        <select
                             id="grade"
-                            type="text"
                             name="grade"
                             value={formData.grade}
                             onChange={handleChange}
                             disabled={!isEditing}
-                            className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white disabled:opacity-60"
-                        />
+                            className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white"
+                            required
+                        >
+                            <option value="">Select Class</option>
+                            {grades.map((grade) => (
+                                <option key={grade} value={grade}>
+                                    {grade}
+                                </option>
+                            ))}
+                        </select>
+
                         {errors.grade && <p className="text-red-500 text-sm mt-1">{errors.grade}</p>}
                     </div>
                     <div>
@@ -110,7 +123,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ profile, isEditing, onCancel 
                             name="studentId"
                             value={formData.studentId}
                             onChange={handleChange}
-                            disabled={!isEditing}
+                            disabled
                             className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white disabled:opacity-60"
                         />
                         {errors.studentId && <p className="text-red-500 text-sm mt-1">{errors.studentId}</p>}
@@ -183,7 +196,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ profile, isEditing, onCancel 
                             <div>
                                 <h3 className="text-white font-medium">Current Fees Status</h3>
                                 <p className="text-gray-400 text-sm mt-1">
-                                    Total Fees: ₹{formData.totalFees} | Paid: ₹{formData.paidFees}
+                                    Total Fees: ₹{formData.Fees[0].TotalAmount} | Paid: ₹{formData.Fees[0].PaidAmount}
                                 </p>
                             </div>
                             <div className={`px-3 py-1 rounded-full text-sm ${formData.feesStatus === 'paid'

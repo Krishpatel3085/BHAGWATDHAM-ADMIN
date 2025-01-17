@@ -3,7 +3,7 @@ import { Plus } from 'lucide-react';
 import EventsList from './events/EventList';
 import EventModal from './events/EventModal';
 import { useEvents } from '../../hooks/useEvents';
-
+import { Event } from '../../types/event';
 const EventsSection = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);

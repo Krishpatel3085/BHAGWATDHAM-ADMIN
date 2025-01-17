@@ -3,9 +3,6 @@ import { Exam } from '../types/exam';
 import axios from 'axios';
 import { APi_URL } from '../Server';
 
-// const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
-
-
 export const useExams = () => {
     const [exams, setExams] = useState<Exam[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
