@@ -8,10 +8,11 @@ const initialFormData = {
     subject: '',
     salary: '',
     bonus: '',
-    deductions: '',
     paymentMethod: '',
-    remarks: '',
-    id: '',
+    id:'',
+    total: '',
+    NetPay: '',
+    month: '',
 };
 
 export const usePayoutForm = (payout: TeacherPayout | null, onClose: () => void) => {
@@ -26,10 +27,11 @@ export const usePayoutForm = (payout: TeacherPayout | null, onClose: () => void)
                 subject: payout.subject,
                 salary: payout.salary.toString(),
                 bonus: payout.bonus?.toString() || '',
-                deductions: payout.deductions?.toString() || '',
+                total: (payout.salary + (payout.bonus || 0)).toString(),
                 paymentMethod: payout.paymentMethod,
-                remarks: payout.remarks || '',
-                id: payout.id,
+                id: payout.id?.toString() || '',
+                NetPay: payout.NetPay?.toString() || '',
+                month: payout.month?.slice(0, 7) || '',
             });
         } else {
             setFormData(initialFormData);
@@ -47,17 +49,21 @@ export const usePayoutForm = (payout: TeacherPayout | null, onClose: () => void)
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
+        const [year, month] = formData.month.split('-');
+        const formattedMonth = `${year}-${month}`; 
+
         const payoutData = {
             name: formData.name,
             employeeNo: formData.employeeNo,
             subject: formData.subject,
             salary: Number(formData.salary),
             bonus: formData.bonus ? Number(formData.bonus) : undefined,
-            deductions: formData.deductions ? Number(formData.deductions) : undefined,
             paymentMethod: formData.paymentMethod as TeacherPayout['paymentMethod'],
             payoutDate: new Date().toISOString().split('T')[0],
             status: 'processing' as const,
-            remarks: formData.remarks || undefined,
+            total: Number(formData.salary) + (formData.bonus ? Number(formData.bonus) : 0),
+            month: formattedMonth, 
+            NetPay: (formData.NetPay || 0).toString(),
         };
 
         if (payout) {

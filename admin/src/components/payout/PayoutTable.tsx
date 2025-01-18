@@ -20,7 +20,7 @@ const PayoutTable: React.FC<PayoutTableProps> = ({ onPayout }) => {
                         <th className="pb-4 text-sm font-medium text-gray-400">Department</th>
                         <th className="pb-4 text-sm font-medium text-gray-400">Salary</th>
                         <th className="pb-4 text-sm font-medium text-gray-400">Bonus</th>
-                        <th className="pb-4 text-sm font-medium text-gray-400">Deductions</th>
+                        <th className="pb-4 text-sm font-medium text-gray-400">Total</th>
                         <th className="pb-4 text-sm font-medium text-gray-400">Net Pay</th>
                         <th className="pb-4 text-sm font-medium text-gray-400">Status</th>
                         <th className="pb-4 text-sm font-medium text-gray-400">Actions</th>
@@ -41,9 +41,9 @@ const PayoutTable: React.FC<PayoutTableProps> = ({ onPayout }) => {
                             <td className="py-4 text-gray-300">{payout.subject}</td>
                             <td className="py-4 text-gray-300">${payout.salary}</td>
                             <td className="py-4 text-gray-300">${payout.bonus || 0}</td>
-                            <td className="py-4 text-gray-300">${payout.deductions || 0}</td>
+                            <td className="py-4 text-gray-300">${payout.total || 0}</td>
                             <td className="py-4 text-gray-300">
-                                ${payout.salary + (payout.bonus || 0) - (payout.deductions || 0)}
+                                ${payout.NetPay}
                             </td>
                             <td className="py-4">
                                 <PayoutStatusBadge status={payout.status as PayoutStatus || 'pending'} />

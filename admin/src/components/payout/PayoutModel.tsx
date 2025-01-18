@@ -105,12 +105,25 @@ const PayoutModal: React.FC<PayoutModalProps> = ({ isOpen, onClose, payout }) =>
 
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-1">
-                                Deductions
+                                NetPay
                             </label>
                             <input
                                 type="number"
-                                name="deductions"
-                                value={formData.deductions || ''}
+                                name="NetPay"
+                                value={formData.NetPay}
+                                onChange={handleChange}
+                                className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-300 mb-1">
+                                Month
+                            </label>
+                            <input
+                                type="date"
+                                name="month"
+                                value={formData.month}
                                 onChange={handleChange}
                                 className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white"
                             />

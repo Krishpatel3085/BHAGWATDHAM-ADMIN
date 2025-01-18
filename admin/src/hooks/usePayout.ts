@@ -30,9 +30,9 @@ export const usePayouts = () => {
         try {
             const response = await axios.put(`${APi_URL}teacher/Payout`, paymentData);
             const UpdateTeacher = response.data.teacher;
-            setPayouts(payouts.map(payout =>
-                payout.id === UpdateTeacher.id ? UpdateTeacher : payout
-            ));
+            setPayouts(UpdateTeacher
+            );
+            alert('Payout Update success')
         } catch (err) {
             setError('Failed to update student fees');
             console.error('Error updating fees:', err);
@@ -40,12 +40,14 @@ export const usePayouts = () => {
             setLoading(false);
         }
     };
-
+    
     const getTotalPaid = () => {
         return payouts
-            .filter(p => p.status === 'paid')
-            .reduce((total, p) => total + p.salary + (p.bonus || 0) - (p.deductions || 0), 0);
+            .reduce((total, p) => total + (parseFloat(p.NetPay || '0') || 0), 0);
     };
+    
+    
+    
 
     const getPendingPayouts = (countTeachers = false) => {
         const pending = payouts.filter(p => p.status === 'pending');

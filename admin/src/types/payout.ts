@@ -9,10 +9,11 @@ export interface TeacherPayout {
     subject: string;
     salary: number;
     bonus?: number;
-    deductions?: number;
+    total?: number;
     payoutDate: string;
     paymentMethod: PayoutMethod;
-    status: PayoutStatus;
+    status?: PayoutStatus;
     transactionId?: string;
-    remarks?: string;
+    NetPay?: string;
+    month: string;
 }
