@@ -14,6 +14,7 @@ const initialFormData = {
     paymentMethod: '',
     parentName: '',
     parentPhone: '',
+    lastPaymentDate: '',
 };
 
 export const useFeesForm = (payment: FeePayment | null, onClose: () => void) => {
@@ -33,6 +34,7 @@ export const useFeesForm = (payment: FeePayment | null, onClose: () => void) => 
                 paymentMethod: payment.paymentMethod || '',
                 parentName: payment.parentName || '',
                 parentPhone: payment.parentPhone || '',
+                lastPaymentDate: payment.Fees?.[0]?.lastPaymentDate || '',
             });
         } else {
             setFormData(initialFormData);
@@ -72,6 +74,7 @@ export const useFeesForm = (payment: FeePayment | null, onClose: () => void) => 
                     dueAmount,
                     status,
                     dueDate: formData.dueDate || '',
+                    lastPaymentDate: formData.lastPaymentDate || new Date().toISOString().split('T')[0],
                 },
             ],
             lastPaymentDate: new Date().toISOString().split('T')[0],

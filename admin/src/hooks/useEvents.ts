@@ -58,12 +58,10 @@ export const useEvents = () => {
   // Update an event
   const updateEvent = async (id: string, updatedEvent: Omit<Event, 'id'>) => {
     try {
-      const response = await axios.put(`${APi_URL}Event/UpdateEvent/${id}`, updatedEvent);
-      const updatedEventFromServer: Event = response.data;
-      setEvents(events.map(event =>
-        event.id === id ? updatedEventFromServer : event
-      ));
+      await axios.put(`${APi_URL}Event/UpdateEvent/${id}`, updatedEvent);
+      // const updatedEventFromServer: Event = response.data;
       alert('Event updated successfully.');
+      fetchEvent();
     } catch (error) {
       console.error('Error updating event:', error);
       alert('Failed to update event. Please try again.');

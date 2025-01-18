@@ -7,7 +7,7 @@ export interface FeePayment {
     name: string;
     grade: string;
     dueAmount: number;
-    lastPaymentDate?: string;
+    lastPaymentDate: string;
     status: PaymentStatus;
     paymentMethod?: PaymentMethod;
     receiptNo?: string;
@@ -19,7 +19,8 @@ export interface FeePayment {
         TotalAmount: number;
         PaidAmount: number;
         dueDate: string;
-
+        status: PaymentStatus;
+        lastPaymentDate?: string;
     }[],
 
 

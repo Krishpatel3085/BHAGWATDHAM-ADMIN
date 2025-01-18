@@ -9,7 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie'; // Added import for Cookies
 import { APi_URL } from '../../Server';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const loginRoles = [
   { value: 'student', label: 'Student' },
@@ -29,11 +30,11 @@ const LoginPage = () => {
     role: '',
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const LoginAdmin = async (e) => {
+  const LoginAdmin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { email, password, role } = formData;
     try {
@@ -52,30 +53,49 @@ const LoginPage = () => {
 
       Cookies.set('Admin-userEmail', email, { expires: 7 });
 
-      alert('Login successfully 👍');
-      navigate('/dashboard');
+      toast.success('Login successful! Redirecting to dashboard... 👍', {
+        position: 'top-right',
+        autoClose: 3000,
+      });
 
-      window.location.reload();
+      // alert('Login successfully 👍');
+      // navigate('/dashboard');
+
+      setTimeout(() => {
+        navigate('/dashboard');
+        window.location.reload();
+      }, 3000);
 
 
     } catch (err: any) {
       if (err.response && err.response.status === 403) {
-        alert('Your account is not approved yet. Please wait for principal approval.');
+        // Show error toast for unapproved accounts
+        toast.error('Your account is not approved yet. Please wait for principal approval.', {
+          position: 'top-right',
+          autoClose: 5000,
+        });
         navigate('/');
       } else {
-        alert(err.response?.data?.message || 'User Not Found or Invalid Credentials 👎');
+        // Show error toast for other errors
+        toast.error(err.response?.data?.message || 'User Not Found or Invalid Credentials 👎', {
+          position: 'top-right',
+          autoClose: 5000,
+        });
         console.error('Login error:', err);
         navigate('/');
       }
     };
   }
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     LoginAdmin(e);
   };
 
   return (
     <AuthLayout>
+      <ToastContainer />
       <AuthCard
         title="Welcome Back!"
         subtitle="Log in to access your dashboard"

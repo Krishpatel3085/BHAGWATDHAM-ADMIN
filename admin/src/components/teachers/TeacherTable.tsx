@@ -34,7 +34,10 @@ const TeacherTable: React.FC<TeacherTableProps> = ({ onEdit }) => {
                                 </div>
                             </td>
                             <td className="py-4 px-4 text-gray-300">{teacher.employeeNo}</td>
-                            <td className="py-4 px-4 text-gray-300">{teacher.address}</td>
+                            <td className="py-4 px-4 text-gray-300">
+                                {teacher.address.length > 15 ? `${teacher.address.slice(0, 15)}...` : teacher.address}
+                            </td>
+
                             <td className="py-4 px-4 text-gray-300">${teacher.salary}</td>
                             <td className="py-4 px-4">
                                 <div className="flex items-center gap-2">

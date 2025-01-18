@@ -42,7 +42,7 @@ const FeesTable: React.FC<FeesTableProps> = ({ onPayment }) => {
                             <td className="py-4 text-gray-300">${payment.Fees[0]?.PaidAmount || 0}</td>
                             <td className="py-4 text-gray-300">{payment.Fees[0]?.dueDate || 0}</td>
                             <td className="py-4">
-                                <StatusBadge status={payment.status as PaymentStatus || 'pending'} />
+                                <StatusBadge status={payment.Fees[0]?.status as PaymentStatus || 'pending'} />
                             </td>
                             <td className="py-4">
                                 <div className="flex items-center gap-2">

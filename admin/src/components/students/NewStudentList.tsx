@@ -5,7 +5,12 @@ import axios from 'axios';
 import { APi_URL } from '../../Server';
 
 
-const NewStudentList = () => {
+interface StudentListProps {
+    setStudentCount: (count: number) => void; // Explicit type for the callback
+}
+
+const NewStudentList: React.FC<StudentListProps> = ({ setStudentCount }) => {
+    // const NewStudentList = () => {
     const [students, useStudents] = useState<Student[]>([]);
     useEffect(() => {
         const fetchStudent = async () => {
@@ -13,6 +18,7 @@ const NewStudentList = () => {
                 const response = await axios.get(APi_URL + 'student/getAllStudent');
                 const data = response.data;
                 useStudents(data.students);
+                setStudentCount(data.students.length); 
             } catch (error) {
                 console.error("Error fetching teachers:", error); // Handle errors
             }

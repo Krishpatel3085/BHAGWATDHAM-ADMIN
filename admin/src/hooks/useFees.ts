@@ -78,29 +78,41 @@ export const useFees = () => {
         if (thisMonth) {
             const now = new Date();
             const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
             return payments.reduce((total, payment) => {
-                if (payment.lastPaymentDate && new Date(payment.lastPaymentDate) >= startOfMonth) {
-                    return total + payment.PaidAmount;
+                const lastPaymentDate = payment.Fees[0]?.lastPaymentDate
+                    ? new Date(payment.Fees[0]?.lastPaymentDate)
+                    : null;
+
+                if (lastPaymentDate && lastPaymentDate >= startOfMonth) {
+                    return total + (payment.Fees[0]?.PaidAmount || 0);
                 }
+
                 return total;
             }, 0);
         }
-        return payments.reduce((total, payment) => total + payment.PaidAmount, 0);
+
+        // Total fees collected for all time
+        return payments.reduce((total, payment) => total + (payment.Fees[0]?.PaidAmount || 0), 0);
     };
+
 
     const getTotalPending = (countStudents = false) => {
-        const pending = payments.filter(p => p.status === 'pending' || p.status === 'overdue');
+        const pending = payments.filter(p => p.Fees[0]?.status === 'pending' || p.Fees[0]?.status === 'overdue');
         return countStudents
             ? pending.length
-            : pending.reduce((total, p) => total + (p.TotalAmount - p.PaidAmount), 0);
+            : pending.reduce((total, p) => total + (p.Fees[0]?.TotalAmount - p.Fees[0]?.PaidAmount), 0);
     };
-
 
 
     const getTotalOverdue = (countStudents = false) => {
-        const overdue = payments.filter(p => p.status === 'overdue');
-        return countStudents ? overdue.length : overdue.reduce((total, p) => total + p.dueAmount, 0);
+        const overdue = payments.filter(p => p.Fees[0]?.status === 'overdue');
+
+        return countStudents
+            ? overdue.length // Count of students with overdue payments
+            : overdue.reduce((total, p) => total + (p.Fees[0]?.TotalAmount - p.Fees[0]?.PaidAmount || 0), 0); // Sum overdue amounts
     };
+
 
     const recordPayment = (paymentData: Partial<FeePayment>) => {
         setPayments(payments.map(payment =>

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { TeacherProfileData } from "../types/teacherProfile";
 import { APi_URL } from "../Server";
-// const API_URL = "https://ldfs6814-8000.inc1.devtunnels.ms/";
 
 export const useTeacherProfile = () => {
     const [profile, setProfile] = useState<TeacherProfileData | null>(null);

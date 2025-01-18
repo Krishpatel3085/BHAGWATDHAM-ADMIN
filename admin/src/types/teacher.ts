@@ -6,5 +6,5 @@ export interface Teacher {
   salary: number;
   grade: string;
   age: string;
-  subject: string;
+  subject?: string;
 }

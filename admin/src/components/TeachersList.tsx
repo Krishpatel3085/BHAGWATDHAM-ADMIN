@@ -4,8 +4,11 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { APi_URL } from '../Server';
 
+interface TeachersListProps {
+  setTeacherCount: (count: number) => void; // Explicit type for the callback
+}
 
-const TeachersList = () => {
+const TeachersList: React.FC<TeachersListProps> = ({ setTeacherCount }) => {
   const [teachers, useTeacher] = useState<Teacher[]>([]);
   useEffect(() => {
     const fetchTeacher = async () => {
@@ -14,13 +17,14 @@ const TeachersList = () => {
         const data = response.data;
         console.log("All Teachers:", data.teachers);
         useTeacher(data.teachers);
+        setTeacherCount(data.teachers.length)
       } catch (error) {
-        console.error("Error fetching teachers:", error); // Handle errors
+        console.error("Error fetching teachers:", error); 
       }
     };
 
     fetchTeacher();
-  }, []);
+  }, [setTeacherCount]);
   return (
     <div className="bg-[#1e2746] rounded-xl p-6">
       <div className="flex items-center justify-between mb-6">

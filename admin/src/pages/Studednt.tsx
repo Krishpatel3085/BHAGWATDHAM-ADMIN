@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Plus } from 'lucide-react';
 import StudentTable from '../components/students/StudentTable';
 import StudentModal from '../components/students/StudentModal';
 import { Student } from '../types/student';
@@ -22,16 +21,6 @@ const Studednt = () => {
             <h1 className="text-xl font-semibold text-white">Student Management</h1>
             <p className="text-gray-400 text-sm mt-1">Manage student information and records</p>
           </div>
-          <button
-            onClick={() => {
-              setSelectedStudent(null);
-              setIsModalOpen(true);
-            }}
-            className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            <Plus size={20} />
-            <span>Add Student</span>
-          </button>
         </div>
 
         <StudentTable onEdit={handleEdit} />

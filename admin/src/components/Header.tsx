@@ -2,7 +2,6 @@ import React from 'react';
 import { Menu } from 'lucide-react';
 import ProfileMenu from './header/ProfileMenu';
 import NotificationMenu from './header/NotificationMenu';
-import SettingsDropdown from './header/SettingDropdown';
 import { useLocation } from 'react-router-dom';
 
 interface HeaderProps {
@@ -29,13 +28,8 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
           <h2 className="text-lg font-semibold text-white first-letter:uppercase">{pathname}</h2>
         </div>
 
-        <div className="flex items-center gap-2 md:gap-4">
+        <div className="flex items-center gap-2 md:gap-4 lg:me-6">
           <NotificationMenu />
-          <SettingsDropdown />
-          <select className="bg-[#252d3d] text-gray-300 px-3 py-1.5 rounded border border-gray-700/50 text-sm hidden md:block">
-            <option>English</option>
-            <option>Spanish</option>
-          </select>
           <ProfileMenu />
         </div>
       </div>
