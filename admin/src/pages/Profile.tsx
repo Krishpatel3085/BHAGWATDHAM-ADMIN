@@ -14,7 +14,6 @@ const ProfilePage = () => {
     const { profile: teacherProfile, isLoading: isTeacherLoading } = useTeacherProfile();
 
     const isLoading = role === 'student' ? isStudentLoading : isTeacherLoading;
-    const profile = role === 'student' ? studentProfile : teacherProfile;
 
     if (isLoading) {
         return (
@@ -24,47 +23,43 @@ const ProfilePage = () => {
         );
     }
 
-    if (!profile) {
+    if (role === 'student' && studentProfile) {
         return (
-            <div className="text-center text-gray-500">
-                <p>Profile not found. Please try again later.</p>
+            <div className="max-w-4xl mx-auto">
+                <ProfileHeader
+                    profile={studentProfile}
+                    isEditing={isEditing}
+                    onEdit={() => setIsEditing(true)}
+                />
+                <ProfileForm
+                    profile={studentProfile}
+                    isEditing={isEditing}
+                    onCancel={() => setIsEditing(false)}
+                />
+            </div>
+        );
+    }
+
+    if (role === 'teacher' && teacherProfile) {
+        return (
+            <div className="max-w-4xl mx-auto">
+                <TeacherProfileHeader
+                    profile={teacherProfile}
+                    isEditing={isEditing}
+                    onEdit={() => setIsEditing(true)}
+                />
+                <TeacherProfileForm
+                    profile={teacherProfile}
+                    isEditing={isEditing}
+                    onCancel={() => setIsEditing(false)}
+                />
             </div>
         );
     }
 
     return (
-        <div className="max-w-4xl mx-auto">
-            {role === 'student' ? (
-                <>
-                    <ProfileHeader
-                        profile={profile}
-                        isEditing={isEditing}
-                        onEdit={() => setIsEditing(true)}
-                    />
-                    <ProfileForm
-                        profile={profile}
-                        isEditing={isEditing}
-                        onCancel={() => setIsEditing(false)}
-                    />
-                </>
-            ) : role === 'teacher' ? (
-                <>
-                    <TeacherProfileHeader
-                        profile={profile}
-                        isEditing={isEditing}
-                        onEdit={() => setIsEditing(true)}
-                    />
-                    <TeacherProfileForm
-                        profile={profile}
-                        isEditing={isEditing}
-                        onCancel={() => setIsEditing(false)}
-                    />
-                </>
-            ) : (
-                <div className="text-center text-gray-500">
-                    <p>Invalid role. Please contact support.</p>
-                </div>
-            )}
+        <div className="text-center text-gray-500">
+            <p>{!role ? 'Invalid role. Please contact support.' : 'Profile not found. Please try again later.'}</p>
         </div>
     );
 };

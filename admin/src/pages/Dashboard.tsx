@@ -12,12 +12,15 @@ import DevoteeList from '../components/temple/DevooteeList';
 import PoojaBookings from '../components/temple/PoojaBooking';
 import { useFees } from '../hooks/useFees';
 import { useState } from 'react';
+import { usePayouts } from '../hooks/usePayout';
 
 function Dashboard() {
     const { getTotalCollected } = useFees();
     const [teacherCount, setTeacherCount] = useState(0);
     const [studentCount, setStudentCount] = useState(0);
     const role = localStorage.getItem('role')
+    const { getTotalPaid } = usePayouts();
+
     return (
         <>
             {role === 'Principal' && (
@@ -44,9 +47,9 @@ function Dashboard() {
                         trendLabel="3% less than last month"
                     />
                     <StatCard
-                        icon={<Users className="text-blue-600" />}
-                        title="Total Sales"
-                        value="1500"
+                        icon={<DollarSign className="text-blue-600" />}
+                        title="Total Paid"
+                        value={getTotalPaid().toLocaleString()}
                         trend={12}
                         trendLabel="16% more than last month"
                     />

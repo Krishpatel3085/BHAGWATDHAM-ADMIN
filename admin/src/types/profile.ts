@@ -5,7 +5,7 @@ export interface ProfileData {
     parentName: string;
     parentPhone: string;
     address: string;
-    imageUrl?: string;
+    url?: string;
     totalFees: number;
     paidFees: number;
     age: number;

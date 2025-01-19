@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios'; // Import axios
 import { ProfileData } from '../types/profile';
 import { APi_URL } from '../Server';
-// const API_URL = "https://ldfs6814-8000.inc1.devtunnels.ms/";
+
 
 export const useProfile = () => {
     const [profile, setProfile] = useState<ProfileData | null>(null);

@@ -5,11 +5,14 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useProfile } from '../../hooks/useProfile';
 
 const ProfileMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
+    const { profile } = useProfile();
+
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -43,7 +46,7 @@ const ProfileMenu = () => {
 
         }, 3000);
     };
-
+    const profileImage = profile?.url || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
     return (
         <>
             <ToastContainer />
@@ -54,9 +57,9 @@ const ProfileMenu = () => {
                     className="flex items-center gap-2 hover:bg-[#252d3d] rounded-lg p-1 transition-colors"
                 >
                     <img
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src={profileImage}
                         alt="Profile"
-                        className="w-8 h-8 rounded-full"
+                        className="w-8 h-8 rounded-full object-cover"
                     />
                     <span className="text-gray-300 text-sm hidden md:block">{username}</span>
                     <ChevronDown size={16} className="text-gray-400 hidden md:block" />
