@@ -6,5 +6,5 @@ export interface TeacherProfileData {
     age: number;
     salary: number;
     address: string;
-    imageUrl?: string;
+    url?: string;
 }
