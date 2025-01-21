@@ -7,7 +7,9 @@ import { Lecture } from '../types/lecture';
 const grades = [
   '1st Grade', '2nd Grade', '3rd Grade', '4th Grade',
   '5th Grade', '6th Grade', '7th Grade', '8th Grade',
-  '9th Grade', '10th Grade', '11th Grade', '12th Grade'
+  '9th Grade', '10th Grade', '11th Arts Grade', '11th Commerce Grade',
+  '11th Science Grade', '12th Science Grade', '12th Commerce Grade',
+  '12th Arts Grade',
 ];
 
 const Lectures = () => {
@@ -83,7 +85,11 @@ const Lectures = () => {
               )}
             </div>
 
-            <LectureGrid selectedGrade={selectedGrade} />
+            <LectureGrid selectedGrade={selectedGrade}
+              onEdit={(lecture) => {
+                setSelectedLecture(lecture); 
+                setIsModalOpen(true); 
+              }} />
           </div>
 
           <LectureModal

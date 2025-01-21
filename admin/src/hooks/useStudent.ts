@@ -6,6 +6,8 @@ import { APi_URL } from '../Server';
 
 export const useStudents = () => {
     const [students, setStudents] = useState<Student[]>([]);
+    const [male, setMale] = useState(0);
+    const [female, setFemale] = useState(0);
 
     useEffect(() => {
         const fetchStudent = async () => {
@@ -13,8 +15,14 @@ export const useStudents = () => {
                 const response = await axios.get(APi_URL + 'student/getAllStudent');
                 const data = response.data;
                 setStudents(data.students);
+                // Calculate gender counts
+                const maleCount = data.students.filter((student: Student) => student.gender === 'male').length;
+                const femaleCount = data.students.filter((student: Student) => student.gender === 'female').length;
+
+                setMale(maleCount);
+                setFemale(femaleCount);
             } catch (error) {
-                console.error("Error fetching teachers:", error); 
+                console.error("Error fetching teachers:", error);
             }
         };
 
@@ -44,5 +52,7 @@ export const useStudents = () => {
         addStudent,
         updateStudent,
         deleteStudent,
+        male,
+        female,
     };
 };

@@ -6,6 +6,7 @@ export interface Student {
   parentPhone: string;
   grade: string;
   enrollmentDate: string;
-  updatedAt : string;
-  url:string;
+  updatedAt: string;
+  url: string;
+  gender: string;
 }

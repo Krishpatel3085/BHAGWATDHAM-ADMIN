@@ -19,7 +19,7 @@ const timeSlots = [
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-const LectureGrid: React.FC<LectureGridProps> = ({ selectedGrade }) => {
+const LectureGrid: React.FC<LectureGridProps> = ({ selectedGrade, onEdit }) => {
     const { lectures } = useLectures();
     const filteredLectures = lectures.filter(lecture => lecture.grade === selectedGrade);
 
@@ -55,7 +55,17 @@ const LectureGrid: React.FC<LectureGridProps> = ({ selectedGrade }) => {
                                         {lecture ? (
                                             <div className="bg-[#252d3d] p-2 rounded">
                                                 <div className="text-white font-medium">{lecture.subject}</div>
-                                                <div className="text-gray-400 text-xs mt-1">{lecture.teacherName}</div>
+                                                <div className="flex justify-between items-center">
+                                                    {/* Teacher's name */}
+                                                    <div className="text-gray-400 text-sm">{lecture.teacherName}</div>
+                                                    {/* Edit button */}
+                                                    <button
+                                                        onClick={() => onEdit(lecture)}
+                                                        className="text-blue-400 hover:underline text-sm"
+                                                    >
+                                                        Edit
+                                                    </button>
+                                                </div>
                                             </div>
                                         ) : day === 'Sunday' ? (
                                             <div className="text-gray-500 text-center">Holiday</div>

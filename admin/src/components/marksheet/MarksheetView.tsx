@@ -1,6 +1,8 @@
 import React from 'react';
 import { X, Printer } from 'lucide-react';
 import { StudentMark } from '../../types/marksheet';
+import logo from '../../image/onlylogo.png'
+
 
 interface MarksheetViewProps {
     isOpen: boolean;
@@ -16,7 +18,13 @@ const MarksheetView: React.FC<MarksheetViewProps> = ({ isOpen, onClose, mark }) 
             <div className="fixed inset-0 bg-black/50" onClick={onClose} />
 
             <div className="relative min-h-screen flex items-center justify-center p-4">
-                <div className="relative bg-white rounded-xl w-full max-w-4xl p-8">
+                <div className="relative bg-white rounded-xl w-full max-w-4xl p-8 overflow-hidden">
+                    <img
+                        src={logo} 
+                        alt="School Logo"
+                        className="absolute inset-0 w-[500px] h-[500px] object-contain opacity-10"
+                        style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+                    />
                     {/* Header Actions */}
                     <div className="absolute top-4 right-4 flex items-center gap-2">
                         <button
@@ -46,7 +54,7 @@ const MarksheetView: React.FC<MarksheetViewProps> = ({ isOpen, onClose, mark }) 
                     {/* Student Details */}
                     <div className="grid grid-cols-2 gap-6 mb-6">
                         <div className="space-y-2">
-                            <p className="text-gray-600">Student Name: <span className="font-semibold text-gray-900">{mark.studentName}</span></p>
+                            <p className="text-gray-600">Student Name: <span className="font-semibold text-gray-900">{mark.studentName }</span></p>
                             <p className="text-gray-600">Roll No: <span className="font-semibold text-gray-900">{mark.rollNo}</span></p>
                             <p className="text-gray-600">Class: <span className="font-semibold text-gray-900">{mark.Class}</span></p>
                         </div>
