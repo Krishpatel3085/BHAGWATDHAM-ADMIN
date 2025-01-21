@@ -7,4 +7,5 @@ export interface Teacher {
   grade: string;
   age: string;
   subject?: string;
+  url: string;
 }

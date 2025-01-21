@@ -7,4 +7,5 @@ export interface Student {
   grade: string;
   enrollmentDate: string;
   updatedAt : string;
+  url:string;
 }

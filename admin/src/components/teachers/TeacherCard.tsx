@@ -11,7 +11,7 @@ const TeacherCard = ({ teacher, index }: TeacherCardProps) => {
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-3">
         <img
-          src={`https://i.pravatar.cc/150?img=${index + 10}`}
+          src={teacher.url || `https://i.pravatar.cc/150?img=${index + 10}`}
           alt={teacher.name}
           className="w-10 h-10 rounded-full"
         />

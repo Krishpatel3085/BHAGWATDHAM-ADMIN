@@ -6,9 +6,10 @@ interface RoleDropdownProps {
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   options: { value: string; label: string }[];
   required?: boolean;
+  placeholder?: string;
 }
 
-const RoleDropdown = ({ name, value, onChange, options, required }: RoleDropdownProps) => {
+const RoleDropdown = ({ name, value, onChange, options, required, placeholder }: RoleDropdownProps) => {
   return (
     <div className="relative">
       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -24,7 +25,7 @@ const RoleDropdown = ({ name, value, onChange, options, required }: RoleDropdown
           placeholder-gray-400 bg-white text-gray-900
           appearance-none transition-all duration-200"
       >
-        <option value="">Select Role</option>
+        <option value="">{placeholder || 'Select an option'}</option> {/* Dynamically set placeholder */}
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

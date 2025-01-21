@@ -8,13 +8,17 @@ import RoleDropdown from '../../components/auth/RoleDropdoem';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { APi_URL } from '../../Server';
+
+
 // Roles available for registration
 const registerRoles = [
     { value: 'Student', label: 'Student' },
     { value: 'Teacher', label: 'Teacher' },
 ];
-
-// const API_URL = 'https://ldfs6814-8000.inc1.devtunnels.ms/';
+const gender = [
+    { value: 'male', label: 'Male' },
+    { value: 'female', label: 'Female' },
+];
 
 const RegisterPage = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -25,6 +29,7 @@ const RegisterPage = () => {
         email: '',
         password: '',
         role: '',
+        gender: '',
     });
 
     // Handle form input changes
@@ -51,6 +56,7 @@ const RegisterPage = () => {
                 email: '',
                 password: '',
                 role: '',
+                gender: '',
             });
 
             alert('Registration Successful.');
@@ -88,6 +94,17 @@ const RegisterPage = () => {
                         value={formData.role}
                         onChange={handleChange}
                         options={registerRoles}
+                        placeholder="Select Role" 
+                        required
+                    />
+
+                    {/* Gender Field*/}
+                    <RoleDropdown
+                        name="gender"  // Added name attribute
+                        value={formData.gender}
+                        onChange={handleChange}
+                        options={gender}
+                        placeholder="Select Gender" 
                         required
                     />
 

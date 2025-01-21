@@ -12,9 +12,9 @@ const StudentTableRow: React.FC<StudentTableRowProps> = ({ student }) => {
             <td className="py-4">
                 <div className="flex items-center gap-3">
                     <img
-                        src={`https://i.pravatar.cc/150?img=${parseInt(student.id) + 20}`}
+                        src={student.url ||`https://i.pravatar.cc/150?img=${parseInt(student.id) + 20}`}
                         alt={student.name}
-                        className="w-8 h-8 rounded-full"
+                        className="w-10 h-10 rounded-full object-cover"
                     />
                     <span className="text-white">{student.name}</span>
                 </div>
