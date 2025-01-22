@@ -21,6 +21,9 @@ export interface FeePayment {
         dueDate: string;
         status: PaymentStatus;
         lastPaymentDate?: string;
+        receiptNo?: string;
+        paymentMethod?: PaymentMethod;
+
     }[],
 
 

@@ -4,7 +4,7 @@ import { FeePayment } from '../types/fees';
 
 // Initial form data structure aligned with backend response
 const initialFormData = {
-    id:'id',
+    id: 'id',
     studentName: '',
     studentId: '',
     grade: '',
@@ -15,6 +15,7 @@ const initialFormData = {
     parentName: '',
     parentPhone: '',
     lastPaymentDate: '',
+    receiptNo: '',
 };
 
 export const useFeesForm = (payment: FeePayment | null, onClose: () => void) => {
@@ -35,6 +36,7 @@ export const useFeesForm = (payment: FeePayment | null, onClose: () => void) => 
                 parentName: payment.parentName || '',
                 parentPhone: payment.parentPhone || '',
                 lastPaymentDate: payment.Fees?.[0]?.lastPaymentDate || '',
+                receiptNo: payment.Fees?.[0]?.receiptNo || ''
             });
         } else {
             setFormData(initialFormData);
@@ -75,6 +77,9 @@ export const useFeesForm = (payment: FeePayment | null, onClose: () => void) => 
                     status,
                     dueDate: formData.dueDate || '',
                     lastPaymentDate: formData.lastPaymentDate || new Date().toISOString().split('T')[0],
+                    paymentMethod: formData.paymentMethod || '',
+                    receiptNo:  `RCP${Date.now().toString().slice(-4)}`,
+
                 },
             ],
             lastPaymentDate: new Date().toISOString().split('T')[0],
