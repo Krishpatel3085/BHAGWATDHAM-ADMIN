@@ -2,16 +2,21 @@ import { useState } from 'react';
 import StudentTable from '../components/students/StudentTable';
 import StudentModal from '../components/students/StudentModal';
 import { Student } from '../types/student';
+import AttendanceModal from '../components/attendance/AttendanceModel';
 
 const Studednt = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
+  const [isAttendanceModalOpen, setIsAttendanceModalOpen] = useState(false);
 
   const handleEdit = (student: Student) => {
     setSelectedStudent(student);
     setIsModalOpen(true);
   };
-
+  const handleAttendance = (student: Student) => {
+    setSelectedStudent(student);
+    setIsAttendanceModalOpen(true);
+  };
   return (
     <>
 
@@ -23,7 +28,7 @@ const Studednt = () => {
           </div>
         </div>
 
-        <StudentTable onEdit={handleEdit} />
+        <StudentTable onEdit={handleEdit} onAttendance={handleAttendance} />
       </div>
 
       <StudentModal
@@ -34,6 +39,18 @@ const Studednt = () => {
         }}
         student={selectedStudent}
       />
+      
+      {isAttendanceModalOpen && selectedStudent && (
+        <AttendanceModal
+          isOpen={isAttendanceModalOpen}
+          onClose={() => {
+            setIsAttendanceModalOpen(false);
+            setSelectedStudent(null);
+          }}
+          type="student"
+          user={selectedStudent}
+        />
+      )}
     </>
   );
 };

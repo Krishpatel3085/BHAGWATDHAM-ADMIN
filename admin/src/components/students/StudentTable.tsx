@@ -1,14 +1,15 @@
 import React from 'react';
-import { User } from 'lucide-react';
+import { User, UserCheck } from 'lucide-react';
 import { Student } from '../../types/student';
 import { useStudents } from '../../hooks/useStudent';
 
 interface StudentTableProps {
     onEdit: (student: Student) => void;
+    onAttendance: (student: Student) => void;
 }
 
-const StudentTable: React.FC<StudentTableProps> = () => {
-    const { students } = useStudents();
+const StudentTable: React.FC<StudentTableProps> = ({ onAttendance }) => {
+    const { students, } = useStudents();
 
     return (
         <div className="overflow-x-auto">
@@ -20,6 +21,7 @@ const StudentTable: React.FC<StudentTableProps> = () => {
                         <th className="pb-4 text-sm font-medium text-gray-400">Parent's Phone</th>
                         <th className="pb-4 text-sm font-medium text-gray-400">Address</th>
                         <th className="pb-4 text-sm font-medium text-gray-400">Grade</th>
+                        <th className="pb-4 text-sm font-medium text-gray-400">Actions</th>
 
                     </tr>
                 </thead>
@@ -40,6 +42,19 @@ const StudentTable: React.FC<StudentTableProps> = () => {
                                 {student.address.length > 15 ? `${student.address.slice(0, 15)}...` : student.address}
                             </td>
                             <td className="py-4 text-gray-300">{student.grade}</    td>
+
+                            <td className="py-4">
+                                <div className="flex items-center gap-2">
+                                    <button
+                                        onClick={() => onAttendance(student)}
+                                        className="p-1.5 hover:bg-[#252d3d] rounded-lg text-green-400 hover:text-green-300"
+                                        title="Mark Attendance"
+                                    >
+                                        <UserCheck size={16} />
+                                    </button>
+
+                                </div>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
