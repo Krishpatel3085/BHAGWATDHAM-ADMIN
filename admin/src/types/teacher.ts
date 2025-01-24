@@ -8,4 +8,8 @@ export interface Teacher {
   age: string;
   subject?: string;
   url: string;
+  Attendance: {
+    date: number;
+    attendance: string;
+  }[]
 }

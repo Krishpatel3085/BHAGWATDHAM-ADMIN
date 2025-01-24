@@ -1,14 +1,15 @@
 import React from 'react';
-import { User, UserCheck } from 'lucide-react';
+import { User, UserCheck, Eye } from 'lucide-react';
 import { Student } from '../../types/student';
 import { useStudents } from '../../hooks/useStudent';
 
 interface StudentTableProps {
     onEdit: (student: Student) => void;
     onAttendance: (student: Student) => void;
+    onViewAttendance: (student: Student) => void;
 }
 
-const StudentTable: React.FC<StudentTableProps> = ({ onAttendance }) => {
+const StudentTable: React.FC<StudentTableProps> = ({ onAttendance, onViewAttendance }) => {
     const { students, } = useStudents();
 
     return (
@@ -52,7 +53,13 @@ const StudentTable: React.FC<StudentTableProps> = ({ onAttendance }) => {
                                     >
                                         <UserCheck size={16} />
                                     </button>
-
+                                    <button
+                                        onClick={() => onViewAttendance(student)}
+                                        className="p-1.5 hover:bg-[#1e2746] rounded-lg text-blue-400 hover:text-blue-300"
+                                        title="View Attendance"
+                                    >
+                                        <Eye size={16} />
+                                    </button>
                                 </div>
                             </td>
                         </tr>

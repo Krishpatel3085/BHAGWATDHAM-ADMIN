@@ -3,10 +3,13 @@ import TeacherTable from '../components/teachers/TeacherTable';
 import TeacherModal from '../components/teachers/TeacherModel';
 import { Teacher } from '../types/teacher';
 import AttendanceModal from '../components/attendance/AttendanceModel';
+import AttendanceCalendarModal from '../components/attendance/AttendanceCalendarModal';
 const Teachers = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
     const [isAttendanceModalOpen, setIsAttendanceModalOpen] = useState(false);
+    const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
+
     const handleEdit = (teacher: Teacher) => {
         setSelectedTeacher(teacher);
         setIsModalOpen(true);
@@ -18,6 +21,11 @@ const Teachers = () => {
     };
 
 
+    const handleViewAttendance = (teacher: Teacher) => {
+        setSelectedTeacher(teacher);
+        setIsCalendarModalOpen(true);
+    };
+
     return (
         <>
             <div className="bg-[#1e2746] rounded-xl p-6">
@@ -25,7 +33,7 @@ const Teachers = () => {
                     <h1 className="text-xl font-semibold text-white">Teacher Management</h1>
                 </div>
 
-                <TeacherTable onEdit={handleEdit} onAttendance={handleAttendance} />
+                <TeacherTable onEdit={handleEdit} onAttendance={handleAttendance}  onViewAttendance={handleViewAttendance}/>
             </div>
 
             <TeacherModal
@@ -46,6 +54,19 @@ const Teachers = () => {
                     }}
                     type="teacher"
                     user={selectedTeacher}
+                />
+            )}
+
+
+            {isCalendarModalOpen && selectedTeacher && (
+                <AttendanceCalendarModal
+                    isOpen={isCalendarModalOpen}
+                    onClose={() => {
+                        setIsCalendarModalOpen(false);
+                        setSelectedTeacher(null);
+                    }}
+                    type="teacher"
+                    teacher={selectedTeacher}
                 />
             )}
 

@@ -9,4 +9,8 @@ export interface Student {
   updatedAt: string;
   url: string;
   gender: string;
+  Attendance: {
+    date: number;
+    attendance: string;
+  }[]
 }

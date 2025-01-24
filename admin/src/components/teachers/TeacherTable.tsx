@@ -1,14 +1,15 @@
 import React from 'react';
-import { User, UserCheck } from 'lucide-react';
+import { User, UserCheck, Eye } from 'lucide-react';
 import { useTeachers } from '../../hooks/useTeachers';
 import { Teacher } from '../../types/teacher';
 
 interface TeacherTableProps {
     onEdit: (teacher: Teacher) => void;
     onAttendance: (teacher: Teacher) => void;
+    onViewAttendance: (teacher: Teacher) => void;
 }
 
-const TeacherTable: React.FC<TeacherTableProps> = ({ onAttendance }) => {
+const TeacherTable: React.FC<TeacherTableProps> = ({ onAttendance, onViewAttendance }) => {
     const { teachers } = useTeachers();
 
     return (
@@ -50,6 +51,13 @@ const TeacherTable: React.FC<TeacherTableProps> = ({ onAttendance }) => {
                                         title="Mark Attendance"
                                     >
                                         <UserCheck size={16} />
+                                    </button>
+                                    <button
+                                        onClick={() => onViewAttendance(teacher)}
+                                        className="p-1.5 hover:bg-[#1e2746] rounded-lg text-blue-400 hover:text-blue-300"
+                                        title="View Attendance"
+                                    >
+                                        <Eye size={16} />
                                     </button>
                                 </div>
                             </td>
