@@ -24,10 +24,7 @@ export default function TampleG() {
         subject: "",
     });
 
-    useEffect(() => {
-        fetchImages();
-    }, []);
-
+  
     const fetchImages = async () => {
         try {
             const response = await axios.get(APi_URL + "TempleGallery/getTG");
@@ -38,6 +35,10 @@ export default function TampleG() {
             console.error("Error fetching images", error);
         }
     };
+
+    useEffect(() => {
+        fetchImages();
+    }, []);
 
     const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
