@@ -14,6 +14,7 @@ interface ImageData {
     ImageName: string;
     ImageSubject: string;
     Imageyear: string;
+    year?: string | number;
 }
 export default function Gallery() {
     const [imagePreview, setImagePreview] = useState<string | null>(null)
@@ -21,6 +22,9 @@ export default function Gallery() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [uploadedImages, setUploadedImages] = useState<ImageData[]>([]);
     const [editingImage, setEditingImage] = useState<ImageData | null>(null);
+
+    const [selectedYear, setSelectedYear] = useState<string | null>(null);
+    const [filteredImages, setFilteredImages] = useState<ImageData[]>([]);
     const [formData, setFormData] = useState({
         name: "",
         subject: "",
@@ -31,7 +35,7 @@ export default function Gallery() {
         try {
             const response = await axios.get(APi_URL + "GalleryPage/getGPa");
             setUploadedImages(response.data.galleries);
-
+            setFilteredImages(response.data.galleries);
         } catch (error) {
             console.error("Error fetching images", error);
         }
@@ -41,6 +45,20 @@ export default function Gallery() {
         fetchImages();
     }, []);
 
+
+    const uniqueYears = [...new Set(uploadedImages.map(img => img.Imageyear))]
+        .filter(year => Number(year) >= new Date().getFullYear() - 5) // Convert to number before comparison
+        .sort((a, b) => Number(b) - Number(a)); // Sort descending
+
+    // Handle Year Click
+    const filterByYear = (year: string | null) => {
+        setSelectedYear(year);
+        if (year) {
+            setFilteredImages(uploadedImages.filter(img => img.Imageyear === year));
+        } else {
+            setFilteredImages(uploadedImages);
+        }
+    };
     const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
@@ -145,6 +163,8 @@ export default function Gallery() {
     return (
         <div className="p-6">
 
+
+
             <div className="space-y-6">
 
                 <div className="bg-[#1e2746] rounded-xl p-6">
@@ -229,12 +249,29 @@ export default function Gallery() {
                 </div>
             </div>
 
+            <div className="flex gap-4 mb-0 mt-4">
+                {uniqueYears.map(year => (
+                    <button
+                        key={year}
+                        onClick={() => filterByYear(year)}
+                        className={`px-4 py-2 rounded-lg ${selectedYear === year ? "bg-blue-600 text-white" : "bg-gray-700 text-gray-300"}`}
+                    >
+                        {year}
+                    </button>
+                ))}
+                {selectedYear && (
+                    <button onClick={() => filterByYear(null)} className="bg-red-500 text-white px-4 py-2 rounded-lg">
+                        Clear Filter
+                    </button>
+                )}
+            </div>
+
             <div className="mt-10">
                 <h2 className="text-lg font-semibold text-white mb-4">Uploaded Images</h2>
                 <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                    {uploadedImages.map((img) => (
+                    {filteredImages.map((img) => (
                         <div key={img._id} className="relative group bg-gray-800 p-3 rounded-lg">
-                            <img src={img.Img} alt={img.ImageName} className="w-full h-48 object-cover rounded-lg" />
+                            <img src={img.Img} alt={img.ImageName} className="w-full h-48 object-cover object-center rounded-lg" />
                             <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                 <p className="text-white font-semibold">{img.ImageName}</p>
                                 <div className="flex gap-3 mt-2">
