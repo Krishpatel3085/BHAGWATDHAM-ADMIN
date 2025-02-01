@@ -17,6 +17,7 @@ import TampleG from './pages/TampleG';
 import ProfilePage from './pages/Profile';
 import Gallery from './pages/Gallery';
 import Activites from './pages/Activites';
+import PublicationPage from './pages/Publication';
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
                 <Route path="/tampleG" element={<TampleG />} />
                 <Route path="/gallery" element={<Gallery />} />
                 <Route path="/activities" element={<Activites />} />
+                <Route path="/publication" element={<PublicationPage />} />
                 <Route path="/Profile/:id" element={<ProfilePage />} />
               </Routes>
             </Layout>
