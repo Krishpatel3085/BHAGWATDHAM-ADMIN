@@ -2,26 +2,45 @@ import { useState } from 'react';
 import PublicationForm from '../components/publication/PublicationForm';
 import PublicationCard from '../components/publication/PublicationCard';
 import { usePublications } from '../hooks/usePublication';
-import { PublicationType } from '../types/publication';
-
+import { PublicationType, Publication } from '../types/publication';
 const publicationTypes: PublicationType[] = ['Kirtan', 'Katha', 'Video', 'Book', 'Wallpaper'];
 
 const PublicationPage = () => {
-    const { addPublication, getPublicationsByType } = usePublications();
+    const { publications, addPublication, updatePublication, deletePublication, getPublicationsByType } = usePublications();
     const [selectedType, setSelectedType] = useState<PublicationType | 'all'>('all');
+    const [selectedPublication, setSelectedPublication] = useState<Publication | null>(null);
 
     const handleSubmit = (data: any) => {
-        addPublication(data);
+        if (data.id) {
+            updatePublication(data.id, data);
+            setSelectedPublication(null);
+        } else {
+            addPublication(data);
+        }
+    };
+
+    const handleEdit = (publication: Publication) => {
+        setSelectedPublication(publication);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const handleDelete = (id: string) => {
+        if (window.confirm('Are you sure you want to delete this publication?')) {
+            deletePublication(id);
+        }
     };
 
     const filteredPublications = selectedType === 'all'
-        ? [] // Show all publications
+        ? publications
         : getPublicationsByType(selectedType);
 
     return (
 
         <div className="space-y-6">
-            <PublicationForm onSubmit={handleSubmit} />
+            <PublicationForm
+                onSubmit={handleSubmit}
+                publication={selectedPublication}
+            />
 
             <div className="bg-[#1e2746] rounded-xl p-6">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
@@ -43,12 +62,16 @@ const PublicationPage = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {filteredPublications.map((publication) => (
-                        <PublicationCard key={publication.id} publication={publication} />
+                        <PublicationCard
+                            key={publication.id}
+                            publication={publication}
+                            onEdit={handleEdit}
+                            onDelete={handleDelete}
+                        />
                     ))}
                 </div>
             </div>
         </div>
-
     );
 };
 
