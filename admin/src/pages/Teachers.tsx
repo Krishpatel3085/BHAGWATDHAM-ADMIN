@@ -29,10 +29,6 @@ const Teachers = () => {
     return (
         <>
             <div className="bg-[#1e2746] rounded-xl p-6">
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-                    <h1 className="text-xl font-semibold text-white">Teacher Management</h1>
-                </div>
-
                 <TeacherTable onEdit={handleEdit} onAttendance={handleAttendance}  onViewAttendance={handleViewAttendance}/>
             </div>
 
