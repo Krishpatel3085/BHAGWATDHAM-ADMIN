@@ -28,7 +28,7 @@ export const usePublications = () => {
     }, []);
 
     // Add new publication
-    const addPublication = async (publication: Omit<Publication, 'id'> & { file: File }) => {
+    const addPublication = async (publication: Omit<Publication, 'id'> & { file: File; pdfFile?: File }) => {
         try {
             const formData = new FormData();
             formData.append('Publication', publication.Publication);
@@ -36,6 +36,9 @@ export const usePublications = () => {
             formData.append('Description', publication.Description);
             formData.append('PublicationDate', publication.PublicationDate);
             formData.append('Img', publication.file); // Ensure this key matches the backend
+            if (publication.pdfFile) {
+                formData.append('Pdf', publication.pdfFile); // Add PDF separately
+            }
 
             const response = await axios.post(`${APi_URL}Publications/CreatePublication`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
@@ -57,7 +60,7 @@ export const usePublications = () => {
     };
 
 
-    const updatePublication = async (id: string, updatedPublication: Omit<Publication, 'id'> & { file?: File }) => {
+    const updatePublication = async (id: string, updatedPublication: Omit<Publication, 'id'> & { file?: File; pdfFile?: File }) => {
         try {
             const formData = new FormData();
             formData.append('Publication', updatedPublication.Publication);
@@ -69,6 +72,9 @@ export const usePublications = () => {
                 formData.append('Img', updatedPublication.file); // Only append if there's a new image
             }
 
+            if (updatedPublication.pdfFile) {
+                formData.append('Pdf', updatedPublication.pdfFile);
+            }
             const response = await axios.put(`${APi_URL}Publications/updatePublication/${id}`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });

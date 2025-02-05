@@ -3,7 +3,7 @@ import PublicationForm from '../components/publication/PublicationForm';
 import PublicationCard from '../components/publication/PublicationCard';
 import { usePublications } from '../hooks/usePublication';
 import { PublicationType, Publication } from '../types/publication';
-const publicationTypes: PublicationType[] = ['Kirtan', 'Katha', 'Video', 'Book', 'Wallpaper'];
+const publicationTypes: PublicationType[] = ['Kirtan', 'Katha', 'Book', 'Wallpaper'];
 
 const PublicationPage = () => {
     const { publications, addPublication, updatePublication, deletePublication, getPublicationsByType } = usePublications();

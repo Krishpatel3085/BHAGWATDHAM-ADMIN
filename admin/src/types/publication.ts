@@ -1,4 +1,4 @@
-export type PublicationType = 'Kirtan' | 'Katha' | 'Video' | 'Book' | 'Wallpaper';
+export type PublicationType = 'Kirtan' | 'Katha' | 'Book' | 'Wallpaper';
 
 export interface Publication {
     id: string;
@@ -9,4 +9,8 @@ export interface Publication {
     PublicationDate: string;
     Img: string;
     Link?: string;
+    pdfUrl?: string;
+
 }
+
+

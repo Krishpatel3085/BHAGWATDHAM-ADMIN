@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Upload, X } from 'lucide-react';
+import { Upload, X, FileText } from 'lucide-react';
 import { PublicationType, Publication } from '../../types/publication';
 
 interface PublicationFormProps {
@@ -7,18 +7,21 @@ interface PublicationFormProps {
     publication?: Publication | null;
 }
 
-const publicationTypes: PublicationType[] = ['Kirtan', 'Katha', 'Video', 'Book', 'Wallpaper'];
+const publicationTypes: PublicationType[] = ['Kirtan', 'Katha', 'Book', 'Wallpaper'];
 
 const PublicationForm: React.FC<PublicationFormProps> = ({ onSubmit, publication }) => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [selectedPdfFile, setSelectedPdfFile] = useState<File | null>(null);
     const [formData, setFormData] = useState({
         Publication: '',
         PublicationName: '',
         Description: '',
         PublicationDate: '',
         Link: '',
+        pdfUrl: '',
     });
     const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const [pdfFile, setPdfFile] = useState<string | null>(null);
 
     useEffect(() => {
         if (publication) {
@@ -28,8 +31,10 @@ const PublicationForm: React.FC<PublicationFormProps> = ({ onSubmit, publication
                 Description: publication.Description,
                 PublicationDate: publication.PublicationDate,
                 Link: publication.Link || '',
+                pdfUrl: publication.pdfUrl || '',
             });
             setImagePreview(publication.Img);
+            setPdfFile(publication.pdfUrl || null);
         }
     }, [publication]);
 
@@ -53,27 +58,45 @@ const PublicationForm: React.FC<PublicationFormProps> = ({ onSubmit, publication
         }
     };
 
+    const handlePdfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setSelectedPdfFile(file);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPdfFile(reader.result as string);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        if (!imagePreview) return;
         if (!selectedFile) return alert("Please select an image");
 
-        onSubmit({
+        const submitData = {
             ...formData,
-            file: selectedFile, // Pass file to backend
+            file: selectedFile,
+            pdfFile: formData.Publication === 'Book' ? selectedPdfFile : undefined,
             id: publication?._id,
-        });
+        };
 
-        // Reset form
+        onSubmit(submitData);
+
+
         setFormData({
             Publication: '',
             PublicationName: '',
             Description: '',
             PublicationDate: '',
             Link: '',
+            pdfUrl: '',
         });
         setImagePreview(null);
+        setPdfFile(null);
         setSelectedFile(null);
-
+        setSelectedPdfFile(null);
     };
 
     return (
@@ -144,14 +167,14 @@ const PublicationForm: React.FC<PublicationFormProps> = ({ onSubmit, publication
                         />
                     </div>
 
-                    {formData.Publication === 'Katha' && (
+                    {(formData.Publication === 'Katha' || formData.Publication === 'Kirtan') && (
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-1">
                                 YouTube Link *
                             </label>
                             <input
                                 type="url"
-                                name="Link"
+                                name="youtubeLink"
                                 value={formData.Link}
                                 onChange={handleChange}
                                 className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white"
@@ -161,9 +184,54 @@ const PublicationForm: React.FC<PublicationFormProps> = ({ onSubmit, publication
                         </div>
                     )}
 
+                    {formData.Publication === 'Book' && (
+                        <div className="md:col-span-2">
+                            <label className="block text-sm font-medium text-gray-300 mb-1">
+                                PDF File *
+                            </label>
+                            <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-700 px-6 py-10">
+                                <div className="text-center">
+                                    {pdfFile ? (
+                                        <div className="flex items-center justify-center gap-2">
+                                            <FileText className="text-blue-400" size={24} />
+                                            <span className="text-gray-300">PDF uploaded</span>
+                                            <button
+                                                type="button"
+                                                onClick={() => setPdfFile(null)}
+                                                className="p-1 bg-red-500 rounded-full text-white hover:bg-red-600"
+                                            >
+                                                <X size={14} />
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <div className="flex flex-col items-center">
+                                            <Upload className="mx-auto h-12 w-12 text-gray-400" />
+                                            <div className="mt-4 flex text-sm leading-6 text-gray-400">
+                                                <label className="relative cursor-pointer rounded-md bg-transparent font-semibold text-blue-400 hover:text-blue-300">
+                                                    <span>Upload PDF</span>
+                                                    <input
+                                                        type="file"
+                                                        accept=".pdf"
+                                                        className="sr-only"
+                                                        onChange={handlePdfChange}
+                                                        required={formData.Publication === 'Book' && !publication}
+                                                    />
+                                                </label>
+                                                <p className="pl-1">or drag and drop</p>
+                                            </div>
+                                            <p className="text-xs leading-5 text-gray-400">
+                                                PDF files up to 10MB
+                                            </p>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
                     <div className="md:col-span-2">
                         <label className="block text-sm font-medium text-gray-300 mb-1">
-                            Publication Image *
+                            {formData.Publication === 'Book' ? 'Book Cover Image *' : 'Publication Image *'}
                         </label>
                         <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-700 px-6 py-10">
                             <div className="text-center">

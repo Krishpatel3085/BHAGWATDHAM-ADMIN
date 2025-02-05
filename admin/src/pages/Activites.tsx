@@ -21,6 +21,7 @@ export default function Activities() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [uploadedImages, setUploadedImages] = useState<ImageData[]>([]);
     const [editingImage, setEditingImage] = useState<ImageData | null>(null);
+    const [loadingId, setLoadingId] = useState<string | null>(null);
 
     // Include all form fields
     const [formData, setFormData] = useState({
@@ -126,6 +127,8 @@ export default function Activities() {
 
     // Populate form when editing
     const handleEdit = (image: ImageData) => {
+        setLoadingId(image._id);
+
         setFormData({
             name: image.ActivitiesName,
             subject: image.ActivitiesSubject,
@@ -135,16 +138,23 @@ export default function Activities() {
         });
         setImagePreview(image.Img);
         setEditingImage(image);
+
+        setTimeout(() => {
+            setLoadingId(null); // Remove loader after selection
+        }, 500);
     };
 
     // Delete an image
     const handleDelete = async (id: string) => {
         if (confirm("Are you sure you want to delete this image?")) {
+            setLoadingId(id); // Show loader
             try {
                 await axios.delete(`${APi_URL}Activities/deleteActivities/${id}`);
                 setUploadedImages((prev) => prev.filter((img) => img._id !== id));
             } catch (error) {
                 console.error("Error deleting image", error);
+            } finally {
+                setLoadingId(null); // Remove loader
             }
         }
     };
@@ -169,7 +179,7 @@ export default function Activities() {
                             <div className="space-y-4">
                                 <div className="space-y-2">
                                     <Form.Label htmlFor="name" className="text-gray-200">
-                                        Activities NAME
+                                        Activities Name
                                     </Form.Label>
                                     <Form.Control
                                         id="name"
@@ -179,7 +189,7 @@ export default function Activities() {
                                     />
                                 </div>
 
-                                <div className="space-y-2">
+                                {/* <div className="space-y-2">
                                     <Form.Label htmlFor="subject" className="text-gray-200">
                                         Activities subject
                                     </Form.Label>
@@ -189,7 +199,27 @@ export default function Activities() {
                                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                                         className="w-full bg-transparent border p-1.5 border-gray-600 text-white rounded-lg"
                                     />
+                                </div> */}
+                                <div className="space-y-2">
+                                    <Form.Label htmlFor="subject" className="text-gray-200">
+                                        Activities Subject
+                                    </Form.Label>
+                                    <Form.Control
+                                        as="select" // This changes the input to a select dropdown
+                                        id="subject"
+                                        value={formData.subject}
+                                        onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                                        className="w-full bg-transparent border p-1.5 border-gray-600 text-white rounded-lg"
+                                    >
+                                        {/* Replace with your actual options */}
+                                        <option value="" className="text-black">Select a subject</option>
+                                        <option value="Spiritual" className="text-black">Spiritual activities</option>
+                                        <option value="Cluture" className="text-black">Cultural activities</option>
+                                        <option value="Eductional" className="text-black">Educational activities</option>
+
+                                    </Form.Control>
                                 </div>
+
                                 <div className="space-y-2">
                                     <Form.Label htmlFor="description" className="text-gray-200">
                                         Activities Description
@@ -273,12 +303,22 @@ export default function Activities() {
                             <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                 <p className="text-white font-semibold">{img.ActivitiesName}</p>
                                 <div className="flex gap-3 mt-2">
-                                    <button onClick={() => handleEdit(img)} className="bg-blue-500 p-2 rounded-full text-white hover:bg-blue-600">
-                                        <Pencil className="h-5 w-5" />
+                                    <button
+                                        onClick={() => handleEdit(img)}
+                                        className="bg-blue-500 p-2 rounded-full text-white hover:bg-blue-600"
+                                        disabled={loadingId === img._id} // Disable when loading
+                                    >
+                                        {loadingId === img._id ? <Loader2 className="animate-spin h-5 w-5" /> : <Pencil className="h-5 w-5" />}
                                     </button>
-                                    <button onClick={() => handleDelete(img._id)} className="bg-red-500 p-2 rounded-full text-white hover:bg-red-600">
-                                        <Trash className="h-5 w-5" />
+
+                                    <button
+                                        onClick={() => handleDelete(img._id)}
+                                        className="bg-red-500 p-2 rounded-full text-white hover:bg-red-600"
+                                        disabled={loadingId === img._id} // Disable when loading
+                                    >
+                                        {loadingId === img._id ? <Loader2 className="animate-spin h-5 w-5" /> : <Trash className="h-5 w-5" />}
                                     </button>
+
                                 </div>
                             </div>
                         </div>
