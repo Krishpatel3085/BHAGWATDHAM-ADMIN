@@ -43,7 +43,6 @@ const NewStudentList: React.FC<StudentListProps> = ({ setStudentCount }) => {
                             <th className="pb-4 text-sm font-medium text-gray-400">Branch</th>
                             <th className="pb-4 text-sm font-medium text-gray-400">Date of Admission</th>
                             <th className="pb-4 text-sm font-medium text-gray-400">Fee Receipt</th>
-                            <th className="pb-4 text-sm font-medium text-gray-400">Actions</th>
                         </tr>
                     </thead>
                     <tbody className="text-sm">

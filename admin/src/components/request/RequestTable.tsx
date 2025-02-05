@@ -1,7 +1,7 @@
-import { Check, X } from 'lucide-react';
+import { useState } from 'react';
+import { Check, X, Search } from 'lucide-react';
 import { Request } from '../../types/request';
 import RequestStatusBadge from './RequestStatusBadge';
-
 
 interface RequestTableProps {
     requests: Request[];
@@ -9,11 +9,42 @@ interface RequestTableProps {
     onReject: (id: string) => void;
 }
 
-const RequestTable: React.FC<RequestTableProps> = ({ requests,onApprove, onReject }) => {
+const RequestTable: React.FC<RequestTableProps> = ({ requests, onApprove, onReject }) => {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5;
 
+    // Filter requests based on search term
+    const filteredRequests = requests.filter(request =>
+        request.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        request.role.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    // Pagination logic
+    const totalPages = Math.ceil(filteredRequests.length / itemsPerPage);
+    const paginatedRequests = filteredRequests.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
     return (
         <div className="overflow-x-auto">
+            {/* Search Input */}
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 pb-4">
+                <div>
+                    <h1 className="text-xl font-semibold text-white">Request Management</h1>
+                    <p className="text-gray-400 text-sm mt-1">Manage registration requests</p>
+                </div>
+                <div className="relative w-full max-w-md">
+                    <input
+                        type="text"
+                        placeholder="Search by name or role..."
+                        className="w-full px-4 py-2 pl-10 text-white bg-gray-800 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
+
+                </div>
+            </div>
+            {/* Table */}
             <table className="w-full min-w-[800px]">
                 <thead>
                     <tr className="text-left">
@@ -26,7 +57,7 @@ const RequestTable: React.FC<RequestTableProps> = ({ requests,onApprove, onRejec
                     </tr>
                 </thead>
                 <tbody className="text-sm">
-                    {requests.map((request) => (
+                    {paginatedRequests.map((request) => (
                         <tr key={request.id} className="border-t border-gray-700">
                             <td className="py-4">
                                 <img
@@ -71,6 +102,27 @@ const RequestTable: React.FC<RequestTableProps> = ({ requests,onApprove, onRejec
                     ))}
                 </tbody>
             </table>
+
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+                <div className="mt-4 flex justify-center gap-2">
+                    <button
+                        className="px-3 py-1 bg-gray-700 text-white rounded-md disabled:opacity-50"
+                        disabled={currentPage === 1}
+                        onClick={() => setCurrentPage(currentPage - 1)}
+                    >
+                        Previous
+                    </button>
+                    <span className="px-3 py-1 bg-gray-800 text-white rounded-md">Page {currentPage} of {totalPages}</span>
+                    <button
+                        className="px-3 py-1 bg-gray-700 text-white rounded-md disabled:opacity-50"
+                        disabled={currentPage === totalPages}
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                    >
+                        Next
+                    </button>
+                </div>
+            )}
         </div>
     );
 };

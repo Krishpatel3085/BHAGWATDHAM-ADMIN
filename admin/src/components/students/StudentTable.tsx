@@ -42,8 +42,6 @@ const StudentTable: React.FC<StudentTableProps> = ({ onAttendance, onViewAttenda
 
     return (
         <div className="overflow-x-auto">
-            {/* Search Input */}
-            {/* Search Input & Title */}
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 pb-4">
                 <div>
                     <h1 className="text-xl font-semibold text-white">Student Management</h1>
