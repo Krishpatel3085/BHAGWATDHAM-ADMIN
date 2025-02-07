@@ -8,7 +8,7 @@ export interface Publication {
     Description: string;
     PublicationDate: string;
     Img: string;
-    Link?: string;
+    Link: string;
     pdfUrl?: string;
 
 }

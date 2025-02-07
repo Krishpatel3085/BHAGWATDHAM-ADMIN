@@ -35,6 +35,7 @@ export const usePublications = () => {
             formData.append('PublicationName', publication.PublicationName);
             formData.append('Description', publication.Description);
             formData.append('PublicationDate', publication.PublicationDate);
+            formData.append('Link', publication.Link);
             formData.append('Img', publication.file); // Ensure this key matches the backend
             if (publication.pdfFile) {
                 formData.append('Pdf', publication.pdfFile); // Add PDF separately
@@ -67,6 +68,7 @@ export const usePublications = () => {
             formData.append('PublicationName', updatedPublication.PublicationName);
             formData.append('Description', updatedPublication.Description);
             formData.append('PublicationDate', updatedPublication.PublicationDate);
+            formData.append('Link', updatedPublication.Link);
 
             if (updatedPublication.file) {
                 formData.append('Img', updatedPublication.file); // Only append if there's a new image

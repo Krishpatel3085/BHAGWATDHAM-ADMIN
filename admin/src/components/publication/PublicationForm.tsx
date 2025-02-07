@@ -174,7 +174,7 @@ const PublicationForm: React.FC<PublicationFormProps> = ({ onSubmit, publication
                             </label>
                             <input
                                 type="url"
-                                name="youtubeLink"
+                                name="Link"
                                 value={formData.Link}
                                 onChange={handleChange}
                                 className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white"

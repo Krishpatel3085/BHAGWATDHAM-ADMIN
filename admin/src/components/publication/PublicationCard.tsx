@@ -34,7 +34,7 @@ const PublicationCard: React.FC<PublicationCardProps> = ({ publication, onEdit, 
             <img
               src={publication.Img}
               alt={publication.PublicationName}
-              className="w-full h-48 object-cover"
+              className="w-full h-52 object-cover"
             />
             <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
               {(publication.Publication === 'Katha' || publication.Publication === 'Kirtan') && publication.Link && (
@@ -86,8 +86,8 @@ const PublicationCard: React.FC<PublicationCardProps> = ({ publication, onEdit, 
             <h3 className="mt-3 text-lg font-semibold text-white line-clamp-2">
               {publication.PublicationName}
             </h3>
-            <p className="mt-2 text-sm text-gray-400 line-clamp-2">
-              {publication.Description}
+            <p className="mt-2 text-sm text-gray-400 line-clamp-2 h-5">
+              {publication.Description}...
             </p>
             <button
               onClick={() => setIsFlipped(true)}
@@ -99,19 +99,18 @@ const PublicationCard: React.FC<PublicationCardProps> = ({ publication, onEdit, 
         </div>
 
         {/* Back of card */}
-        <div 
+        <div
           className="absolute inset-0 bg-[#252d3d] rounded-xl p-6 backface-hidden"
           style={{ transform: 'rotateY(180deg)' }}
         >
           <div className="h-full flex flex-col">
             <h3 className="text-lg font-semibold text-white mb-4">{publication.PublicationName}</h3>
-            
+
             <div className="flex items-center gap-2 text-gray-400 text-sm mb-4">
               <Calendar size={16} />
               <span>{new Date(publication.PublicationDate).toLocaleDateString()}</span>
             </div>
-
-            <p className="text-gray-300 flex-grow">
+            <p className="text-gray-300 flex-grow overflow-y-scroll custom-scrollbar">
               {publication.Description}
             </p>
 
