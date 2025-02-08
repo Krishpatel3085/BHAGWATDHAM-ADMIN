@@ -196,14 +196,15 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ profile, isEditing, onCancel 
                             <div>
                                 <h3 className="text-white font-medium">Current Fees Status</h3>
                                 <p className="text-gray-400 text-sm mt-1">
-                                    Total Fees: ₹{formData.Fees[0].TotalAmount} | Paid: ₹{formData.Fees[0].PaidAmount}
+                                    Total Fees: ₹{formData.Fees?.[0]?.TotalAmount || 0} 
+                                    | Paid: ₹{formData.Fees?.[0]?.PaidAmount ||0}
                                 </p>
                             </div>
                             <div className={`px-3 py-1 rounded-full text-sm ${formData.feesStatus === 'paid'
                                 ? 'bg-green-500/20 text-green-400'
                                 : 'bg-yellow-500/20 text-yellow-400'
                                 }`}>
-                                {formData.feesStatus === 'paid' ? 'Paid' : 'Pending'}
+                               {formData.feesStatus ? (formData.feesStatus === 'paid' ? 'Paid' : 'Pending') : 'Pending'}
                             </div>
                         </div>
                     </div>

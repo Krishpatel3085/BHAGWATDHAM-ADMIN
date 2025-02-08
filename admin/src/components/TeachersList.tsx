@@ -27,16 +27,24 @@ const TeachersList: React.FC<TeachersListProps> = ({ setTeacherCount }) => {
   }, [setTeacherCount]);
   return (
     <div className="bg-[#1e2746] rounded-xl p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="font-semibold text-white">Teacher List</h3>
+    <div className="flex items-center justify-between mb-6">
+      <h3 className="font-semibold text-white">Teacher List</h3>
         <button className="text-sm text-blue-400 hover:text-blue-300">View All</button>
-      </div>
-      <div className="space-y-4">
-        {teachers.map((teacher, index) => (
-          <TeacherCard key={index} teacher={teacher} index={index} />
-        ))}
-      </div>
     </div>
+  
+    <div className="space-y-4">
+      {teachers.length > 0 ? (
+        teachers.map((teacher, index) => (
+          <TeacherCard key={index} teacher={teacher} index={index} />
+        ))
+      ) : (
+        <div className="flex items-center justify-center text-gray-400 py-4">
+          Teacher not found.
+        </div>
+      )}
+    </div>
+  </div>
+  
   );
 };
 

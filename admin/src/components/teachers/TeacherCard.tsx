@@ -2,11 +2,18 @@ import { MoreVertical } from 'lucide-react';
 import { Teacher } from '../../types/teacher';
 
 interface TeacherCardProps {
-  teacher: Teacher;
+  teacher?: Teacher | null;
   index: number;
 }
 
 const TeacherCard = ({ teacher, index }: TeacherCardProps) => {
+  if (!teacher || Object.keys(teacher).length === 0)  {
+    return (
+      <div className="flex items-center justify-center text-gray-400 py-4">
+        Teacher not found.
+      </div>
+    );
+  }
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-3">
@@ -21,9 +28,8 @@ const TeacherCard = ({ teacher, index }: TeacherCardProps) => {
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <span className={`px-2 py-1 rounded-full text-xs ${
-          teacher.employeeNo === 'Available' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
-        }`}>
+        <span className={`px-2 py-1 rounded-full text-xs ${teacher.employeeNo === 'Available' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+          }`}>
           {teacher.employeeNo}
         </span>
         <button className="text-gray-400 hover:text-gray-300">

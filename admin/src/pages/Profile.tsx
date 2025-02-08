@@ -22,7 +22,7 @@ const ProfilePage = () => {
             </div>
         );
     }
-
+ 
     if (role === 'student' && studentProfile) {
         return (
             <div className="max-w-4xl mx-auto">

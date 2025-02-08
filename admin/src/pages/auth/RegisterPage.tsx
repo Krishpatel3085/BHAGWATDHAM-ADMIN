@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { User, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import AuthLayout from '../../components/auth/AuthLayout';
 import InputField from '../../components/auth/InputField';
 import SocialLogin from '../../components/auth/SocialLogin';
 import AuthCard from '../../components/auth/AuthCard';
 import RoleDropdown from '../../components/auth/RoleDropdoem';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { APi_URL } from '../../Server';
 
@@ -39,7 +39,7 @@ const RegisterPage = () => {
     };
 
     // Handle form submission
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
         try {
@@ -94,7 +94,7 @@ const RegisterPage = () => {
                         value={formData.role}
                         onChange={handleChange}
                         options={registerRoles}
-                        placeholder="Select Role" 
+                        placeholder="Select Role"
                         required
                     />
 
@@ -104,7 +104,7 @@ const RegisterPage = () => {
                         value={formData.gender}
                         onChange={handleChange}
                         options={gender}
-                        placeholder="Select Gender" 
+                        placeholder="Select Gender"
                         required
                     />
 
@@ -168,9 +168,9 @@ const RegisterPage = () => {
                 {/* Sign-In Link */}
                 <p className="mt-6 text-center text-sm text-gray-600">
                     Already have an account?{' '}
-                    <a href="/login" className="text-blue-600 hover:text-blue-700 font-medium">
+                    <Link to="/login" className="text-blue-600 hover:text-blue-700 font-medium">
                         Sign in
-                    </a>
+                    </Link>
                 </p>
             </AuthCard>
         </AuthLayout>

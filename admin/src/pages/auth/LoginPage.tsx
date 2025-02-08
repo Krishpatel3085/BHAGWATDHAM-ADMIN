@@ -59,8 +59,7 @@ const LoginPage = () => {
       });
 
       // alert('Login successfully 👍');
-      // navigate('/dashboard');
-
+    
       setTimeout(() => {
         navigate('/dashboard');
         window.location.reload();

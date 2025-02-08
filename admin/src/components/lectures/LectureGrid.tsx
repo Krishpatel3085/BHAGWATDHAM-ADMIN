@@ -18,7 +18,7 @@ const timeSlots = [
 ];
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
+const role = localStorage.getItem('role')
 const LectureGrid: React.FC<LectureGridProps> = ({ selectedGrade, onEdit }) => {
     const { lectures } = useLectures();
     const filteredLectures = lectures.filter(lecture => lecture.grade === selectedGrade);
@@ -59,12 +59,14 @@ const LectureGrid: React.FC<LectureGridProps> = ({ selectedGrade, onEdit }) => {
                                                     {/* Teacher's name */}
                                                     <div className="text-gray-400 text-sm">{lecture.teacherName}</div>
                                                     {/* Edit button */}
-                                                    <button
-                                                        onClick={() => onEdit(lecture)}
-                                                        className="text-blue-400 hover:underline text-sm"
-                                                    >
-                                                        Edit
-                                                    </button>
+                                                    {role !== "Student" && (
+                                                        <button
+                                                            onClick={() => onEdit(lecture)}
+                                                            className="text-blue-400 hover:underline text-sm"
+                                                        >
+                                                            Edit
+                                                        </button>
+                                                    )}
                                                 </div>
                                             </div>
                                         ) : day === 'Sunday' ? (

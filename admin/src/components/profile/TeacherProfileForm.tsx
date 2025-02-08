@@ -75,7 +75,7 @@ const TeacherProfileForm: React.FC<TeacherProfileFormProps> = ({ profile, isEdit
                             name="employeeNo"
                             value={formData.employeeNo}
                             onChange={handleChange}
-                            disabled={!isEditing}
+                            disabled
                             className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white disabled:opacity-60"
                         />
                         {errors.employeeNo && <p className="text-sm text-red-500 mt-1">{errors.employeeNo}</p>}

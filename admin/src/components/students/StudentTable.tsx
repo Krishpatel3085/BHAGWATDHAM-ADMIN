@@ -10,17 +10,18 @@ interface StudentTableProps {
 }
 
 const StudentTable: React.FC<StudentTableProps> = ({ onAttendance, onViewAttendance }) => {
-    const { students } = useStudents();
+    const { students = [] } = useStudents();
 
     // Search and Pagination state
     const [searchQuery, setSearchQuery] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [studentsPerPage, setStudentsPerPage] = useState(10);
 
-    // Filter students based on search query
-    const filteredStudents = students.filter((student) =>
-        student.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredStudents = Array.isArray(students)
+        ? students.filter((student) =>
+            student?.name?.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+        : [];
 
     // Calculate pagination
     const indexOfLastStudent = currentPage * studentsPerPage;
