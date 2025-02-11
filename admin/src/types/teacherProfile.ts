@@ -7,4 +7,5 @@ export interface TeacherProfileData {
     salary: number;
     address: string;
     url?: string;
+    teacher?:string;
 }

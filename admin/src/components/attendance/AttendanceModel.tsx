@@ -37,6 +37,7 @@ const AttendanceModal: React.FC<AttendanceModalProps> = ({ isOpen, onClose, type
             ...(type === "teacher" ? { employeeNo: user.employeeNo } : {}),
             ...(type === "student" ? { studentId: user.studentId } : {}),
         };
+        console.log(attendanceData.date);
 
         try {
             if (type === "teacher") {
@@ -58,6 +59,7 @@ const AttendanceModal: React.FC<AttendanceModalProps> = ({ isOpen, onClose, type
             markAttendance({ ...attendanceData, userType: type });
         } catch (error: any) {
             console.error("Error marking attendance:", error.response?.data?.message || error.message);
+            alert(error.response?.data?.message || error.message)
         }
 
         onClose();

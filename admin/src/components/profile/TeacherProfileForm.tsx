@@ -8,7 +8,11 @@ interface TeacherProfileFormProps {
     isEditing: boolean;
     onCancel: () => void;
 }
-
+const grades = [
+    '5th', '6th', '7th', '8th', '9th', '10th',
+    '11th Commerce', '11th Science', '11th Arts',
+    '12th Commerce', '12th Science', '12th Arts'
+];
 const TeacherProfileForm: React.FC<TeacherProfileFormProps> = ({ profile, isEditing, onCancel }) => {
     const { formData, handleChange, handleSubmit } = useTeacherProfileForm(profile, onCancel);
     const [errors, setErrors] = useState<Record<string, string>>({});
@@ -94,7 +98,7 @@ const TeacherProfileForm: React.FC<TeacherProfileFormProps> = ({ profile, isEdit
                         {errors.subject && <p className="text-sm text-red-500 mt-1">{errors.subject}</p>}
                     </div>
 
-                    <div>
+                    {/* <div>
                         <label className="block text-sm font-medium text-gray-300 mb-1">Grade</label>
                         <input
                             type="text"
@@ -106,7 +110,30 @@ const TeacherProfileForm: React.FC<TeacherProfileFormProps> = ({ profile, isEdit
                         />
                         {errors.grade && <p className="text-sm text-red-500 mt-1">{errors.grade}</p>}
                     </div>
+                    */}
+                    <div>
+                        <label htmlFor="grade" className="block text-sm font-medium text-gray-300 mb-1">
+                            Grade
+                        </label>
+                        <select
+                            id="grade"
+                            name="grade"
+                            value={formData.grade}
+                            onChange={handleChange}
+                            disabled={!isEditing}
+                            className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white"
+                            required
+                        >
+                            <option value="">Select Class</option>
+                            {grades.map((grade) => (
+                                <option key={grade} value={grade}>
+                                    {grade}
+                                </option>
+                            ))}
+                        </select>
 
+                        {errors.grade && <p className="text-red-500 text-sm mt-1">{errors.grade}</p>}
+                    </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-300 mb-1">Age</label>
                         <input
@@ -146,30 +173,32 @@ const TeacherProfileForm: React.FC<TeacherProfileFormProps> = ({ profile, isEdit
                     </div>
                 </div>
 
-                {isEditing && (
-                    <div className="flex justify-end gap-4 pt-4 border-t border-gray-700">
-                        <button
-                            type="button"
-                            onClick={handleCancel}
-                            className="flex items-center gap-2 px-4 py-2 text-gray-300 hover:text-white transition-colors"
-                        >
-                            <X size={16} />
-                            <span>Cancel</span>
-                        </button>
-                        <button
-                            type="submit"
-                            disabled={isLoading}
-                            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-60"
-                        >
-                            {isLoading ? 'Saving...' : <>
-                                <Save size={16} />
-                                <span>Save Changes</span>
-                            </>}
-                        </button>
-                    </div>
-                )}
-            </form>
-        </div>
+                {
+                    isEditing && (
+                        <div className="flex justify-end gap-4 pt-4 border-t border-gray-700">
+                            <button
+                                type="button"
+                                onClick={handleCancel}
+                                className="flex items-center gap-2 px-4 py-2 text-gray-300 hover:text-white transition-colors"
+                            >
+                                <X size={16} />
+                                <span>Cancel</span>
+                            </button>
+                            <button
+                                type="submit"
+                                disabled={isLoading}
+                                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-60"
+                            >
+                                {isLoading ? 'Saving...' : <>
+                                    <Save size={16} />
+                                    <span>Save Changes</span>
+                                </>}
+                            </button>
+                        </div>
+                    )
+                }
+            </form >
+        </div >
     );
 };
 

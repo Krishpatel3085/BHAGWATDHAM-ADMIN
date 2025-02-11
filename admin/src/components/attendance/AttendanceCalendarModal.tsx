@@ -16,6 +16,7 @@ const AttendanceCalendarModal: React.FC<AttendanceCalendarModalProps> = ({ isOpe
 
     // Extract attendance array
     const attendanceData = type === "teacher" ? teacher?.Attendance || [] : student?.Attendance || [];
+    console.log(attendanceData);
     const currentYear = new Date().getFullYear();
     const [selectedYear, setSelectedYear] = useState(currentYear);
     const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
@@ -43,13 +44,13 @@ const AttendanceCalendarModal: React.FC<AttendanceCalendarModalProps> = ({ isOpe
     };
 
     const getAttendanceStatus = (year: number, month: number, day: number) => {
-        const dateString = new Date(year, month, day).toISOString().split("T")[0]; // Format date as YYYY-MM-DD
+        const dateString = new Date(year, month, day+1).toISOString().split("T")[0]; // Format date as YYYY-MM-DD
         const attendance = attendanceData.find((entry) => {
             return String(entry.date).startsWith(dateString);
         });
+        console.log("Check status",attendance); 
         return attendance ? attendance.attendance : null; // "present" or "absent"
     };
-    
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-[#1e2746] text-white rounded-lg p-6 w-full max-w-4xl max-h-[90vh] overflow-auto">

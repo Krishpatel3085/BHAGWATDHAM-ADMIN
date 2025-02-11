@@ -6,12 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useProfile } from '../../hooks/useProfile';
+import { useTeacherProfile } from '../../hooks/useTeacherProfile';
 
 const ProfileMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
     const { profile } = useProfile();
+    const { teachers } = useTeacherProfile();
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -46,7 +48,7 @@ const ProfileMenu = () => {
 
         }, 3000);
     };
-    const profileImage = profile?.url || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
+    const profileImage = profile?.url || teachers?.url || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
     return (
         <>
             <ToastContainer />

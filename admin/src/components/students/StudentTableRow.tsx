@@ -12,7 +12,7 @@ const StudentTableRow: React.FC<StudentTableRowProps> = ({ student }) => {
             <td className="py-4">
                 <div className="flex items-center gap-3">
                     <img
-                        src={student.url ||`https://i.pravatar.cc/150?img=${parseInt(student.id) + 20}`}
+                        src={student.url || `https://i.pravatar.cc/150?img=${parseInt(student.id) + 20}`}
                         alt={student.name}
                         className="w-10 h-10 rounded-full object-cover"
                     />
@@ -20,7 +20,11 @@ const StudentTableRow: React.FC<StudentTableRowProps> = ({ student }) => {
                 </div>
             </td>
             <td className="py-4 text-gray-300">{student.parentPhone}</td>
-            <td className="py-4 text-gray-300 max-w-[200px] truncate">{student.address}</td>
+            {/* <td className="py-4 text-gray-300 max-w-[200px] truncate">{student.address}</td> */}
+            <td className="py-4 text-gray-300 max-w-[200px] overflow-hidden whitespace-nowrap">
+                {student.address.length > 25 ? student.address.slice(0, 25) + "..." : student.address}
+            </td>
+
             <td className="py-4 text-gray-300">{student.grade}</td>
             <td className="py-4 text-gray-300">{new Date(student.updatedAt).toLocaleDateString()}</td>
             <td className="py-4">

@@ -7,7 +7,7 @@ export const useTeacherProfile = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null); // Add error state
     const id = localStorage.getItem("id");
-
+    const [teachers, setTeacher] = useState<TeacherProfileData | null>(null)
     useEffect(() => {
         const fetchProfile = async () => {
             if (!id) {
@@ -29,6 +29,7 @@ export const useTeacherProfile = () => {
                 const data: TeacherProfileData = await response.json();
                 console.log("Fetched Profile Data:", data);
                 setProfile(data.teacher);
+                setTeacher(data.teacher);
             } catch (error: any) {
                 console.error("Error fetching teacher profile:", error.message);
                 setError(error.message); // Set error message
@@ -39,5 +40,5 @@ export const useTeacherProfile = () => {
         fetchProfile();
     }, [id]);
 
-    return { profile, isLoading, error };
+    return { profile, isLoading, error,teachers };
 };

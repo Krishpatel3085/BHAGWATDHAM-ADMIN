@@ -8,7 +8,11 @@ interface ExamModalProps {
     onClose: () => void;
     exam: Exam | null;
 }
-
+const grades = [
+    '5th', '6th', '7th', '8th', '9th', '10th',
+    '11th Commerce', '11th Science', '11th Arts',
+    '12th Commerce', '12th Science', '12th Arts'
+];
 const ExamModal: React.FC<ExamModalProps> = ({ isOpen, onClose, exam }) => {
     const { formData, handleChange, handleSubmit } = useExamForm(exam, onClose);
 
@@ -47,7 +51,7 @@ const ExamModal: React.FC<ExamModalProps> = ({ isOpen, onClose, exam }) => {
                             />
                         </div>
 
-                        <div>
+                        {/* <div>
                             <label className="block text-sm font-medium text-gray-300 mb-1">
                                 Class
                             </label>
@@ -59,8 +63,28 @@ const ExamModal: React.FC<ExamModalProps> = ({ isOpen, onClose, exam }) => {
                                 className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 required
                             />
-                        </div>
+                        </div> */}
+                        <div>
+                            <label htmlFor="grade" className="block text-sm font-medium text-gray-300 mb-1">
+                            Class
+                            </label>
+                            <select
+                                id="grade"
+                                name="Class"
+                                value={formData.Class}
+                                onChange={handleChange}
+                                className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white"
+                                required
+                            >
+                                <option value="">Select Class</option>
+                                {grades.map((grade) => (
+                                    <option key={grade} value={grade}>
+                                        {grade}
+                                    </option>
+                                ))}
+                            </select>
 
+                        </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-1">
                                 Date

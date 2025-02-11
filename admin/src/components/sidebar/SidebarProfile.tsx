@@ -1,6 +1,7 @@
 // import React from 'react';
 import logo from '../../image/Swmi.jpg'
 const SidebarProfile = () => {
+  const role = localStorage.getItem('role');
   return (
     <div className="flex items-center gap-3 mb-6">
       <img
@@ -10,7 +11,7 @@ const SidebarProfile = () => {
       />
       <div className="text-white">
         <h3 className="font-medium">BhagwatDham</h3>
-        <p className="text-xs text-gray-400">Admin</p>
+        <p className="text-xs text-gray-400">{role}</p>
       </div>
     </div>
   );

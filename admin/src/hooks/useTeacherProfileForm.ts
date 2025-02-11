@@ -13,7 +13,7 @@ export const useTeacherProfileForm = (profile: TeacherProfileData, onCancel: () 
         setFormData(profile);
     }, [profile]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement| HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,

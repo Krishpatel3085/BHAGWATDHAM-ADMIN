@@ -18,9 +18,11 @@ const TeacherTable: React.FC<TeacherTableProps> = ({ onAttendance, onViewAttenda
     const [teachersPerPage, setTeachersPerPage] = useState(10);
 
     // Filter teachers based on search query
-    const filteredTeachers = teachers.filter((teacher) =>
-        teacher.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredTeachers = Array.isArray(teachers)
+        ? teachers.filter((teacher) =>
+            teacher?.name?.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+        : [];
 
     // Calculate pagination
     const indexOfLastTeacher = currentPage * teachersPerPage;
