@@ -97,20 +97,6 @@ const TeacherProfileForm: React.FC<TeacherProfileFormProps> = ({ profile, isEdit
                         />
                         {errors.subject && <p className="text-sm text-red-500 mt-1">{errors.subject}</p>}
                     </div>
-
-                    {/* <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">Grade</label>
-                        <input
-                            type="text"
-                            name="grade"
-                            value={formData.grade}
-                            onChange={handleChange}
-                            disabled={!isEditing}
-                            className="w-full bg-[#252d3d] border border-gray-700 rounded-lg px-4 py-2.5 text-white disabled:opacity-60"
-                        />
-                        {errors.grade && <p className="text-sm text-red-500 mt-1">{errors.grade}</p>}
-                    </div>
-                    */}
                     <div>
                         <label htmlFor="grade" className="block text-sm font-medium text-gray-300 mb-1">
                             Grade

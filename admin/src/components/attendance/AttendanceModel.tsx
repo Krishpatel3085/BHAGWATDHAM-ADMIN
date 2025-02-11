@@ -37,8 +37,6 @@ const AttendanceModal: React.FC<AttendanceModalProps> = ({ isOpen, onClose, type
             ...(type === "teacher" ? { employeeNo: user.employeeNo } : {}),
             ...(type === "student" ? { studentId: user.studentId } : {}),
         };
-        console.log(attendanceData.date);
-
         try {
             if (type === "teacher") {
                 // Call teacher attendance API
