@@ -62,8 +62,9 @@ const LoginPage = () => {
     
       setTimeout(() => {
         navigate('/dashboard');
-        window.location.reload();
+        window.location.href = '/dashboard'; // This forces a full-page refresh
       }, 3000);
+      
 
 
     } catch (err: any) {
