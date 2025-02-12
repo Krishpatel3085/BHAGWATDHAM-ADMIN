@@ -1,1 +1,1 @@
-export const APi_URL = "https://bhagwatdham-client.onrender.com"
+export const APi_URL = "https://bhagwatdham-client.onrender.com/"
