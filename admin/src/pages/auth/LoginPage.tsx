@@ -59,12 +59,11 @@ const LoginPage = () => {
       });
 
       // alert('Login successfully 👍');
-    
+
       setTimeout(() => {
-        navigate('/dashboard');
-        window.location.href = '/dashboard'; // This forces a full-page refresh
-      }, 3000);
-      
+        navigate("/dashboard");
+      }, 2000);
+
 
 
     } catch (err: any) {
